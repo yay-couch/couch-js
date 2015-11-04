@@ -1,7 +1,7 @@
 var Stream = {
     body: null,
     headers: {},
-    setBody: function(){},
+    setBody: function(){}, // abstract
     getBody: function(){
         return this.body;
     },
