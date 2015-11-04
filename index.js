@@ -4,12 +4,12 @@ var log = function(){
     return console.log.apply(this, arguments);
 };
 
-var c = require('./couch/couch');
-// log(c)
+var Couch = require('./couch/couch');
+// log(Couch)
 
 // var cfg = {host:"127.0.0.1"};
-var couch = new c.Couch();
-var client = new c.Client(couch);
+var couch = new Couch.Couch();
+var client = new Couch.Client(couch);
 
 // client.request("GET /");
 client.request({
