@@ -1,6 +1,6 @@
 var Class = require("./util/class");
 
-var Query = Class.create({
+var Query = Class.create("Query", {
     data: {},
     dataString: "",
 
