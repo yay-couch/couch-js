@@ -1,0 +1,5 @@
+{
+    "name" : "couch-js",
+    "description": "CouchDB Wrapper for Node.js",
+    "version" : "1.0"
+}
