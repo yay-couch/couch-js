@@ -8,7 +8,7 @@ var Class = (function() {
             }
             Class.prototype = prototype;
             Class.prototype.constructor = Class;
-            Class.prototype.constructor.name = name;
+            Class.prototype.constructor.nameOrig = name;
             return Class;
         },
         extend: function(target, properties) {
