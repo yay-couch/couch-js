@@ -1,18 +1,7 @@
 var Stream = {
     body: null,
     headers: {},
-    setBody: function(body){
-        if (body != null) {
-            if (this.headers["Content-Type"] == "application/json") {
-                this.body = JSON.stringify(body);
-            } else {
-                this.body = body;
-            }
-            this.headers["Content-Length"] = this.body.length;
-        }
-
-        return this;
-    },
+    setBody: function(){},
     getBody: function(){
         return this.body;
     },
