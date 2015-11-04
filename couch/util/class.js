@@ -1,6 +1,6 @@
 var Class = (function() {
     return {
-        create: function(prototype){
+        create: function(name, prototype){
             function Class() {
                 if (this.init && this.init.apply) {
                     this.init.apply(this, arguments);
@@ -8,6 +8,7 @@ var Class = (function() {
             }
             Class.prototype = prototype;
             Class.prototype.constructor = Class;
+            Class.prototype.constructor.name = name;
             return Class;
         },
         extend: function(target, properties) {
