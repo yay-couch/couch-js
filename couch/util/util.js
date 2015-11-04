@@ -5,6 +5,13 @@ var Util = {
         }
         return to;
     },
+    format: function(){
+        var args = arguments, s = args[0], ms = s.match(/(%s)/g) || [], i = 1, m;
+        while (m = ms.shift()) {
+            s = s.replace(/(%s)/, args[i++]);
+        }
+        return s;
+    },
     forEach: function(input, fn, scope){
         var len = input && input.length, i;
         if (typeof len !== "undefined") {
