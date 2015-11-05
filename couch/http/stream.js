@@ -1,5 +1,6 @@
 var Couch = require("../couch"),
-    Class = require("../util/class");
+    Class = require("../util/class"),
+    Util = require("../util/util");
 
 var Stream = Class.create("Stream", {
     type: undefined,
@@ -37,17 +38,17 @@ var Stream = Class.create("Stream", {
     toString: function(){
         var string = "";
         if (this.type == Stream.TYPE.REQUEST) {
-            string = Couch.Util.format("%s %s HTTP/%s\r\n", this.method, this.uri, this.httpVersion);
-            Couch.Util.forEach(this.headers, function(key, value){
+            string = Util.format("%s %s HTTP/%s\r\n", this.method, this.uri, this.httpVersion);
+            Util.forEach(this.headers, function(key, value){
                 // actually remove header command
                 if (value !== null) {
-                    string += Couch.Util.format("%s: %s\r\n", key, value);
+                    string += Util.format("%s: %s\r\n", key, value);
                 }
             });
         } else if (this.type == Stream.TYPE.RESPONSE) {
-            string = Couch.Util.format("HTTP/%s %s %s\r\n", this.httpVersion, this.statusCode, this.statusText);
-            Couch.Util.forEach(this.headers, function(key, value){
-                string += Couch.Util.format("%s: %s\r\n", key, value);
+            string = Util.format("HTTP/%s %s %s\r\n", this.httpVersion, this.statusCode, this.statusText);
+            Util.forEach(this.headers, function(key, value){
+                string += Util.format("%s: %s\r\n", key, value);
             });
         }
         string += "\r\n";
