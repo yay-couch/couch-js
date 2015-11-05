@@ -36,7 +36,7 @@ var Client = Class.create("Client", {
             if (!r || !(r.length == 3)) {
                 throw new Error("Usage: <REQUEST METHOD> <REQUEST URI>");
             }
-            options.method = r[1], options.uri = r[2];
+            options.method = r[1], options.uri = r[2].replace(/\/+/g, "/");
         } else if (uriType == "object") {
             Util.extend(options, uri);
         }
