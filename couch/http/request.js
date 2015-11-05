@@ -1,6 +1,7 @@
 var Couch = require("../couch"),
     Stream = require("./stream"),
     Class = require("../util/class"),
+    Util = require("../util/util"),
     Query = require("../query");
 
 var http = require("http");
@@ -16,14 +17,14 @@ var Request = Class.create("Request", {
 
         this.client = client;
         if (this.client.username && this.client.password) {
-            this.headers["Authorization"] = Couch.Util.format(
+            this.headers["Authorization"] = Util.format(
                 "Basic %s", Base64.encode(this.client.username +":"+ this.client.password));
         }
-        this.headers["Host"] = Couch.Util.format("%s:%s", this.client.host, this.client.port);
+        this.headers["Host"] = Util.format("%s:%s", this.client.host, this.client.port);
         this.headers["Connection"] = "close";
         this.headers["Accept"] = "application/json";
         this.headers["Content-Type"] = "application/json";
-        this.headers["User-Agent"] = Couch.Util.format(
+        this.headers["User-Agent"] = Util.format(
             "%s/v%s (+http://github.com/qeremy/couch-js)", Couch.NAME, Couch.VERSION);
     },
 
@@ -41,14 +42,14 @@ var Request = Class.create("Request", {
                 response.setEncoding("utf8");
                 var headers = request._header.trim().split("\r\n");
                 headers.shift();
-                Couch.Util.forEach(headers, function(i, header){
+                Util.forEach(headers, function(i, header){
                     var tmp = header.split(":");
                     if (tmp.length == 2) {
                         $this.client.Request.setHeader(tmp.shift(), tmp.join(":").trim());
                     }
                 });
 
-                Couch.Util.forEach(response.headers, function(key, value){
+                Util.forEach(response.headers, function(key, value){
                     key = key.split("-").map(function(k){
                         return k.substr(0, 1).toUpperCase() + k.substr(1);
                     }).join("-");
