@@ -9,15 +9,16 @@ module.exports = (function() {
             }
             Class.prototype = prototype;
             Class.prototype.constructor = Class;
+            // just for debug
+            Class.prototype.constructor.nameOrig = name;
             return Class;
         },
         extend: function(target, source) {
             for (var i in source) {
-                // skip private props
+                // skip private stuff
                 if (0 === i.indexOf("_")) {
                     continue;
                 }
-
                 if (target.prototype) {
                     target.prototype[i] = source[i];
                 } else if (target.__proto__) {
