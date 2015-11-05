@@ -21,6 +21,9 @@ Couch.Couch.prototype = {
 };
 
 global.Couch = Couch;
+global.isNone = function(input){
+    return (input == null);
+};
 
 Couch.Util = require("./util/util");
 Couch.Client = require("./client");
