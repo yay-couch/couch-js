@@ -1,7 +1,9 @@
 var Couch = require("../couch"),
-    Class = require("../util/class"),
     Stream = require("./stream"),
+    Class = require("../util/class"),
     Query = require("../query");
+
+var http = require("http");
 
 var Request = Class.create("Request", {
     client: null,
@@ -9,11 +11,16 @@ var Request = Class.create("Request", {
     uri: undefined,
 
     __init__: function(client){
+        this.type = Stream.TYPE.REQUEST;
+        this.httpVersion = "1.0";
+
         this.client = client;
         if (this.client.username && this.client.password) {
             this.headers["Authorization"] = Couch.Util.format(
                 "Basic %s", Base64.encode(this.client.username +":"+ this.client.password));
         }
+        this.headers["Host"] = Couch.Util.format("%s:%s", this.client.host, this.client.port);
+        this.headers["Connection"] = "close";
         this.headers["Accept"] = "application/json";
         this.headers["Content-Type"] = "application/json";
         this.headers["User-Agent"] = Couch.Util.format(
@@ -22,7 +29,53 @@ var Request = Class.create("Request", {
 
     send: function(callback){
         if (callback && callback.call) {
-            return callback(this.client.Request, this.client.Response);
+            var options = {
+                  host: this.client.host,
+                  port: this.client.port,
+                method: this.client.Request.method,
+                  path: this.client.Request.uri,
+               headers: this.client.Request.headers
+            }, $this = this;
+
+            var request = http.request(options, function(response){
+                response.setEncoding("utf8");
+                var headers = request._header.trim().split("\r\n");
+                headers.shift();
+                Couch.Util.forEach(headers, function(i, header){
+                    var tmp = header.split(":");
+                    if (tmp.length == 2) {
+                        $this.client.Request.setHeader(tmp.shift(), tmp.join(":").trim());
+                    }
+                });
+
+                Couch.Util.forEach(response.headers, function(key, value){
+                    key = key.split("-").map(function(k){
+                        return k.substr(0, 1).toUpperCase() + k.substr(1);
+                    }).join("-");
+                    $this.client.Response.setHeader(key, value);
+                });
+
+                $this.client.Response.setStatusCode(response.statusCode);
+                $this.client.Response.setStatusText(response.statusCode);
+
+                response.on("data", function(data){
+                    $this.client.Response.setBody(data,
+                        $this.client.Response.getHeader("Content-Type") == "application/json");
+                });
+
+                response.on("end", function(){
+                    callback($this.client.Request, $this.client.Response);
+                });
+            }).on("error", function(error) {
+                callback($this.client.Request, $this.client.Response, error);
+            });
+
+            var body = $this.client.Request.getBody();
+            if (body != null) {
+                request.write(body);
+            }
+
+            request.end();
         }
     },
     setMethod: function(method) {
@@ -48,7 +101,9 @@ Class.extend(Request, Stream.init({}, null));
 
 Class.extend(Request, {
     setBody: function(body){
-        if (body != null) {
+        if (this.method != Request.METHOD.HEAD &&
+            this.method != Request.METHOD.GET &&
+            body != null) {
             if (this.headers["Content-Type"] == "application/json") {
                 this.body = JSON.stringify(body);
             } else {
@@ -66,6 +121,7 @@ Request.METHOD = {
      GET: "GET",
     POST: "POST",
      PUT: "PUT",
+  DELETE: "DELETE",
     COPY: "COPY"
 };
 
