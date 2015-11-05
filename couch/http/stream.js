@@ -13,20 +13,24 @@ var Stream = Class.create("Stream", {
         }
     },
 
-    setBody: function(){}, // abstract
+    setBody: function(s){
+        // console.log(s)
+    }, // abstract
     getBody: function(){
         return this.body;
     },
+
     setHeader: function(key, value){
         this.headers[key] = value;
         return this;
     },
     getHeader: function(key){
         return this.headers[key];
-    },
-    getHeaderAll: function(){
-        return this.headers;
     }
 });
+
+Stream.init = function(headers, body){
+    return new Stream(headers, body);
+};
 
 module.exports = Stream;

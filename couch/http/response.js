@@ -6,11 +6,8 @@ var Response = Class.create("Response", {
     statusCode: undefined,
     statusText: undefined,
 
-    init: function(agent){
-        // add stream stuff
-        for (var i in Stream) {
-            this[i] = Stream[i];
-        }
+    __init__: function(agent){
+        Class.extend(this, Stream.prototype);
     },
 
     setStatusCode: function(statusCode){
@@ -34,5 +31,11 @@ var Response = Class.create("Response", {
         return this;
     }
 });
+
+// Class.extend(Response, Stream.init());
+
+Response.STATUS = {
+    OK: 200
+};
 
 module.exports = Response;

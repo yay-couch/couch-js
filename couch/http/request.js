@@ -1,48 +1,31 @@
 var Couch = require("../couch"),
-    Query = require("../query"),
     Class = require("../util/class"),
-    Stream = require("./stream");
+    Stream = require("./stream"),
+    Query = require("../query");
 
 var Request = Class.create("Request", {
     client: null,
     method: undefined,
     uri: undefined,
 
-    init: function(client){
+    __init__: function(client){
+        Class.extend(this, Stream.prototype);
+
         this.client = client;
 
-        this.method = undefined;
-        this.uri    = undefined;
-
-        // add stream stuff
-        var stream = new Stream({
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "User-Agent": Couch.Util.format(
-                "%s/v%s (+http://github.com/qeremy/couch-js)", Couch.NAME, Couch.VERSION)
-        });
-        console.log(stream)
-        for (var i in Stream) {
-            this[i] = Stream[i];
+        if (this.client.username && this.client.password) {
+        //     this.headers["Authorization"] = Couch.Util.format(
+        //         "Basic %s", Base64.encode(this.client.username +":"+ this.client.password));
         }
-
-        if (client.username && client.password) {
-            // this.headers["Authorization"] = Couch.Util.format(
-            //     "Basic %s", Base64.encode(client.username +":"+ client.password));
-        }
-
-        // add default headers
-        // this.headers["Accept"] = "application/json";
-        // this.headers["Content-Type"] = "application/json";
-        // this.headers["User-Agent"] = Couch.Util.format(
-        //     "%s/v%s (+http://github.com/qeremy/couch-js)", Couch.NAME, Couch.VERSION);
+        this.headers["Accept"] = "application/json";
+        this.headers["Content-Type"] = "application/json";
+        this.headers["User-Agent"] = Couch.Util.format(
+            "%s/v%s (+http://github.com/qeremy/couch-js)", Couch.NAME, Couch.VERSION);
     },
 
-    send: function(client, callback){
+    send: function(callback){
         if (callback && callback.call) {
-            var request = client.Request,
-                response = client.Response;
-            return callback(request, response);
+            return callback(this.client.Request, this.client.Response);
         }
     },
     setMethod: function(method) {
@@ -75,6 +58,8 @@ var Request = Class.create("Request", {
         return this;
     }
 });
+
+// Class.extend(Request, Stream.init());
 
 // add supported methods by couchdb
 Request.METHOD = {

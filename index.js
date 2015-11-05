@@ -11,7 +11,13 @@ var Couch = require('./couch/couch');
 var couch = new Couch.Couch();
 var client = new Couch.Client(couch);
 
-// client.request("GET /");
+// client.request("GET /").done(function(req, res){
+//     // log(req)
+//     log(req.headers)
+//     // log(res)
+//     log(res.headers)
+// });
+
 client.request({
     method: "PUT",
     uri: "/",
@@ -19,6 +25,9 @@ client.request({
     body: {b:2},
     headers: {"X-Foo":"The foo!"}
 }).done(function(req, res){
-    log(res)
+    log(req.headers)
+    log(res.headers)
+    // log(req.body)
+    // log(res.body)
 });
 
