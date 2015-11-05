@@ -7,7 +7,7 @@ var Response = Class.create("Response", {
     statusText: undefined,
 
     __init__: function(agent){
-        Class.extend(this, Stream.prototype);
+        //
     },
 
     setStatusCode: function(statusCode){
@@ -23,16 +23,18 @@ var Response = Class.create("Response", {
     },
     getStatusText: function(){
         return this.statusText;
-    },
-    // abstract
+    }
+});
+
+Class.extend(Response, Stream.init({}, null));
+
+Class.extend(Response, {
     setBody: function(body, isJson){
         this.body = (isJson !== false)
             ? JSON.parse(body) : body;
         return this;
     }
 });
-
-// Class.extend(Response, Stream.init());
 
 Response.STATUS = {
     OK: 200

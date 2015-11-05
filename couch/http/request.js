@@ -9,13 +9,10 @@ var Request = Class.create("Request", {
     uri: undefined,
 
     __init__: function(client){
-        Class.extend(this, Stream.prototype);
-
         this.client = client;
-
         if (this.client.username && this.client.password) {
-        //     this.headers["Authorization"] = Couch.Util.format(
-        //         "Basic %s", Base64.encode(this.client.username +":"+ this.client.password));
+            this.headers["Authorization"] = Couch.Util.format(
+                "Basic %s", Base64.encode(this.client.username +":"+ this.client.password));
         }
         this.headers["Accept"] = "application/json";
         this.headers["Content-Type"] = "application/json";
@@ -44,8 +41,12 @@ var Request = Class.create("Request", {
             this.uri += "?"+ query.toString();
         }
         return this;
-    },
-    // abstract
+    }
+});
+
+Class.extend(Request, Stream.init({}, null));
+
+Class.extend(Request, {
     setBody: function(body){
         if (body != null) {
             if (this.headers["Content-Type"] == "application/json") {
@@ -58,8 +59,6 @@ var Request = Class.create("Request", {
         return this;
     }
 });
-
-// Class.extend(Request, Stream.init());
 
 // add supported methods by couchdb
 Request.METHOD = {
