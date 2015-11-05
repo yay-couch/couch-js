@@ -17,7 +17,14 @@ module.exports = (function() {
                 if (0 === i.indexOf("_")) {
                     continue;
                 }
-                target.prototype[i] = source[i];
+
+                if (target.prototype) {
+                    target.prototype[i] = source[i];
+                } else if (target.__proto__) {
+                    target.__proto__[i] = source[i];
+                } else {
+                    target[i] = source[i];
+                }
             }
             return target;
         }
