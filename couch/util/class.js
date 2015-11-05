@@ -21,8 +21,6 @@ module.exports = (function() {
                 }
                 if (target.prototype) {
                     target.prototype[i] = source[i];
-                } else if (target.__proto__) {
-                    target.__proto__[i] = source[i];
                 } else {
                     target[i] = source[i];
                 }
