@@ -38,8 +38,10 @@ Class.extend(Response, Stream.init({}, null));
 
 Class.extend(Response, {
     setBody: function(body, isJson){
-        this.body = (isJson !== false)
-            ? JSON.parse(body) : body;
+        if (body != null) {
+            this.body = (isJson !== false)
+                ? JSON.parse(body) : body;
+        }
         return this;
     }
 });
