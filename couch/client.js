@@ -2,30 +2,33 @@ var Couch = require("./couch"),
     Class = require("./util/class"),
     Util = require("./util/util");
 
+var Request = require("./http/request"),
+    Response = require("./http/response");
+
 var Client = Class.create("Client", {
+    couch: null,
+    host: "localhost",
+    port: 5984,
+    username: null,
+    username: null,
+    Request: null,
+    Response: null,
     __init__: function(couch){
         this.couch = couch;
-
-        this.host = "localhost";
-        this.port = 5984;
-        this.username = null;
-        this.username = null;
-
-        var config = this.couch.config;
+        var config = this.couch.getConfig();
         if ("host" in config) this.host = config.host;
         if ("port" in config) this.port = config.port;
-
         if ("username" in config) this.username = config.username;
         if ("password" in config) this.password = config.password;
-
-        this.Request = null;
-        this.Response = null;
+    },
+    getRequest: function(){
+        return this.Request;
+    },
+    getResponse: function(){
+        return this.Response;
     },
     request: function(uri, options){
         options = options || {};
-
-        var Request = require("./http/request"),
-            Response = require("./http/response");
 
         var uriType = typeof uri;
         if (uriType == "string") {
@@ -62,12 +65,6 @@ var Client = Class.create("Client", {
                 _this.Request.send(callback);
             }
         };
-    },
-    getRequest: function(){
-        return this.Request;
-    },
-    getResponse: function(){
-        return this.Response;
     }
 });
 
