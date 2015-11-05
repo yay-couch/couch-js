@@ -2,13 +2,12 @@ var Couch = {};
 Couch.NAME = "CouchJS";
 Couch.VERSION = "1.0";
 
-Couch.Util = require("./util/util");
-
 Couch.Couch = function(config){
-    this.config = {};
+    this.setConfig(config);
 };
 
-Couch.Util.extend(Couch.Couch.prototype, {
+Couch.Couch.prototype = {
+    config: {},
     setConfig: function(config){
         if (config) {
             for (var i in config) {
@@ -19,8 +18,9 @@ Couch.Util.extend(Couch.Couch.prototype, {
     getConfig: function(){
         return this.config;
     }
-});
+};
 
+Couch.Util = require("./util/util");
 Couch.Client = require("./client");
 
 module.exports = Couch;
