@@ -1,5 +1,5 @@
 var Couch = {};
-Couch.NAME = "CouchJS";
+Couch.NAME = "Couch";
 Couch.VERSION = "1.0";
 
 Couch.Couch = function(config){
