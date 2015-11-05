@@ -12,6 +12,10 @@ var Class = (function() {
         },
         extend: function(target, source) {
             for (var i in source) {
+                // skip private props
+                if (0 === i.indexOf("_")) {
+                    continue;
+                }
                 target.prototype[i] = source[i];
             }
             return target;
