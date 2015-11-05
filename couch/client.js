@@ -62,24 +62,6 @@ var Client = Class.create("Client", {
                 _this.Request.send(callback);
             }
         };
-
-        // var options = {
-        //     host: this.host,
-        //     port: this.port,
-        //     method: r[1],
-        //     path: r[2]
-        // };
-        // var req = require("http").request(options, function(res) {
-        //   console.log(res.headers);
-        //   res.on("data", function (chunk) {
-        //     console.log("\r\n\r\n")
-        //     console.log(JSON.parse(chunk))
-        //   });
-        // })
-        // // set headers
-        // // set body
-        // // ...
-        // req.end();
     },
     getRequest: function(){
         return this.Request;
