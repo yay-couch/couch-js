@@ -22,5 +22,6 @@ Couch.Couch.prototype = {
 
 Couch.Util = require("./util/util");
 Couch.Client = require("./client");
+Couch.Server = require("./server");
 
 module.exports = Couch;
