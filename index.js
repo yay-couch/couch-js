@@ -1,8 +1,13 @@
 // module.exports = require('./couch/couch');
 
-var log = function(){
+function log(){
     return console.log.apply(this, arguments);
-};
+}
+function dump(req, res){}
+function dumpRaw(req, res){
+    log(req.toString());
+    log(res.toString());
+}
 
 var Couch = require('./couch/couch');
 // log(Couch)
