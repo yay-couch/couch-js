@@ -44,14 +44,14 @@ var Stream = Class.create("Stream", {
                     string += Couch.Util.format("%s: %s\r\n", key, value);
                 }
             });
-            string += "\r\n";
-            string += this.body;
         } else if (this.type == Stream.TYPE.RESPONSE) {
             string = Couch.Util.format("HTTP/%s %s %s\r\n", this.httpVersion, this.statusCode, this.statusText);
             Couch.Util.forEach(this.headers, function(key, value){
                 string += Couch.Util.format("%s: %s\r\n", key, value);
             });
-            string += "\r\n";
+        }
+        string += "\r\n";
+        if (this.body != null) {
             string += (typeof this.body == "string") ? this.body : JSON.stringify(this.body);
         }
         return string;
