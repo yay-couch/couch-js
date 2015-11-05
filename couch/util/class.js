@@ -2,7 +2,7 @@ module.exports = (function() {
     return {
         create: function(name, prototype){
             function Class() {
-                if (this.__init__ && this.__init__.apply) {
+                if (this.__init__) {
                     this.__init__.apply(this, arguments);
                 }
             }
