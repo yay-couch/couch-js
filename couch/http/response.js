@@ -30,6 +30,9 @@ var Response = Class.create("Response", {
     },
     getStatusText: function(){
         return this.statusText;
+    },
+    isStatusCode: function(statusCode){
+        return (this.statusCode === statusCode);
     }
 });
 
