@@ -34,7 +34,7 @@ var Client = Class.create("Client", {
         if (uriType == "string") {
             var r = uri.trim().match(/^([a-z]+)\s+(.+)/i);
             if (!r || !(r.length == 3)) {
-                throw new Error("Usage: <REQUEST METHOD> <REQUEST URI>");
+                throw new Error("Usage: <REQUEST METHOD> <REQUEST URI>!");
             }
             options.method = r[1], options.uri = r[2].replace(/\/+/g, "/");
         } else if (uriType == "object") {
@@ -42,7 +42,7 @@ var Client = Class.create("Client", {
         }
 
         if (!options.method || !options.uri) {
-            throw new Error("You should provide both method & uri");
+            throw new Error("You should provide both method & uri!");
         }
 
         this.Request = new Request(this);
