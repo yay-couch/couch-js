@@ -1,6 +1,9 @@
-var Class = require("../util/class");
+var Couch = require("../couch"),
+    Class = require("../util/class");
 
 var Stream = Class.create("Stream", {
+    type: undefined,
+    httpVersion: undefined,
     headers: {},
     body: null,
 
@@ -30,11 +33,38 @@ var Stream = Class.create("Stream", {
     },
     getHeader: function(key){
         return this.headers[key];
+    },
+    toString: function(){
+        var string = "";
+        if (this.type == Stream.TYPE.REQUEST) {
+            string = Couch.Util.format("%s %s HTTP/%s\r\n", this.method, this.uri, this.httpVersion);
+            Couch.Util.forEach(this.headers, function(key, value){
+                // actually remove header command
+                if (value !== null) {
+                    string += Couch.Util.format("%s: %s\r\n", key, value);
+                }
+            });
+            string += "\r\n";
+            string += this.body;
+        } else if (this.type == Stream.TYPE.RESPONSE) {
+            string = Couch.Util.format("HTTP/%s %s %s\r\n", this.httpVersion, this.statusCode, this.statusText);
+            Couch.Util.forEach(this.headers, function(key, value){
+                string += Couch.Util.format("%s: %s\r\n", key, value);
+            });
+            string += "\r\n";
+            string += (typeof this.body == "string") ? this.body : JSON.stringify(this.body);
+        }
+        return string;
     }
 });
 
 Stream.init = function(headers, body){
     return new Stream(headers, body);
+};
+
+Stream.TYPE = {
+    REQUEST: 1,
+    RESPONSE: 2
 };
 
 module.exports = Stream;
