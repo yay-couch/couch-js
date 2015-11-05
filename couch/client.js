@@ -65,6 +65,9 @@ var Client = Class.create("Client", {
                 _this.Request.send(callback);
             }
         };
+    },
+    head: function(uri, options, callback){
+        return this.request(Request.METHOD.HEAD +" /"+ uri, options).done(callback);
     }
 });
 
