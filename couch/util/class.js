@@ -1,4 +1,4 @@
-var Class = (function() {
+module.exports = (function() {
     return {
         create: function(name, prototype){
             function Class() {
@@ -22,5 +22,3 @@ var Class = (function() {
         }
     };
 })();
-
-module.exports = Class;
