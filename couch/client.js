@@ -1,5 +1,4 @@
-var Couch = require("./couch"),
-    Class = require("./util/class"),
+var Class = require("./util/class"),
     Util = require("./util/util");
 
 var Request = require("./http/request"),

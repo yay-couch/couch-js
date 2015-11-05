@@ -1,6 +1,5 @@
-var Couch = require("../couch"),
+var Class = require("../util/class"),
     Stream = require("./stream"),
-    Class = require("../util/class"),
     Util = require("../util/util"),
     Query = require("../query");
 
@@ -14,7 +13,6 @@ var Request = Class.create("Request", {
     __init__: function(client){
         this.type = Stream.TYPE.REQUEST;
         this.httpVersion = "1.0";
-
         this.client = client;
         if (this.client.username && this.client.password) {
             this.headers["Authorization"] = Util.format(
@@ -25,7 +23,7 @@ var Request = Class.create("Request", {
         this.headers["Accept"] = "application/json";
         this.headers["Content-Type"] = "application/json";
         this.headers["User-Agent"] = Util.format(
-            "%s/v%s (+http://github.com/qeremy/couch-js)", Couch.NAME, Couch.VERSION);
+            "%s/v%s (+http://github.com/qeremy/couch-js)", GLOBAL.Couch.NAME, GLOBAL.Couch.VERSION);
     },
 
     send: function(callback){

@@ -1,6 +1,5 @@
-var Couch = require("../couch"),
-    Stream = require("./stream"),
-    Class = require("../util/class");
+var Class = require("../util/class"),
+    Stream = require("./stream");
 
 var Response = Class.create("Response", {
     statusCode: undefined,

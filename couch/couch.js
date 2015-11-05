@@ -20,6 +20,8 @@ Couch.Couch.prototype = {
     }
 };
 
+global.Couch = Couch;
+
 Couch.Util = require("./util/util");
 Couch.Client = require("./client");
 Couch.Server = require("./server");
