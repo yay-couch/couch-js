@@ -15,6 +15,9 @@ var Response = Class.create("Response", {
         this.statusCode = statusCode;
         return this;
     },
+    getStatusCode: function(){
+        return this.statusCode;
+    },
     setStatusText: function(statusText){
         if (typeof statusText == "number") {
             for (var i in Response.STATUS) {
@@ -25,9 +28,6 @@ var Response = Class.create("Response", {
         }
         this.statusText = statusText;
         return this;
-    },
-    getStatusCode: function(){
-        return this.statusCode;
     },
     getStatusText: function(){
         return this.statusText;
