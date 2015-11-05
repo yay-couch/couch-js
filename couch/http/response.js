@@ -6,15 +6,20 @@ var Response = Class.create("Response", {
     statusCode: undefined,
     statusText: undefined,
 
-    __init__: function(agent){
-        //
-    },
+    __init__: function(){},
 
     setStatusCode: function(statusCode){
         this.statusCode = statusCode;
         return this;
     },
     setStatusText: function(statusText){
+        if (typeof statusText == "number") {
+            for (var i in Response.STATUS) {
+                if (Response.STATUS[i][statusText]) {
+                    statusText = Response.STATUS[i][statusText];
+                }
+            }
+        }
         this.statusText = statusText;
         return this;
     },
