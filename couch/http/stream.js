@@ -4,7 +4,7 @@ var Stream = Class.create("Stream", {
     headers: {},
     body: null,
 
-    init: function(headers, body){
+    __init__: function(headers, body){
         if (headers != null) {
             this.headers = headers;
         }

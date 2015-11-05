@@ -2,17 +2,17 @@ var Class = (function() {
     return {
         create: function(name, prototype){
             function Class() {
-                if (this.init && this.init.apply) {
-                    this.init.apply(this, arguments);
+                if (this.__init__ && this.__init__.apply) {
+                    this.__init__.apply(this, arguments);
                 }
             }
             Class.prototype = prototype;
             Class.prototype.constructor = Class;
             return Class;
         },
-        extend: function(target, properties) {
-            for (var i in properties) {
-                target.prototype[i] = properties[i];
+        extend: function(target, source) {
+            for (var i in source) {
+                target.prototype[i] = source[i];
             }
             return target;
         }

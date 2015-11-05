@@ -4,7 +4,7 @@ var Query = Class.create("Query", {
     data: {},
     dataString: "",
 
-    init: function(data){
+    __init__: function(data){
         this.data = data || {};
         this.dataString = '';
     },
