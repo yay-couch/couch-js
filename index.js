@@ -26,8 +26,9 @@ client.request({
     headers: {"X-Foo":"The foo!"}
 }).done(function(req, res){
     log(req.headers)
+    log(req.body)
+    log("---")
     log(res.headers)
-    // log(req.body)
-    // log(res.body)
+    log(res.body)
 });
 
