@@ -6,7 +6,10 @@ var Response = Class.create("Response", {
     statusCode: undefined,
     statusText: undefined,
 
-    __init__: function(){},
+    __init__: function(){
+        this.type = Stream.TYPE.RESPONSE;
+        this.httpVersion = "1.1";
+    },
 
     setStatusCode: function(statusCode){
         this.statusCode = statusCode;
