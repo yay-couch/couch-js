@@ -80,3 +80,14 @@ var server = new Couch.Server(client);
 // // server.getUuid(3, function(stream, data){
 //     console.log(data);
 // });
+// // server.getConfig(null, null, function(stream, data){
+// // server.getConfig("couchdb", null, function(stream, data){
+// server.getConfig("couchdb", "uuid", function(stream, data){
+//     console.log(data);
+// });
+// server.setConfig("couchdb", "foo", "the foo!", function(stream, data){
+//     console.log(data !== false);
+// });
+// server.removeConfig("couchdb", "_", function(stream, data){
+//     console.log(data !== false);
+// });
