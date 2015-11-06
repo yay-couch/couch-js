@@ -14,26 +14,26 @@ var Server = Class.create("Server", {
         return this.client.head("/", {}, callback);
     },
     info: function(key, callback) {
-        return this.client.get("/", {}, function(req, res){
-            return callback(res.getData(key));
+        return this.client.get("/", {}, function(stream){
+            return callback(stream, stream.response.getData(key));
         });
     },
     version: function(callback){
         return this.info("version", callback);
     },
     getActiveTasks: function(callback){
-        return this.client.get("/_active_tasks", {}, function(req, res){
-            return callback(res.getData());
+        return this.client.get("/_active_tasks", {}, function(stream){
+            return callback(stream, stream.response.getData());
         });
     },
     getAllDatabases: function(callback){
-        return this.client.get("/_all_dbs", {}, function(req, res){
-            return callback(res.getData());
+        return this.client.get("/_all_dbs", {}, function(stream){
+            return callback(stream, stream.response.getData());
         });
     },
     getDatabaseUpdates: function(query, callback){
-        return this.client.get("/_db_updates", {query: query}, function(req, res){
-            return callback(res.getData());
+        return this.client.get("/_db_updates", {query: query}, function(stream){
+            return callback(stream, stream.response.getData());
         });
     }
 });

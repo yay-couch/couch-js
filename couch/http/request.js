@@ -63,10 +63,12 @@ var Request = Class.create("Request", {
                 });
 
                 response.on("end", function(){
-                    callback($this.client.Request, $this.client.Response);
+                    callback({error: null,
+                        request: $this.client.Request, response: $this.client.Response});
                 });
             }).on("error", function(error) {
-                callback($this.client.Request, $this.client.Response, error);
+                callback({error: error,
+                    request: $this.client.Request, response: $this.client.Response});
             });
 
             var body = $this.client.Request.getBody();
