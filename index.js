@@ -49,7 +49,10 @@ var server = new Couch.Server(client);
 // server.ping(function(req, res){
 //     console.log("%j", res.isStatusCode(200));
 // });
-server.info(null, function(req, res){
-    var info = res.getData();
-    console.log(info);
+// server.info(null, function(req, res){
+//     var info = res.getData();
+//     console.log(info);
+// });
+server.version(function(version){
+    console.log(version);
 });
