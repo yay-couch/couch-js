@@ -68,3 +68,6 @@ var server = new Couch.Server(client);
 // server.getDatabaseUpdates(function(stream, data){
 //     console.log(data);
 // });
+// server.getLogs(null, function(stream, data){
+//     console.log(data);
+// });
