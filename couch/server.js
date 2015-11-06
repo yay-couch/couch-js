@@ -30,6 +30,11 @@ var Server = Class.create("Server", {
         return this.client.get("/_all_dbs", {}, function(req, res){
             return callback(res.getData());
         });
+    },
+    getDatabaseUpdates: function(query, callback){
+        return this.client.get("/_db_updates", {query: query}, function(req, res){
+            return callback(res.getData());
+        });
     }
 });
 
