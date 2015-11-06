@@ -58,3 +58,6 @@ var server = new Couch.Server(client);
 // server.getActiveTasks(function(activeTasks){
 //     console.log(activeTasks)
 // });
+// server.getAllDatabases(function(databases){
+//     console.log(databases)
+// });
