@@ -32,12 +32,12 @@ var Server = Class.create("Server", {
         });
     },
     getDatabaseUpdates: function(query, callback){
-        return this.client.get("/_db_updates", {query: query}, function(stream){
+        return this.client.get("/_db_updates", {uriParams: query}, function(stream){
             return callback(stream, stream.response.getData());
         });
     },
     getLogs: function(query, callback){
-        return this.client.get("/_log", {query: query}, function(stream){
+        return this.client.get("/_log", {uriParams: query}, function(stream){
             return callback(stream, stream.response.getData());
         });
     }
