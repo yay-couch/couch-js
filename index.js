@@ -46,21 +46,24 @@ var client = new Couch.Client(couch);
 
 var server = new Couch.Server(client);
 // log(server)
-// server.ping(function(req, res){
-//     console.log("%j", res.isStatusCode(200));
+// server.ping(function(stream){
+//     console.log("%j", stream.response.isStatusCode(200));
 // });
-// server.info(null, function(data){
+// server.info(null, function(stream, data){
 //     console.log(data);
 // });
-// server.version(function(data){
+// server.info("vendor.name", function(stream, data){
 //     console.log(data);
 // });
-// server.getActiveTasks(function(data){
+// server.version(function(stream, data){
+//     console.log(data);
+// });
+// server.getActiveTasks(function(stream, data){
 //     console.log(data)
 // });
-// server.getAllDatabases(function(data){
+// server.getAllDatabases(function(stream, data){
 //     console.log(data)
 // });
-// server.getDatabaseUpdates(function(data){
+// server.getDatabaseUpdates(function(stream, data){
 //     console.log(data)
 // });
