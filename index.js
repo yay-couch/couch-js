@@ -7,21 +7,20 @@ function log(){
 var Couch = require('./couch/couch');
 // log(Couch)
 
-// var cfg = {host:"127.0.0.1"};
 var couch = new Couch.Couch();
+// var couch = new Couch.Couch({host:"127.0.0.1"});
 var client = new Couch.Client(couch);
 
-// client.request("POST /_aaa").done(function(req, res){
-//     // log(req)
-//     // log(req.headers)
-//     // log(req.body)
-//     // log(req.toString())
+// client.request("POST /!!!BOOOOOOM!!!").done(function(stream, data){
+//     // log(data)
+//     // log(stream.request.headers)
+//     // log(stream.request.body)
+//     // log(stream.request.toString())
 //     // log("---")
-//     // log(res)
-//     // log(res.headers)
-//     // log(res.body)
-//     // log(res.toString())
-// });
+//     // log(stream.response.headers)
+//     // log(stream.response.body)
+//     // log(stream.response.toString())
+//});
 
 // client.request({
 //     method: "HEAD",
@@ -29,14 +28,14 @@ var client = new Couch.Client(couch);
 //     uriParams: {a:1},
 //     body: {b:2},
 //     headers: {"X-Foo":"The foo!"}
-// }).done(function(req, res){
-//     // log(req.headers)
-//     // log(req.body)
-//     log(req.toString())
-//     log("---")
-//     // log(res.headers)
-//     // log(res.body)
-//     log(res.toString())
+// }).done(function(stream, data){
+//     // log(stream.request.headers)
+//     // log(stream.request.body)
+//     // log(stream.request.toString())
+//     // log("---")
+//     // log(stream.response.headers)
+//     // log(stream.response.body)
+//     // log(stream.response.toString())
 // });
 
 var server = new Couch.Server(client);
