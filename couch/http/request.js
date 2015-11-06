@@ -63,12 +63,18 @@ var Request = Class.create("Request", {
                 });
 
                 response.on("end", function(){
-                    callback({error: null,
-                        request: $this.client.Request, response: $this.client.Response});
+                    callback({
+                        error: null,
+                        request: $this.client.Request,
+                        response: $this.client.Response
+                    }, $this.client.Response.getData());
                 });
             }).on("error", function(error) {
-                callback({error: error,
-                    request: $this.client.Request, response: $this.client.Response});
+                callback({
+                    error: error,
+                    request: $this.client.Request,
+                    response: $this.client.Response
+                }, $this.client.Response.getData());
             });
 
             var body = $this.client.Request.getBody();
