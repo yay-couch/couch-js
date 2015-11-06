@@ -21,7 +21,7 @@ var Query = Class.create("Query", {
         }
 
         var data = [], key, value;
-        for (var key in this.data) {
+        for (key in this.data) {
             value = this.data[key];
             if (typeof value == "undefined") {
                 continue;
