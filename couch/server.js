@@ -15,6 +15,12 @@ var Server = Class.create("Server", {
     },
     info: function(key, callback) {
         return this.client.get("/", {}, callback);
+    },
+    version: function(callback){
+        return this.info("version", function(req, res){
+            var version = res.getData("version");
+            return callback(version);
+        });
     }
 });
 
