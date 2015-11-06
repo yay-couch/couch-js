@@ -45,9 +45,10 @@ var client = new Couch.Client(couch);
 // });
 
 var server = new Couch.Server(client);
-// log(server)
 // server.ping(function(stream){
-//     // console.log(stream.error);
+//     console.log(stream.error);
+//     console.log(stream.request.toString());
+//     console.log(stream.response.toString());
 //     console.log("%j", stream.response.isStatusCode(200));
 // });
 // server.info(null, function(stream, data){
