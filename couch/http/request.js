@@ -78,7 +78,7 @@ var Request = Class.create("Request", {
             });
 
             var body = $this.client.Request.getBody();
-            if (body != null) {
+            if (!isNone(body)) {
                 request.write(body);
             }
 
