@@ -44,24 +44,24 @@ var Client = Class.create("Client", {
             throw new Error("You should provide both method & uri!");
         }
 
-        this.Request = new Request(this);
-        this.Response = new Response();
+        var $this = this;
 
-        this.Request
+        $this.Request = new Request($this);
+        $this.Response = new Response();
+
+        $this.Request
             .setMethod(options.method)
             .setUri(options.uri, options.uriParams);
         if (options.headers) {
             for (var key in options.headers) {
-                this.Request.setHeader(key, options.headers[key]);
+                $this.Request.setHeader(key, options.headers[key]);
             }
         }
-        this.Request.setBody(options.body);
-
-        var _this = this;
+        $this.Request.setBody(options.body);
 
         return {
             done: function(callback){
-                _this.Request.send(callback);
+                $this.Request.send(callback);
             }
         };
     }
