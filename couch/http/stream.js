@@ -48,6 +48,9 @@ var Stream = Class.create("Stream", {
     getHeader: function(key){
         return this.headers[key];
     },
+    getHeaderAll: function(){
+        return this.headers;
+    },
     toString: function(){
         var string = "";
         if (this.type == Stream.TYPE.REQUEST) {
