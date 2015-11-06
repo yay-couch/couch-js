@@ -40,6 +40,15 @@ var Server = Class.create("Server", {
         return this.client.get("/_log", {uriParams: query}, function(stream){
             return callback(stream, stream.response.getData());
         });
+    },
+    replicate: function(query, callback) {
+        query = query || {};
+        if (!query.source || !query.target) {
+            throw new Error("Both source & target required!");
+        }
+        return this.client.post("/_replicate", {body: query}, function(stream){
+            return callback(stream, stream.response.getData());
+        });
     }
 });
 
