@@ -39,9 +39,6 @@ var Server = Class.create("Server", {
             throw new Error("Both source & target required!");
         }
         return this.client.post("/_replicate", {body: query}, callback);
-    },
-    restart: function(callback){
-        return this.client.post("/_restart", null, callback);
     }
 });
 
