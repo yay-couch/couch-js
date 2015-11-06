@@ -58,11 +58,13 @@ var Stream = Class.create("Stream", {
         } else if (this.type == Stream.TYPE.RESPONSE) {
             string = Util.format("HTTP/%s %s %s\r\n", this.httpVersion, this.statusCode, this.statusText);
         }
-        Util.forEach(this.headers, function(key, value){
+        var key, value;
+        for (key in this.headers) {
+            value = this.headers[key];
             if (!isNone(value)) {
                 string += Util.format("%s: %s\r\n", key, value);
             }
-        });
+        }
         string += "\r\n";
         if (this.body != null) {
             string += (typeof this.body == "string") ? this.body : JSON.stringify(this.body);
