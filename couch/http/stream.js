@@ -55,18 +55,14 @@ var Stream = Class.create("Stream", {
         var string = "";
         if (this.type == Stream.TYPE.REQUEST) {
             string = Util.format("%s %s HTTP/%s\r\n", this.method, this.uri, this.httpVersion);
-            Util.forEach(this.headers, function(key, value){
-                // actually remove header command
-                if (value !== null) {
-                    string += Util.format("%s: %s\r\n", key, value);
-                }
-            });
         } else if (this.type == Stream.TYPE.RESPONSE) {
             string = Util.format("HTTP/%s %s %s\r\n", this.httpVersion, this.statusCode, this.statusText);
-            Util.forEach(this.headers, function(key, value){
-                string += Util.format("%s: %s\r\n", key, value);
-            });
         }
+        Util.forEach(this.headers, function(key, value){
+            if (!isNone(value)) {
+                string += Util.format("%s: %s\r\n", key, value);
+            }
+        });
         string += "\r\n";
         if (this.body != null) {
             string += (typeof this.body == "string") ? this.body : JSON.stringify(this.body);
