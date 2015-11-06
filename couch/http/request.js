@@ -40,19 +40,22 @@ var Request = Class.create("Request", {
                 response.setEncoding("utf8");
                 var headers = request._header.trim().split("\r\n");
                 headers.shift();
-                Util.forEach(headers, function(i, header){
+                headers.forEach(function(header){
                     var tmp = header.split(":");
                     if (tmp.length == 2) {
                         $this.client.Request.setHeader(tmp.shift(), tmp.join(":").trim());
                     }
                 });
 
-                Util.forEach(response.headers, function(key, value){
+                var key, value;
+                for (key in response.headers) {
+                    value = response.headers[key];
+                    value = !isNone(value) ? value.trim() : null;
                     key = key.split("-").map(function(k){
                         return k.substr(0, 1).toUpperCase() + k.substr(1);
                     }).join("-");
                     $this.client.Response.setHeader(key, value);
-                });
+                };
 
                 $this.client.Response.setStatusCode(response.statusCode);
                 $this.client.Response.setStatusText(response.statusCode);
