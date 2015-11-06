@@ -76,3 +76,7 @@ var server = new Couch.Server(client);
 // // server.getStats("/couchdb/request_time", function(stream, data){
 //     console.log(data);
 // });
+// server.getUuid(null, function(stream, data){
+// // server.getUuid(3, function(stream, data){
+//     console.log(data);
+// });
