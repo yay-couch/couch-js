@@ -14,13 +14,12 @@ var Server = Class.create("Server", {
         return this.client.head("/", {}, callback);
     },
     info: function(key, callback) {
-        return this.client.get("/", {}, callback);
+        return this.client.get("/", {}, function(req, res){
+            return callback(res.getData(key));
+        });
     },
     version: function(callback){
-        return this.info("version", function(req, res){
-            var version = res.getData("version");
-            return callback(version);
-        });
+        return this.info("version", callback);
     }
 });
 
