@@ -49,15 +49,15 @@ var server = new Couch.Server(client);
 // server.ping(function(req, res){
 //     console.log("%j", res.isStatusCode(200));
 // });
-// server.info(null, function(info){
-//     console.log(info);
+// server.info(null, function(data){
+//     console.log(data);
 // });
-// server.version(function(version){
-//     console.log(version);
+// server.version(function(data){
+//     console.log(data);
 // });
-// server.getActiveTasks(function(activeTasks){
-//     console.log(activeTasks)
+// server.getActiveTasks(function(data){
+//     console.log(data)
 // });
-// server.getAllDatabases(function(databases){
-//     console.log(databases)
+// server.getAllDatabases(function(data){
+//     console.log(data)
 // });
