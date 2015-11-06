@@ -20,6 +20,11 @@ var Server = Class.create("Server", {
     },
     version: function(callback){
         return this.info("version", callback);
+    },
+    getActiveTasks: function(callback){
+        return this.client.get("/_active_tasks", {}, function(req, res){
+            return callback(res.getData());
+        });
     }
 });
 
