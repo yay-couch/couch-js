@@ -51,7 +51,10 @@ var server = new Couch.Server(client);
 //     console.log(stream.response.toString());
 //     console.log("%j", stream.response.isStatusCode(200));
 // });
-// server.info(null, function(stream, data){
+// server.restart(function(stream, data){
+//     console.log(data);
+// });
+// ver.info(null, function(stream, data){
 //     console.log(data);
 // });
 // server.info("vendor.name", function(stream, data){
