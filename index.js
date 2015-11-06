@@ -71,3 +71,6 @@ var server = new Couch.Server(client);
 // server.getLogs(null, function(stream, data){
 //     console.log(data);
 // });
+// server.replicate({source:"foo", target:"foo_replica", create_target:true}, function(stream, data){
+//     console.log(data);
+// });
