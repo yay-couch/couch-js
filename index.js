@@ -46,7 +46,10 @@ var client = new Couch.Client(couch);
 
 var server = new Couch.Server(client);
 // log(server)
-server.ping(function(req, res){
-    log(req.toString())
-    log(res.toString())
+// server.ping(function(req, res){
+//     console.log("%j", res.isStatusCode(200));
+// });
+server.info(null, function(req, res){
+    var info = res.getData();
+    console.log(info);
 });
