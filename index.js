@@ -72,3 +72,7 @@ var server = new Couch.Server(client);
 // server.replicate({source:"foo", target:"foo_replica", create_target:true}, function(stream, data){
 //     console.log(data);
 // });
+// server.getStats("", function(stream, data){
+// // server.getStats("/couchdb/request_time", function(stream, data){
+//     console.log(data);
+// });
