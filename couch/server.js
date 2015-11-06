@@ -42,6 +42,9 @@ var Server = Class.create("Server", {
     },
     restart: function(callback){
         return this.client.post("/_restart", null, callback);
+    },
+    getStats: function(path, callback){
+        return this.client.get("/_stats/"+ (path || ""), null, callback);
     }
 });
 
