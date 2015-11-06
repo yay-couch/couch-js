@@ -11,10 +11,10 @@ var Server = Class.create("Server", {
     },
 
     ping: function(callback){
-        return this.client.head("/", {}, callback);
+        return this.client.head("/", null, callback);
     },
     info: function(key, callback) {
-        return this.client.get("/", {}, function(stream){
+        return this.client.get("/", null, function(stream){
             return callback(stream, stream.response.getData(key));
         });
     },
@@ -22,10 +22,10 @@ var Server = Class.create("Server", {
         return this.info("version", callback);
     },
     getActiveTasks: function(callback){
-        return this.client.get("/_active_tasks", {}, callback);
+        return this.client.get("/_active_tasks", null, callback);
     },
     getAllDatabases: function(callback){
-        return this.client.get("/_all_dbs", {}, callback);
+        return this.client.get("/_all_dbs", null, callback);
     },
     getDatabaseUpdates: function(query, callback){
         return this.client.get("/_db_updates", {uriParams: query}, callback);
