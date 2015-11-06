@@ -2,6 +2,14 @@ var Couch = require("../couch"),
     Class = require("../util/class"),
     Util = require("../util/util");
 
+// http://stackoverflow.com/a/11864828/362780
+function extract(key, object) {
+    key = key.split(".");
+    var k = key.shift();
+    return (key.length)
+        ? extract(key.join("."), object[k]) : object[k];
+}
+
 var Stream = Class.create("Stream", {
     type: undefined,
     httpVersion: undefined,
@@ -16,7 +24,12 @@ var Stream = Class.create("Stream", {
             this.body = body;
         }
     },
-
+    getData: function(key){
+        if (isNone(key)) {
+            return this.body;
+        }
+        return extract(key, this.body || {});
+    },
     // abstract
     setBody: function(body){
         // force re-define abstract method
