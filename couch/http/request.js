@@ -23,7 +23,7 @@ var Request = Class.create("Request", {
         this.headers["Accept"] = "application/json";
         this.headers["Content-Type"] = "application/json";
         this.headers["User-Agent"] = Util.format(
-            "%s/v%s (+http://github.com/qeremy/couch-js)", GLOBAL.Couch.NAME, GLOBAL.Couch.VERSION);
+            "%s/v%s (+http://github.com/qeremy/couch-js)", Couch.NAME, Couch.VERSION);
     },
 
     send: function(callback){
