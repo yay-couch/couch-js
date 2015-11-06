@@ -55,6 +55,36 @@ var Server = Class.create("Server", {
             }
             return callback(stream, data);
         })
+    },
+    getConfig: function(section, key, callback){
+        var path = [section, key].filter(function(value){
+            return !!value;
+        }).join("/");
+        return this.client.get("/_config/"+ path, null, callback);
+    },
+    setConfig: function(section, key, value, callback){
+        if (!section || !key) {
+            throw new Error("Both section & key required!");
+        }
+        var path = [section, key].join("/");
+        return this.client.put("/_config/"+ path, {body: value}, function(stream, data){
+            if (200 !== stream.response.getStatusCode()) {
+                data = false;
+            }
+            return callback(stream, data);
+        });
+    },
+    removeConfig: function(section, key, callback){
+        if (!section || !key) {
+            throw new Error("Both section & key required!");
+        }
+        var path = [section, key].join("/");
+        return this.client.delete("/_config/"+ path, null, function(stream, data){
+            if (200 !== stream.response.getStatusCode()) {
+                data = false;
+            }
+            return callback(stream, data);
+        });
     }
 });
 
