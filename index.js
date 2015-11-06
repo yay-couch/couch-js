@@ -47,6 +47,7 @@ var client = new Couch.Client(couch);
 var server = new Couch.Server(client);
 // log(server)
 // server.ping(function(stream){
+//     // console.log(stream.error);
 //     console.log("%j", stream.response.isStatusCode(200));
 // });
 // server.info(null, function(stream, data){
@@ -59,11 +60,11 @@ var server = new Couch.Server(client);
 //     console.log(data);
 // });
 // server.getActiveTasks(function(stream, data){
-//     console.log(data)
+//     console.log(data);
 // });
 // server.getAllDatabases(function(stream, data){
-//     console.log(data)
+//     console.log(data);
 // });
 // server.getDatabaseUpdates(function(stream, data){
-//     console.log(data)
+//     console.log(data);
 // });
