@@ -25,6 +25,11 @@ var Server = Class.create("Server", {
         return this.client.get("/_active_tasks", {}, function(req, res){
             return callback(res.getData());
         });
+    },
+    getAllDatabases: function(callback){
+        return this.client.get("/_all_dbs", {}, function(req, res){
+            return callback(res.getData());
+        });
     }
 });
 
