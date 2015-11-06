@@ -55,3 +55,6 @@ var server = new Couch.Server(client);
 // server.version(function(version){
 //     console.log(version);
 // });
+// server.getActiveTasks(function(activeTasks){
+//     console.log(activeTasks)
+// });
