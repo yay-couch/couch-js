@@ -64,13 +64,14 @@ var Client = Class.create("Client", {
                 _this.Request.send(callback);
             }
         };
-    },
-    head: function(uri, options, callback){
-        return this.request(Request.METHOD.HEAD +" /"+ uri, options).done(callback);
-    },
-    get: function(uri, options, callback){
-        return this.request(Request.METHOD.GET +" /"+ uri, options).done(callback);
     }
+});
+
+// add shortcut methods
+["head", "get", "post", "put", "copy", "delete"].forEach(function(method){
+    Client.prototype[method] = function(uri, options, callback){
+        return this.request(Request.METHOD[method.toUpperCase()] +" /"+ uri, options).done(callback);
+    };
 });
 
 module.exports = Client;
