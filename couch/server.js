@@ -12,6 +12,9 @@ var Server = Class.create("Server", {
 
     ping: function(callback){
         return this.client.head("/", {}, callback);
+    },
+    info: function(key, callback) {
+        return this.client.get("/", {}, callback);
     }
 });
 
