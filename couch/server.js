@@ -45,6 +45,16 @@ var Server = Class.create("Server", {
     },
     getStats: function(path, callback){
         return this.client.get("/_stats/"+ (path || ""), null, callback);
+    },
+    getUuid: function(count, callback){
+        count = count || 1;
+        return this.client.get("/_uuids?count="+ count, null, function(stream){
+            var data = stream.response.getData("uuids");
+            if (data.length) {
+                data = (count === 1) ? data[0] : data;
+            }
+            return callback(stream, data);
+        })
     }
 });
 
