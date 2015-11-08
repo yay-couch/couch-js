@@ -6,8 +6,6 @@ var Uuid = Class.create("Uuid", {
     __init__: function(value){
         if (value === true) {
             value = Uuid.generate();
-        } else if (value instanceof Server) {
-            value = value.getUuid();
         }
         this.setValue(value);
     },
@@ -26,6 +24,7 @@ Uuid.generate = function(limit){
     if (limit === 0) {
         return Math.round((+new Date) / 1000);
     }
+    limit = limit || Uuid.HEX_32;
     switch (limit) {
         case Uuid.HEX_8:
         case Uuid.HEX_32:
