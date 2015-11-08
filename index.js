@@ -91,3 +91,6 @@ var server = new Couch.Server(client);
 // server.removeConfig("couchdb", "_", function(stream, data){
 //     console.log(data !== false);
 // });
+
+// var uuid = new Couch.Uuid();
+// console.log(uuid.toString())
