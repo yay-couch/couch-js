@@ -148,6 +148,9 @@ var Database = Class.create("Database", {
     },
     ensureFullCommit: function(callback) {
         return this.client.post(this.name +"/_ensure_full_commit", null, callback);
+    },
+    viewCleanup: function(callback){
+        return this.client.post(this.name +"/_view_cleanup", null, callback);
     }
 });
 
