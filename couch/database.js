@@ -86,6 +86,32 @@ var Database = Class.create("Database", {
             docs.push(doc);
         });
         return this.client.post(this.name +"/_bulk_docs", {body: {"docs": docs}}, callback);
+    },
+    updateDocument: function(document, callback){
+        return this.updateDocumentAll([document], function(stream, data){
+            return callback(stream, (data && data[0]) || null);
+        });
+    },
+    updateDocumentAll: function(documents, callback){
+        if (!documents || !documents.length) {
+            throw new Error("Documents are required for create actions!");
+        }
+        var docs = [];
+        documents.forEach(function(doc){
+            console.log(doc);
+            if (!doc || typeof doc != "object") {
+                throw new Error("Each document must be a valid JSON object!");
+            }
+            if (doc instanceof Document) {
+                doc = doc.getData();
+            }
+            // these are required params
+            if (!doc._id || !doc._rev) {
+                throw new Error("Both _id & _rev fields are required!");
+            }
+            docs.push(doc);
+        });
+        return this.client.post(this.name +"/_bulk_docs", {body: {"docs": docs}}, callback);
     }
 });
 
