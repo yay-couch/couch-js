@@ -151,6 +151,9 @@ var Database = Class.create("Database", {
     },
     viewCleanup: function(callback){
         return this.client.post(this.name +"/_view_cleanup", null, callback);
+    },
+    viewTemp: function(map, reduce, callback){
+        return this.client.post(this.name +"/_temp_view", {body: {map: map, reduce: reduce}}, callback);
     }
 });
 

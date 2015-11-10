@@ -171,3 +171,10 @@ var database = new Couch.Database(client, "foo");
 // database.ensureFullCommit(function(stream, data){
 //     logStream(stream)
 // });
+// database.viewCleanup(function(stream, data){
+//     logStream(stream)
+// });
+// var map = "function(doc){if(doc.name) emit(doc,null)}"
+// database.viewTemp(map, null, function(stream, data){
+//     logStream(stream)
+// });
