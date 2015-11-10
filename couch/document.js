@@ -52,10 +52,10 @@ var Document = Class.create("Document", {
     },
     ping: function(callback){
         var headers = {};
-        if (this.rev) {
-            headers["If-None-Match"] = Util.format('"%s"', this.rev);
+        if (this._rev) {
+            headers["If-None-Match"] = Util.format('"%s"', this._rev);
         }
-        return this.database.client.head(this.database.name +"/"+ this.id, {headers: headers}, callback);
+        return this.database.client.head(this.database.name +"/"+ this._id, {headers: headers}, callback);
     }
 });
 
