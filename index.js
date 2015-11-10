@@ -95,7 +95,7 @@ var server = new Couch.Server(client);
 // var uuid = new Couch.Uuid();
 // console.log(uuid.toString())
 
-var database = new Couch.Database(client, "foo_new");
+var database = new Couch.Database(client, "foo");
 // database.ping(function(stream){
 //     console.log("%j", stream.response.isStatusCode(200));
 // });
@@ -109,5 +109,8 @@ var database = new Couch.Database(client, "foo_new");
 //     console.log(data)
 // });
 // database.remove(function(stream, data){
+//     console.log(data)
+// });
+// database.replicate("foo_new", true, function(stream, data){
 //     console.log(data)
 // });
