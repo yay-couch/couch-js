@@ -49,6 +49,13 @@ var Document = Class.create("Document", {
     },
     getData: function(key){
         return (key != null) ? this.data[key] : this.data;
+    },
+    ping: function(callback){
+        var headers = {};
+        if (this.rev) {
+            headers["If-None-Match"] = Util.format('"%s"', this.rev);
+        }
+        return this.database.client.head(this.database.name +"/"+ this.id, {headers: headers}, callback);
     }
 });
 
