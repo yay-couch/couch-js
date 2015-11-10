@@ -168,3 +168,7 @@ var database = new Couch.Database(client, "foo");
 //     logStream(stream)
 //     log(data)
 // });
+// database.getChanges(null, ["7f9231672eac835f0e39e52357000e02"], function(stream, data){
+//     logStream(stream)
+//     log(data)
+// });
