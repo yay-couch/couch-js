@@ -167,6 +167,9 @@ var Database = Class.create("Database", {
     },
     purge: function(docId, docRevs, callback){
         return this.client.post(this.name +"/_purge", {body: {docId: docRevs}}, callback);
+    },
+    getMissingRevisions: function(docId, docRevs, callback){
+        return this.client.post(this.name +"/_missing_revs", {body: {docId: docRevs}}, callback);
     }
 });
 
