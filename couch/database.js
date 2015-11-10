@@ -138,6 +138,13 @@ var Database = Class.create("Database", {
             query.filter = "_doc_ids";
         }
         return this.client.post(this.name +"/_changes", {uriParams: query, body: {"doc_ids": docIds}}, callback);
+    },
+    compact: function(ddoc, callback) {
+        if (!ddoc) {
+            return this.client.post(this.name +"/_compact", null, callback);
+        } else {
+            return this.client.post(this.name +"/_compact"+ ddoc, null, callback);
+        }
     }
 });
 
