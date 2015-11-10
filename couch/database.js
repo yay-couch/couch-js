@@ -173,6 +173,12 @@ var Database = Class.create("Database", {
     },
     getMissingRevisionsDiff: function(docId, docRevs, callback){
         return this.client.post(this.name +"/_revs_diff", {body: {docId: docRevs}}, callback);
+    },
+    getRevisionLimit: function(callback){
+        return this.client.get(this.name +"/_revs_limit", null, callback);
+    },
+    setRevisionLimit: function(limit, callback){
+        return this.client.put(this.name +"/_revs_limit", {body: limit}, callback);
     }
 });
 
