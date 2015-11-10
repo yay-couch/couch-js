@@ -164,6 +164,9 @@ var Database = Class.create("Database", {
             throw new Error("Specify admins and/or members with names=>roles fields!");
         }
         return this.client.put(this.name +"/_security", {body: {admins: admins, members: members}}, callback)
+    },
+    purge: function(docId, docRevs, callback){
+        return this.client.post(this.name +"/_purge", {body: {docId: docRevs}}, callback);
     }
 });
 

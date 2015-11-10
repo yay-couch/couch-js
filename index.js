@@ -187,3 +187,6 @@ var database = new Couch.Database(client, "foo");
 // , function(stream, data){
 //     logStream(stream)
 // });
+// database.purge("7f9231672eac835f0e39e52357000e02", ["4-ca14d6a6e24e5596975d8f5a989d6085"], function(stream, data){
+//     logStream(stream)
+// });
