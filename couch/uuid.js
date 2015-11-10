@@ -20,7 +20,7 @@ var Uuid = Class.create("Uuid", {
 });
 
 Uuid.generate = function(limit){
-    if (limit === 0) {
+    if (limit === Uuid.TIMESTAMP) {
         return Math.round((+new Date) / 1000);
     }
     limit = limit || Uuid.HEX_32;
