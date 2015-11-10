@@ -118,3 +118,14 @@ var database = new Couch.Database(client, "foo");
 // database.replicate("foo_new", true, function(stream, data){
 //     console.log(data)
 // });
+// database.getDocument("5db345a5f26484352ea5d813180031fb", function(stream, data){
+//     log(data)
+// });
+// database.getDocumentAll({}, null, function(stream, data){
+//     log(data)
+// });
+// database.getDocumentAll({}, ["5db345a5f26484352ea5d813180031fb"], function(stream, data){
+//     for (var i in data.rows) {
+//         log(data.rows[i].doc)
+//     }
+// });
