@@ -99,3 +99,5 @@ var database = new Couch.Database(client, "foo");
 // database.ping(function(stream){
 //     console.log("%j", stream.response.isStatusCode(200));
 // });
+// database.info(null, function(stream, data){ console.log(data); });
+// database.info("db_name", function(stream, data){ console.log(data); });
