@@ -1,4 +1,5 @@
 var Class = require("./util/class"),
+    Util = require("./util/util"),
     Client = require("./client");
 
 var Database = Class.create("Database", {
