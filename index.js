@@ -193,3 +193,6 @@ var database = new Couch.Database(client, "foo");
 // database.getMissingRevisions("7f9231672eac835f0e39e52357000e02", ["4-ca14d6a6e24e5596975d8f5a989d6085"], function(stream, data){
 //     logStream(stream)
 // });
+// database.getMissingRevisionsDiff("7f9231672eac835f0e39e52357000e02", ["4-ca14d6a6e24e5596975d8f5a989d6085"], function(stream, data){
+//     logStream(stream)
+// });
