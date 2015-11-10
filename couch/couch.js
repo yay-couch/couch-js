@@ -28,6 +28,7 @@ global.isNone = function(input){
 Couch.Util = require("./util/util");
 Couch.Client = require("./client");
 Couch.Server = require("./server");
+Couch.Database = require("./database");
 Couch.Uuid = require("./uuid");
 
 module.exports = Couch;
