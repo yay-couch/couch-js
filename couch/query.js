@@ -15,6 +15,9 @@ var Query = Class.create("Query", {
     get: function(key){
         return this.data[key];
     },
+    toArray: function(){
+        return this.data;
+    },
     toString: function(){
         if (this.dataString != "") {
             return this.dataString;
