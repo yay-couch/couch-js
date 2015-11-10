@@ -114,9 +114,9 @@ Class.extend(Request, Stream.init({}, null));
 
 Class.extend(Request, {
     setBody: function(body){
-        if (this.method != Request.METHOD.HEAD &&
-            this.method != Request.METHOD.GET &&
-            body != null) {
+        if (body != null &&
+            this.method != Request.METHOD.HEAD &&
+            this.method != Request.METHOD.GET) {
             if (this.headers["Content-Type"] == "application/json") {
                 this.body = JSON.stringify(body);
             } else {
