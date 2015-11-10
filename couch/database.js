@@ -98,7 +98,6 @@ var Database = Class.create("Database", {
         }
         var docs = [];
         documents.forEach(function(doc){
-            console.log(doc);
             if (!doc || typeof doc != "object") {
                 throw new Error("Each document must be a valid JSON object!");
             }
