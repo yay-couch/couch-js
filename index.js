@@ -155,3 +155,15 @@ var database = new Couch.Database(client, "foo");
 //     logStream(stream)
 //     log(data)
 // });
+// database.deleteDocument(
+//     {_id:"7f9231672eac835f0e39e52357000e02", _rev:"4-ca14d6a6e24e5596975d8f5a989d6085"}
+// , function(stream, data){
+//     logStream(stream)
+//     log(data)
+// });
+// database.deleteDocumentAll([
+//     {_id:"7f9231672eac835f0e39e52357000e02", _rev:"4-ca14d6a6e24e5596975d8f5a989d6085"}
+// ], function(stream, data){
+//     logStream(stream)
+//     log(data)
+// });
