@@ -128,6 +128,16 @@ var Database = Class.create("Database", {
             doc._deleted = true;
         });
         return this.updateDocumentAll(documents, callback);
+    },
+    getChanges: function(query, docIds, callback){
+        query = query || {};
+        if (!docIds || !docIds.length) {
+            return this.client.get(this.name +"/_changes", {uriParams: query}, callback);
+        }
+        if (!query.filter) {
+            query.filter = "_doc_ids";
+        }
+        return this.client.post(this.name +"/_changes", {uriParams: query, body: {"doc_ids": docIds}}, callback);
     }
 });
 
