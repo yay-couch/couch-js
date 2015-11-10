@@ -15,12 +15,18 @@ var Database = Class.create("Database", {
         this.name = name;
     },
     ping: function(callback){
-        return this.client.head("/"+ this.name, null, callback);
+        return this.client.head(this.name, null, callback);
     },
     info: function(key, callback) {
-        return this.client.get("/"+ this.name, null, function(stream){
+        return this.client.get(this.name, null, function(stream){
             return callback(stream, stream.response.getData(key));
         });
+    },
+    create: function(callback){
+        return this.client.put(this.name, null, callback);
+    },
+    remove: function(callback){
+        return this.client.delete(this.name, null, callback);
     }
 });
 
