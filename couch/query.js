@@ -47,4 +47,32 @@ var Query = Class.create("Query", {
     }
 });
 
+Query.parse = function(query, returnQueryObject){
+    var pars = query.trim().replace(/&+/g, "&").split('&'),
+        par, key, value, re = /^([\w]+)\[(.*)\]/i, ra, ks, ki, i = 0,
+        params = {};
+    while ((par = pars.shift()) && (par = par.split('=', 2))) {
+        key = decodeURIComponent(par[0]);
+        // prevent param value going to be "undefined" as string
+        value = decodeURIComponent(par[1] || "").replace(/\+/g, " ");
+        // check array params
+        if (ra = re.exec(key)) {
+            ks = ra[1];
+            // init array param
+            if (!(ks in params)) {
+                params[ks] = {};
+            }
+            // set int key
+            ki = (ra[2] != "") ? ra[2] : i++;
+            // set array param
+            params[ks][ki] = value;
+            // go on..
+            continue;
+        }
+        // set param
+        params[key] = value;
+    }
+    return !returnQueryObject ? params : new Query(params);
+};
+
 module.exports = Query;
