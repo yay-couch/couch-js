@@ -1,7 +1,8 @@
 var Class = require("./util/class"),
     Util = require("./util/util"),
     Client = require("./client"),
-    Query = require("./query");
+    Query = require("./query"),
+    Document = require("./document");
 
 var Database = Class.create("Database", {
     client: null,
@@ -42,7 +43,7 @@ var Database = Class.create("Database", {
         this.client.get(this.name +"/_all_docs", {
             uriParams: {"include_docs": true, "key": (key ? Util.format('"%s"', Util.quote(key)) : "")}
         }, function(stream, data){
-            return callback(stream, (data && data.rows[0]) || null);
+            return callback(stream, (data && data.rows && data.rows[0]) || null);
         });
     },
     getDocumentAll: function(query, keys, callback){
@@ -61,8 +62,31 @@ var Database = Class.create("Database", {
             return this.client.post(this.name +"/_all_docs", {uriParams: query, body: {"keys": keys}}, callback);
         }
     },
-    createDocument: function(document, callback){}
-    createDocumentAll: function(documents, callback){}
+    createDocument: function(document, callback){
+        return this.createDocumentAll([document], function(stream, data){
+            return callback(stream, (data && data[0]) || null);
+        });
+    },
+    createDocumentAll: function(documents, callback){
+        if (!documents || !documents.length) {
+            throw new Error("Documents are required for create actions!");
+        }
+        var docs = [];
+        documents.forEach(function(doc){
+            if (!doc || typeof doc != "object") {
+                throw new Error("Each document must be a valid JSON object!");
+            }
+            if (doc instanceof Document) {
+                doc = doc.getData();
+            }
+            // this is create method, no update allowed
+            if (doc._id)      delete doc._id;
+            if (doc._rev)     delete doc._rev;
+            if (doc._deleted) delete doc._deleted;
+            docs.push(doc);
+        });
+        return this.client.post(this.name +"/_bulk_docs", {body: {"docs": docs}}, callback);
+    }
 });
 
 module.exports = Database;
