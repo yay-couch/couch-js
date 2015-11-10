@@ -1,8 +1,10 @@
 var Class = require("./util/class"),
-    Uuid = require("./uuid");
+    Util = require("./util/util"),
+    Uuid = require("./uuid"),
+    Database = require("./database");
 
 var Document = Class.create("Document", {
-    id: undefined,
+    _id: undefined,
     rev: undefined,
     deleted: false,
     attachments: [],
@@ -17,16 +19,16 @@ var Document = Class.create("Document", {
         }
     },
     setId: function(id){
-        if (!this.id instanceof Uuid) {
+        if (!isInstanceOf(id, Uuid)) {
             id = new Uuid(id);
         }
-        this.id = id;
+        this._id = id;
     },
     setRev: function(rev){
-        this.rev = rev;
+        this._rev = rev;
     },
     setDeleted: function(deleted){
-        this.deleted = !!deleted;
+        this._deleted = !!deleted;
     },
     setAttachment: function(attachment){
         //
@@ -46,7 +48,7 @@ var Document = Class.create("Document", {
         }
     },
     getData: function(key){
-        return key ? this.data[key] : this.data;
+        return (key != null) ? this.data[key] : this.data;
     }
 });
 
