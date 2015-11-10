@@ -3,6 +3,10 @@
 function log(){
     return console.log.apply(this, arguments);
 }
+function logStream(stream){
+    console.log(stream.request.toString());
+    console.log(stream.response.toString());
+}
 
 var Couch = require('./couch/couch');
 // log(Couch)
