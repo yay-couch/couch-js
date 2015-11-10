@@ -30,6 +30,7 @@ Couch.Query = require("./query");
 Couch.Client = require("./client");
 Couch.Server = require("./server");
 Couch.Database = require("./database");
+Couch.Document = require("./document");
 Couch.Uuid = require("./uuid");
 
 module.exports = Couch;
