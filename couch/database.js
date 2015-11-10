@@ -33,6 +33,16 @@ var Database = Class.create("Database", {
         return this.client.post("/_replicate", {
             body: {"source": this.name, "target": target, "create_target": (targetCreate !== false)}
         }, callback);
+    },
+    getDocument: function(key, callback) {
+        if (!key) {
+            throw new Error("Document is required!");
+        }
+        this.client.get(this.name +"/_all_docs", {
+            uriParams: {"include_docs": true, "key": (key ? Util.format('"%s"', Util.quote(key)) : "")}
+        }, function(stream, data){
+            return callback(stream, (data && data.rows[0]) || null);
+        });
     }
 });
 
