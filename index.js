@@ -172,3 +172,7 @@ var database = new Couch.Database(client, "foo");
 //     logStream(stream)
 //     log(data)
 // });
+// database.compact(null, function(stream, data){
+//     logStream(stream)
+//     log(data)
+// });
