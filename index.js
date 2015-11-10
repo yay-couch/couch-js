@@ -178,3 +178,12 @@ var database = new Couch.Database(client, "foo");
 // database.viewTemp(map, null, function(stream, data){
 //     logStream(stream)
 // });
+// database.getSecurity(function(stream, data){
+//     logStream(stream)
+// });
+// database.setSecurity(
+//     {names: ["superuser"], roles: ["admins"]},
+//     {names: ["user1","user2"], roles: ["developers"]}
+// , function(stream, data){
+//     logStream(stream)
+// });

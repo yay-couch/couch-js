@@ -154,6 +154,16 @@ var Database = Class.create("Database", {
     },
     viewTemp: function(map, reduce, callback){
         return this.client.post(this.name +"/_temp_view", {body: {map: map, reduce: reduce}}, callback);
+    },
+    getSecurity: function(callback){
+        return this.client.get(this.name +"/_security", null, callback)
+    },
+    setSecurity: function(admins, members, callback){
+        if ((!admins || !admins.names || admins.roles) ||
+            (!members || !members.names || members.roles)) {
+            throw new Error("Specify admins and/or members with names=>roles fields!");
+        }
+        return this.client.put(this.name +"/_security", {body: {admins: admins, members: members}}, callback)
     }
 });
 
