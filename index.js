@@ -95,9 +95,19 @@ var server = new Couch.Server(client);
 // var uuid = new Couch.Uuid();
 // console.log(uuid.toString())
 
-var database = new Couch.Database(client, "foo");
+var database = new Couch.Database(client, "foo_new");
 // database.ping(function(stream){
 //     console.log("%j", stream.response.isStatusCode(200));
 // });
-// database.info(null, function(stream, data){ console.log(data); });
-// database.info("db_name", function(stream, data){ console.log(data); });
+// database.info(null, function(stream, data){
+//     console.log(data);
+// });
+// database.info("db_name", function(stream, data){
+//     console.log(data);
+// });
+// database.create(function(stream, data){
+//     console.log(data)
+// });
+// database.remove(function(stream, data){
+//     console.log(data)
+// });
