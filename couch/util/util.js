@@ -12,6 +12,9 @@ var Util = {
         }
         return s;
     },
+    quote: function(input){
+        return input.replace(/"/g, "%22");
+    },
     forEach: function(input, fn, scope){
         var len = input && input.length, i;
         if (typeof len !== "undefined") {
