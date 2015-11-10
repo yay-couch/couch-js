@@ -60,7 +60,9 @@ var Database = Class.create("Database", {
         } else {
             return this.client.post(this.name +"/_all_docs", {uriParams: query, body: {"keys": keys}}, callback);
         }
-    }
+    },
+    createDocument: function(document, callback){}
+    createDocumentAll: function(documents, callback){}
 });
 
 module.exports = Database;
