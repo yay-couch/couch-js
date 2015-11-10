@@ -1,6 +1,7 @@
 var Class = require("./util/class"),
     Util = require("./util/util"),
-    Client = require("./client");
+    Client = require("./client"),
+    Query = require("./query");
 
 var Database = Class.create("Database", {
     client: null,
@@ -43,6 +44,22 @@ var Database = Class.create("Database", {
         }, function(stream, data){
             return callback(stream, (data && data.rows[0]) || null);
         });
+    },
+    getDocumentAll: function(query, keys, callback){
+        if (query instanceof Query) {
+            query = query.toArray();
+        } else if (typeof query == "string") {
+            query = Query.parse(query);
+        }
+        query = query || {};
+        if (query.include_docs == null) {
+            query.include_docs = true;
+        }
+        if (!keys || !keys.length) {
+            return this.client.get(this.name +"/_all_docs", {uriParams: query}, callback);
+        } else {
+            return this.client.post(this.name +"/_all_docs", {uriParams: query, body: {"keys": keys}}, callback);
+        }
     }
 });
 
