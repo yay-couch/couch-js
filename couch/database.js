@@ -13,6 +13,9 @@ var Database = Class.create("Database", {
         }
         this.client = client;
         this.name = name;
+    },
+    ping: function(callback){
+        return this.client.head("/"+ this.name, null, callback);
     }
 });
 
