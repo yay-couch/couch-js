@@ -16,6 +16,11 @@ var Database = Class.create("Database", {
     },
     ping: function(callback){
         return this.client.head("/"+ this.name, null, callback);
+    },
+    info: function(key, callback) {
+        return this.client.get("/"+ this.name, null, function(stream){
+            return callback(stream, stream.response.getData(key));
+        });
     }
 });
 
