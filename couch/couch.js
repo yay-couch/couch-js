@@ -24,6 +24,9 @@ global.Couch = Couch;
 global.isNone = function(input){
     return (input == null);
 };
+global.isInstanceOf = function(a, b){
+    return (a instanceof b);
+};
 
 Couch.Util = require("./util/util");
 Couch.Query = require("./query");
