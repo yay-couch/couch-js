@@ -159,8 +159,8 @@ var Database = Class.create("Database", {
         return this.client.get(this.name +"/_security", null, callback)
     },
     setSecurity: function(admins, members, callback){
-        if ((!admins || !admins.names || admins.roles) ||
-            (!members || !members.names || members.roles)) {
+        if ((!admins || !admins.names || !admins.roles) ||
+            (!members || !members.names || !members.roles)) {
             throw new Error("Specify admins and/or members with names=>roles fields!");
         }
         return this.client.put(this.name +"/_security", {body: {admins: admins, members: members}}, callback)
