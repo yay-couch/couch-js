@@ -132,7 +132,6 @@ var database = new Couch.Database(client, "foo");
 // var doc = new Couch.Document(database, {"title": "The Book 3", "price": 3.5});
 // database.createDocument(doc, function(stream, data){
 //     logStream(stream)
-//     log(data)
 // });
 // database.createDocumentAll([
 //     {"title": "The Book 1", "price": 1.5},
@@ -140,39 +139,35 @@ var database = new Couch.Database(client, "foo");
 //     doc
 // ], function(stream, data){
 //     logStream(stream)
-//     log(data)
 // });
 // var doc = {"title": "The Book 1 (update 1)", "price": 1.55,
 //     _id: "7f9231672eac835f0e39e52357000e02", _rev: "2-af60c1cd15fdc44575a7fbd3bef69441"};
 // database.updateDocument(doc, function(stream, data){
 //     logStream(stream)
-//     log(data)
 // });
 // database.updateDocumentAll([
 //     {"title": "The Book 1 (update)", "price": 1.55,
 //         _id: "7f9231672eac835f0e39e52357000e02", _rev: "1-df359e8057e2b1a924649beeb844d225"}
 // ], function(stream, data){
 //     logStream(stream)
-//     log(data)
 // });
 // database.deleteDocument(
 //     {_id:"7f9231672eac835f0e39e52357000e02", _rev:"4-ca14d6a6e24e5596975d8f5a989d6085"}
 // , function(stream, data){
 //     logStream(stream)
-//     log(data)
 // });
 // database.deleteDocumentAll([
 //     {_id:"7f9231672eac835f0e39e52357000e02", _rev:"4-ca14d6a6e24e5596975d8f5a989d6085"},
 //     {_id:"7f9231672eac835f0e39e52357000e02", _rev:"1-ca14d6a6e24e5596975d8f5a989d6085"}
 // ], function(stream, data){
 //     logStream(stream)
-//     log(data)
 // });
 // database.getChanges(null, ["7f9231672eac835f0e39e52357000e02"], function(stream, data){
 //     logStream(stream)
-//     log(data)
 // });
 // database.compact(null, function(stream, data){
 //     logStream(stream)
-//     log(data)
+// });
+// database.ensureFullCommit(function(stream, data){
+//     logStream(stream)
 // });

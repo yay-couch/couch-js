@@ -145,6 +145,9 @@ var Database = Class.create("Database", {
         } else {
             return this.client.post(this.name +"/_compact"+ ddoc, null, callback);
         }
+    },
+    ensureFullCommit: function(callback) {
+        return this.client.post(this.name +"/_ensure_full_commit", null, callback);
     }
 });
 
