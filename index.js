@@ -96,6 +96,6 @@ var server = new Couch.Server(client);
 // console.log(uuid.toString())
 
 var database = new Couch.Database(client, "foo");
-// server.ping(function(stream){
+// database.ping(function(stream){
 //     console.log("%j", stream.response.isStatusCode(200));
 // });
