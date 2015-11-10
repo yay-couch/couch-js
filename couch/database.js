@@ -27,6 +27,11 @@ var Database = Class.create("Database", {
     },
     remove: function(callback){
         return this.client.delete(this.name, null, callback);
+    },
+    replicate: function(target, targetCreate, callback) {
+        return this.client.post("/_replicate", {
+            body: {"source": this.name, "target": target, "create_target": (targetCreate !== false)}
+        }, callback);
     }
 });
 
