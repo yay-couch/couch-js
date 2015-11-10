@@ -1,5 +1,4 @@
 var Class = require("./util/class");
-    Server = require("./server");
 
 var Uuid = Class.create("Uuid", {
     value: undefined,
