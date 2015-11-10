@@ -60,12 +60,15 @@ var Request = Class.create("Request", {
                 $this.client.Response.setStatusCode(response.statusCode);
                 $this.client.Response.setStatusText(response.statusCode);
 
+                var body = "";
                 response.on("data", function(data){
-                    $this.client.Response.setBody(data,
-                        $this.client.Response.getHeader("Content-Type") == "application/json");
+                    body += data;
                 });
 
                 response.on("end", function(){
+                    $this.client.Response.setBody(body,
+                        $this.client.Response.getHeader("Content-Type") == "application/json");
+
                     callback({
                         error: null,
                         request: $this.client.Request,
