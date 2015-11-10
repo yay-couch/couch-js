@@ -94,7 +94,7 @@ var Database = Class.create("Database", {
     },
     updateDocumentAll: function(documents, callback){
         if (!documents || !documents.length) {
-            throw new Error("Documents are required for create actions!");
+            throw new Error("Documents are required for update actions!");
         }
         var docs = [];
         documents.forEach(function(doc){
@@ -111,6 +111,23 @@ var Database = Class.create("Database", {
             docs.push(doc);
         });
         return this.client.post(this.name +"/_bulk_docs", {body: {"docs": docs}}, callback);
+    },
+    deleteDocument: function(document, callback){
+        return this.deleteDocumentAll([document], function(stream, data){
+            return callback(stream, (data && data[0]) || null);
+        });
+    },
+    deleteDocumentAll: function(documents, callback){
+        if (!documents || !documents.length) {
+            throw new Error("Documents are required for delete actions!");
+        }
+        documents.map(function(doc){
+            if (doc instanceof Document) {
+                doc = doc.getData();
+            }
+            doc._deleted = true;
+        });
+        return this.updateDocumentAll(documents, callback);
     }
 });
 
