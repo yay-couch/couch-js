@@ -12,7 +12,7 @@ var Request = Class.create("Request", {
 
     __init__: function(client){
         this.type = Stream.TYPE.REQUEST;
-        this.httpVersion = "1.0";
+        this.httpVersion = "1.1";
         this.client = client;
         if (this.client.username && this.client.password) {
             this.headers["Authorization"] = Util.format(
