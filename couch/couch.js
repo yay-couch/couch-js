@@ -26,6 +26,7 @@ global.isNone = function(input){
 };
 
 Couch.Util = require("./util/util");
+Couch.Query = require("./util/util");
 Couch.Client = require("./client");
 Couch.Server = require("./server");
 Couch.Database = require("./database");
