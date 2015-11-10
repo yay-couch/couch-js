@@ -129,3 +129,16 @@ var database = new Couch.Database(client, "foo");
 //         log(data.rows[i].doc)
 //     }
 // });
+// var doc = new Couch.Document(database, {"title": "The Book 3", "price": 3.5});
+// database.createDocument(doc, function(stream, data){
+//     logStream(stream)
+//     log(data)
+// });
+// database.createDocumentAll([
+//     {"title": "The Book 1", "price": 1.5},
+//     {"title": "The Book 2", "price": 2.5},
+//     doc
+// ], function(stream, data){
+//     logStream(stream)
+//     log(data)
+// });
