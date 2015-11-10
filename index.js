@@ -142,3 +142,16 @@ var database = new Couch.Database(client, "foo");
 //     logStream(stream)
 //     log(data)
 // });
+// var doc = {"title": "The Book 1 (update 1)", "price": 1.55,
+//     _id: "7f9231672eac835f0e39e52357000e02", _rev: "2-af60c1cd15fdc44575a7fbd3bef69441"};
+// database.updateDocument(doc, function(stream, data){
+//     logStream(stream)
+//     log(data)
+// });
+// database.updateDocumentAll([
+//     {"title": "The Book 1 (update)", "price": 1.55,
+//         _id: "7f9231672eac835f0e39e52357000e02", _rev: "1-df359e8057e2b1a924649beeb844d225"}
+// ], function(stream, data){
+//     logStream(stream)
+//     log(data)
+// });
