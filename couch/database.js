@@ -8,7 +8,7 @@ var Database = Class.create("Database", {
     client: null,
     name: undefined,
     __init__: function(client, name){
-        if (!client || !(client instanceof Client)) {
+        if (!isInstanceOf(client, Client)) {
             throw new Error("Given client must be instance of Couch.Client!");
         }
         if (!name) {
@@ -47,7 +47,7 @@ var Database = Class.create("Database", {
         });
     },
     getDocumentAll: function(query, keys, callback){
-        if (query instanceof Query) {
+        if (isInstanceOf(query, Query)) {
             query = query.toArray();
         } else if (typeof query == "string") {
             query = Query.parse(query);
@@ -76,7 +76,7 @@ var Database = Class.create("Database", {
             if (!doc || typeof doc != "object") {
                 throw new Error("Each document must be a valid JSON object!");
             }
-            if (doc instanceof Document) {
+            if (isInstanceOf(doc, Document)) {
                 doc = doc.getData();
             }
             // this is create method, no update allowed
@@ -101,7 +101,7 @@ var Database = Class.create("Database", {
             if (!doc || typeof doc != "object") {
                 throw new Error("Each document must be a valid JSON object!");
             }
-            if (doc instanceof Document) {
+            if (isInstanceOf(doc, Document)) {
                 doc = doc.getData();
             }
             // these are required params
@@ -122,7 +122,7 @@ var Database = Class.create("Database", {
             throw new Error("Documents are required for delete actions!");
         }
         documents.map(function(doc){
-            if (doc instanceof Document) {
+            if (isInstanceOf(doc, Document)) {
                 doc = doc.getData();
             }
             doc._deleted = true;
