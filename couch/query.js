@@ -35,7 +35,7 @@ var Query = Class.create("Query", {
             data.push(encodeURIComponent(key) +"="+ encodeURIComponent(value));
         }
 
-        return (this.dataString = data.join("&"));
+        return (this.dataString = data.join("&").replace(/%5B/gi, "[").replace(/%5D/gi, "]"));
     },
     skip: function(num){
         this.data.skip = num;
