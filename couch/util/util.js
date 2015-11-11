@@ -51,17 +51,20 @@ var Util = {
     },
     fileInfo: function(file){
         if (this.fileExists(file)) {
-            var mime, charset;
+            var mime, charset, extension, i;
+            if ((i = file.lastIndexOf(".")) > -1) {
+                extension = file.substring(i + 1);
+            }
             var tmp = this.execSync("file -i "+ file +" | awk '{print $2} {print $3}'");
             if (tmp) {
                 tmp = tmp.trim().split("\n");
                 if (tmp.length == 2) {
-                    mime = (tmp[0].lastIndexOf(";") !== -1)
+                    mime = (tmp[0].lastIndexOf(";") > -1)
                         ? tmp[0].substring(0, tmp[0].length - 1) : tmp[0];
                     charset = tmp[1].split("=")[1];
                 }
+                return {mime: mime, charset: charset, extension: extension};
             }
-            return {mime: mime, charset: charset};
         }
     },
     fileExists: function(file){
