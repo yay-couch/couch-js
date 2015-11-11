@@ -69,8 +69,7 @@ var Document = Class.create("Document", {
     },
     findRevisions: function(callback){
         return this.find({revs:true}, function(stream, data){
-            data = data._revisions ? data._revisions : null;
-            callback(stream, data);
+            callback(stream, (data._revisions ? data._revisions : null));
         });
     }
 });
