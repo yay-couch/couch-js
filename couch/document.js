@@ -68,8 +68,13 @@ var Document = Class.create("Document", {
         return this.database.client.get(this.database.name +"/"+ this._id, {uriParams: query}, callback);
     },
     findRevisions: function(callback){
-        return this.find({revs:true}, function(stream, data){
+        return this.find({revs: true}, function(stream, data){
             callback(stream, (data._revisions ? data._revisions : null));
+        });
+    },
+    findRevisionsExtended: function(callback){
+        return this.find({revs_info: true}, function(stream, data){
+            callback(stream, (data._revs_info ? data._revs_info : null));
         });
     }
 });
