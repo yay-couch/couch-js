@@ -35,25 +35,38 @@ var Util = {
         }
         return scope || input;
     },
-    isFileExists: function(file){
-        try {
-            fs.statSync(file);
-        } catch (e) {
-            return false;
-        }
-        return true;
-    },
-    // tnx => //strongloop.com/strongblog/whats-new-in-node-js-v0-12-execsync-a-synchronous-api-for-child-processes/
+    // tnx => strongloop.com/strongblog/whats-new-in-node-js-v0-12-execsync-a-synchronous-api-for-child-processes/
     execSync: function(cmd, options) {
         if (cp.execSync) {
             return cp.execSync(cmd, options || {});
         }
+        // add .tmp extensions @kerem
         cp.exec(cmd + " 2>&1 1>output.tmp && echo done! > done.tmp");
         while (!fs.existsSync("done.tmp")) {}
+        // add utf-8 @kerem
         var output = fs.readFileSync("output.tmp", "utf-8");
         fs.unlinkSync("output.tmp");
         fs.unlinkSync("done.tmp");
         return output;
+    },
+    fileInfo: function(file){
+        if (this.fileExists(file)) {
+            var mime, charset;
+            var tmp = this.execSync("file -i "+ file +" | awk '{print $2} {print $3}'");
+            if (tmp) {
+                tmp = tmp.trim().split("\n");
+                if (tmp.length == 2) {
+                    mime = (tmp[0].lastIndexOf(";") !== -1)
+                        ? tmp[0].substring(0, tmp[0].length - 1) : tmp[0];
+                    charset = tmp[1].split("=")[1];
+                }
+            }
+            return {mime: mime, charset: charset};
+        }
+    },
+    fileExists: function(file){
+        try { fs.statSync(file); return true; }
+            catch (e) { return false; }
     }
 };
 
