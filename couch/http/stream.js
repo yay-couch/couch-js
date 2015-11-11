@@ -1,5 +1,4 @@
-var Couch = require("../couch"),
-    Class = require("../util/class"),
+var Class = require("../util/class"),
     Util = require("../util/util");
 
 // http://stackoverflow.com/a/11864828/362780
