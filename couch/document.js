@@ -17,6 +17,17 @@ var Document = Class.create("Document", {
         if (data) {
             this.setData(data);
         }
+        var $this = this;
+        ["_id", "_rev", "_deleted", "_attachments"].forEach(function(key){
+            Object.defineProperty($this, key, {
+                get: function(){
+                    return $this.data[key];
+                },
+                set: function(value){
+                    $this.data[key] = value;
+                }
+            });
+        });
     },
     setId: function(id){
         if (!isInstanceOf(id, Uuid)) {
