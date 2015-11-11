@@ -231,10 +231,12 @@ var database = new Couch.Database(client, "foo");
 var db = new Couch.Database(client, "foo2");
 var doc = new Couch.Document(db);
 doc._id = "attc_test";
+doc._rev = "8-18f21d151c7d89cdd2562d4546d054c2";
 var docAttc = new Couch.DocumentAttachment(doc, "./test/attc1.txt");
 // log(docAttc)
 
-docAttc.fileName = "attc.txt";
+// docAttc.fileName = "attc.txt";
 // docAttc.digest = "U1p5BLvdnOZVRyR6YrXBoQ==";
 // docAttc.ping(logStream);
 // docAttc.find(logStream);
+// docAttc.save(logStream);
