@@ -56,6 +56,16 @@ var Document = Class.create("Document", {
             headers["If-None-Match"] = Util.format('"%s"', this._rev);
         }
         return this.database.client.head(this.database.name +"/"+ this._id, {headers: headers}, callback);
+    },
+    find: function(query, callback){
+        query = query || {};
+        if (!this._id) {
+            throw new Error("_id field could not be empty!");
+        }
+        if (this._rev && !query.rev) {
+            query.rev = this._rev;
+        }
+        return this.database.client.get(this.database.name +"/"+ this._id, {uriParams: query}, callback);
     }
 });
 
