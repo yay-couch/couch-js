@@ -7,6 +7,9 @@ function logStream(stream){
     console.log(stream.request.toString());
     console.log(stream.response.toString());
 }
+function logData(stream, data){
+    console.log(data);
+}
 
 var Couch = require('./couch/couch');
 // log(Couch)
@@ -213,4 +216,4 @@ doc._id = "7f9231672eac835f0e39e52357001b65";
 //     log(200 === stream.response.getStatusCode() || 304 === stream.response.getStatusCode())
 // });
 // doc.find({}, logStream)
-doc.findRevisions(logStream)
+doc.findRevisions(logData)
