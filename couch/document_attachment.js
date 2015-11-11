@@ -38,7 +38,7 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         if (!docId) {
             throw new Error("Attachment document _id is required!");
         }
-        query = {}, headers = {};
+        var query = {}, headers = {};
         if (docRev) {
             query.rev = docRev;
         }
@@ -46,7 +46,33 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
             headers["If-None-Match"] = Util.format('"%s"', this.digest);
         }
         return this.document.database.client.head(
-            Util.format("%s/%s/%s", this.document.database.name, docId, this.fileName), {
+            Util.format("%s/%s/%s", this.document.database.name, docId, encodeURIComponent(this.fileName)), {
+                uriParams: query, headers: headers
+            }, callback);
+    },
+    find: function(callback){
+        if (!this.document) {
+            throw new Error("Attachment document is not defined!");
+        }
+        if (!this.fileName) {
+            throw new Error("Attachment file name is required!");
+        }
+        var docId = this.document._id;
+        var docRev = this.document._rev;
+        if (!docId) {
+            throw new Error("Attachment document _id is required!");
+        }
+        var query = {}, headers = {};
+        if (docRev) {
+            query.rev = docRev;
+        }
+        headers["Accept"] = "*/*";
+        headers["Content-Type"] = null;
+        if (this.digest) {
+            headers["If-None-Match"] = Util.format('"%s"', this.digest);
+        }
+        return this.document.database.client.get(
+            Util.format("%s/%s/%s", this.document.database.name, docId, encodeURIComponent(this.fileName)), {
                 uriParams: query, headers: headers
             }, callback);
     },

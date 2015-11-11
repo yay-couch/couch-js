@@ -233,5 +233,8 @@ var doc = new Couch.Document(db);
 doc._id = "attc_test";
 var docAttc = new Couch.DocumentAttachment(doc, "./test/attc1.txt");
 // log(docAttc)
-// docAttc.fileName = "attc.txt";
+
+docAttc.fileName = "attc.txt";
+// docAttc.digest = "U1p5BLvdnOZVRyR6YrXBoQ==";
 // docAttc.ping(logStream);
+// docAttc.find(logStream);
