@@ -222,6 +222,7 @@ var database = new Couch.Database(client, "foo");
 var db = new Couch.Database(client, "foo2"),
     doc = new Couch.Document(db);
 doc._id = "attc_test";
+doc._rev = "1-attc_test";
 // doc.findAttachments(true, ["2-6a0508cce9d2b4f3b83159648415c5e0"], function(s, data){
 //     log(data)
 // })
