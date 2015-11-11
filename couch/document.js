@@ -5,9 +5,9 @@ var Class = require("./util/class"),
 
 var Document = Class.create("Document", {
     _id: undefined,
-    rev: undefined,
-    deleted: false,
-    attachments: [],
+    _rev: undefined,
+    _deleted: false,
+    _attachments: [],
     database: null,
     data: {},
     __init__: function(database, data){
