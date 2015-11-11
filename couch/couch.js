@@ -34,6 +34,7 @@ Couch.Client = require("./client");
 Couch.Server = require("./server");
 Couch.Database = require("./database");
 Couch.Document = require("./document");
+Couch.DocumentAttachment = require("./document_attachment");
 Couch.Uuid = require("./uuid");
 
 module.exports = Couch;
