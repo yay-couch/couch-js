@@ -42,7 +42,12 @@ var Stream = Class.create("Stream", {
     },
 
     setHeader: function(key, value){
-        this.headers[key] = value;
+        if (value === null) {
+            // remove command
+            delete this.headers[key];
+        } else {
+            this.headers[key] = value;
+        }
         return this;
     },
     getHeader: function(key){
