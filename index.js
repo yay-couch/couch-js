@@ -207,10 +207,10 @@ var doc = new Couch.Document(database);
 // doc.ping(function(stream){
 //     log(200 === stream.response.getStatusCode())
 // });
-// doc._id = "7f9231672eac835f0e39e52357001b65";
+doc._id = "7f9231672eac835f0e39e52357001b65";
 // doc._rev = "1-46161cd1c19c997587252320e8757c42";
 // doc.ping(function(stream){
 //     log(200 === stream.response.getStatusCode() || 304 === stream.response.getStatusCode())
 // });
-// doc._id = "7f9231672eac835f0e39e52357001b65";
 // doc.find({}, logStream)
+doc.findRevisions(logStream)

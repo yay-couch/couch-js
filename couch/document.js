@@ -66,6 +66,12 @@ var Document = Class.create("Document", {
             query.rev = this._rev;
         }
         return this.database.client.get(this.database.name +"/"+ this._id, {uriParams: query}, callback);
+    },
+    findRevisions: function(callback){
+        return this.find({revs:true}, function(stream, data){
+            data = data._revisions ? data._revisions : null;
+            callback(stream, data);
+        });
     }
 });
 
