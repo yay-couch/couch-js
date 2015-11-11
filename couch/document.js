@@ -24,10 +24,20 @@ var Document = Class.create("Document", {
                     return $this.data[key];
                 },
                 set: function(value){
+                    if (key == "_id") {
+                        value = new Uuid(value);
+                    }
                     $this.data[key] = value;
                 }
             });
         });
+    },
+    toJson: function(){
+        var data = this.data;
+        if (isInstanceOf(data._id, Uuid)) {
+            data._id = data._id.toString();
+        }
+        return JSON.stringify(data);
     },
     setId: function(id){
         if (!isInstanceOf(id, Uuid)) {
