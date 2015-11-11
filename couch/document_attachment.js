@@ -76,6 +76,30 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
                 uriParams: query, headers: headers
             }, callback);
     },
+    save: function(callback){
+        if (!this.document) {
+            throw new Error("Attachment document is not defined!");
+        }
+        if (!this.fileName) {
+            throw new Error("Attachment file name is required!");
+        }
+        var docId = this.document._id;
+        var docRev = this.document._rev;
+        if (!docId) {
+            throw new Error("Attachment document _id is required!");
+        }
+        if (!docRev) {
+            throw new Error("Attachment document _rev is required!");
+        }
+        this.readFile(false);
+        var headers = {};
+        headers["If-Match"] = docRev;
+        headers["Content-Type"] = this.contentType;
+        return this.document.database.client.put(
+            Util.format("%s/%s/%s", this.document.database.name, docId, encodeURIComponent(this.fileName)), {
+                body: this.data, headers: headers
+            }, callback);
+    },
     toJson: function(){
         return JSON.stringify(this.toArray());
     },
