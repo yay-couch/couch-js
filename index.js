@@ -10,6 +10,7 @@ function logStream(stream){
 function logData(stream, data){
     console.log(data);
 }
+global.log = log; // tmp
 
 var Couch = require('./couch/couch');
 // log(Couch)
@@ -227,6 +228,10 @@ var database = new Couch.Database(client, "foo");
 //     log(data)
 // })
 
-var db = new Couch.Database(client, "foo2"), doc = new Couch.Document(db);
+var db = new Couch.Database(client, "foo2");
+var doc = new Couch.Document(db);
+doc._id = "attc_test";
 var docAttc = new Couch.DocumentAttachment(doc, "./test/attc1.txt");
-log(docAttc)
+// log(docAttc)
+// docAttc.fileName = "attc.txt";
+// docAttc.ping(logStream);
