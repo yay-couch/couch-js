@@ -3,7 +3,6 @@ var Class = require("./util/class"),
     Document = require("./document");
 
 var fs = require("fs");
-// var mimeDb = require('mime-db');
 
 var DocumentAttachment = Class.create("DocumentAttachment", {
     document: null,
