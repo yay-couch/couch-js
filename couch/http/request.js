@@ -103,8 +103,10 @@ var Request = Class.create("Request", {
     setUri: function(uri, uriParams) {
         this.uri = uri;
         if (uriParams) {
-            var query = new Query(uriParams);
-            this.uri += "?"+ query.toString();
+            var query = (new Query(uriParams)).toString();
+            if (query.length) {
+                this.uri += "?"+ query.toString();
+            }
         }
         return this;
     }
