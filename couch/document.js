@@ -21,7 +21,11 @@ var Document = Class.create("Document", {
         ["_id", "_rev", "_deleted", "_attachments"].forEach(function(key){
             Object.defineProperty($this, key, {
                 get: function(){
-                    return $this.data[key];
+                    var value = $this.data[key];
+                    if (key == "_id" && isInstanceOf(value, Uuid)) {
+                        value = value.toString();
+                    }
+                    return value;
                 },
                 set: function(value){
                     if (key == "_id") {
