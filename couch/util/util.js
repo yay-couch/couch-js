@@ -60,8 +60,8 @@ var Util = {
                 tmp = tmp.trim().split("\n");
                 if (tmp.length == 2) {
                     mime = (tmp[0].lastIndexOf(";") > -1)
-                        ? tmp[0].substring(0, tmp[0].length - 1) : tmp[0];
-                    charset = tmp[1].split("=")[1];
+                        ? tmp[0].trim().substring(0, tmp[0].length - 1) : tmp[0];
+                    charset = tmp[1].trim().split("=")[1];
                 }
                 return {mime: mime, charset: charset, extension: extension};
             }
