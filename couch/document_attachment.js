@@ -30,12 +30,17 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         if (!this.file) {
             throw new Error("Attachment file is empty!");
         }
-        this.data = fs.readFileSync(this.file, "utf-8");
-        this.dataLength = this.data.length;
         var info = Util.fileInfo(this.file);
         if (info) {
             this.contentType = info.mime;
         }
+        var data = fs.readFileSync(this.file, "utf-8");
+        if (encode !== false) {
+            this.data = new Buffer(data).toString("base64");
+        } else {
+            this.data = data;
+        }
+        this.dataLength = this.data.length;
     }
 });
 
