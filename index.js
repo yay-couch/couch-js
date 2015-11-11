@@ -206,8 +206,8 @@ var database = new Couch.Database(client, "foo");
 //     logStream(stream)
 // });
 
-var doc = new Couch.Document(database);
-doc._id = "7f9231672eac835f0e39e52357001b65";
+// var doc = new Couch.Document(database);
+// doc._id = "7f9231672eac835f0e39e52357001b65";
 // doc.ping(function(stream){
 //     log(200 === stream.response.getStatusCode())
 // });
@@ -217,4 +217,11 @@ doc._id = "7f9231672eac835f0e39e52357001b65";
 // });
 // doc.find({}, logStream)
 // doc.findRevisions(logData)
-doc.findRevisionsExtended(logData)
+// doc.findRevisionsExtended(logData)
+
+var db = new Couch.Database(client, "foo2"),
+    doc = new Couch.Document(db);
+doc._id = "attc_test";
+// doc.findAttachments(true, ["2-6a0508cce9d2b4f3b83159648415c5e0"], function(s, data){
+//     log(data)
+// })

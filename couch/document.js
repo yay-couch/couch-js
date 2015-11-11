@@ -76,6 +76,21 @@ var Document = Class.create("Document", {
         return this.find({revs_info: true}, function(stream, data){
             callback(stream, (data._revs_info ? data._revs_info : null));
         });
+    },
+    findAttachments: function(attEncInfo, attsSince, callback){
+        var query = {};
+        query.attachments = true;
+        query.att_encoding_info = attEncInfo || false;
+        if (attsSince && attsSince.length) {
+            var attsSinceArray = [];
+            attsSince.forEach(function(attsSince){
+                attsSinceArray.push(Util.format('"%s"', Util.quote(attsSince)));
+            });
+            query.atts_since = Util.format("[%s]", attsSinceArray.join(","));
+        }
+        return this.find(query, function(stream, data){
+            return callback(stream, (data._attachments ? data._attachments : null));
+        })
     }
 });
 
