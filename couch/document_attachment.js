@@ -24,7 +24,16 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
                 this.fileName = file.substring(file.lastIndexOf("/") + 1);
             }
         }
+    },
+    toJson: function(){
+        return JSON.stringify(this.toArray());
+    },
+    toArray: function(){
         this.readFile();
+        return {
+            data: this.data,
+            content_type: this.contentType
+        };
     },
     readFile: function(encode){
         if (!this.file) {
@@ -36,7 +45,7 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         }
         var data = fs.readFileSync(this.file, "utf-8");
         if (encode !== false) {
-            this.data = new Buffer(data).toString("base64");
+            this.data = (new Buffer(data)).toString("base64");
         } else {
             this.data = data;
         }
