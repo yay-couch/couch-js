@@ -100,6 +100,32 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
                 body: this.data, headers: headers
             }, callback);
     },
+    remove: function(batch, fullCommit, callback){
+        if (!this.document) {
+            throw new Error("Attachment document is not defined!");
+        }
+        if (!this.fileName) {
+            throw new Error("Attachment file name is required!");
+        }
+        var docId = this.document._id;
+        var docRev = this.document._rev;
+        if (!docId) {
+            throw new Error("Attachment document _id is required!");
+        }
+        if (!docRev) {
+            throw new Error("Attachment document _rev is required!");
+        }
+        batch = batch ? "?batch=ok" : "";
+        var headers = {};
+        headers["If-Match"] = docRev;
+        if (fullCommit) {
+            headers["X-Couch-Full-Commit"] = "true";
+        }
+        return this.document.database.client.delete(
+            Util.format("%s/%s/%s%s", this.document.database.name, docId, encodeURIComponent(this.fileName), batch), {
+                headers: headers
+            }, callback);
+    },
     toJson: function(){
         return JSON.stringify(this.toArray());
     },
