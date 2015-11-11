@@ -1,3 +1,6 @@
+var fs = require('fs');
+var cp = require("child_process");
+
 var Util = {
     extend: function(to, from) {
         for (var i in from) {
@@ -31,6 +34,26 @@ var Util = {
             }
         }
         return scope || input;
+    },
+    isFileExists: function(file){
+        try {
+            fs.statSync(file);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    },
+    // tnx => //strongloop.com/strongblog/whats-new-in-node-js-v0-12-execsync-a-synchronous-api-for-child-processes/
+    execSync: function(cmd, options) {
+        if (cp.execSync) {
+            return cp.execSync(cmd, options || {});
+        }
+        cp.exec(cmd + " 2>&1 1>output.tmp && echo done! > done.tmp");
+        while (!fs.existsSync("done.tmp")) {}
+        var output = fs.readFileSync("output.tmp", "utf-8");
+        fs.unlinkSync("output.tmp");
+        fs.unlinkSync("done.tmp");
+        return output;
     }
 };
 
