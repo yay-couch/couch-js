@@ -1,10 +1,43 @@
+/**
+ * Copyright 2015 Kerem Güneş
+ *    <http://qeremy.com>
+ *
+ * Apache License, Version 2.0
+ *    <http://www.apache.org/licenses/LICENSE-2.0>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Module objects.
+ * @private
+ */
 var Class = require("../util/class"),
     Stream = require("./stream"),
     Util = require("../util/util"),
     Query = require("../query");
 
+/**
+ * HTTP object.
+ * @private
+ */
 var http = require("http");
 
+/**
+ * Request object.
+ * @public
+ * @extends Couch.Stream
+ */
 var Request = Class.create("Request", {
     client: null,
     method: undefined,
@@ -112,25 +145,46 @@ var Request = Class.create("Request", {
     }
 });
 
+/**
+ * Extend Request width a fresh Stream object.
+ */
 Class.extend(Request, Stream.init({}, null));
 
+/**
+ * Re-define setBody() method.
+ */
 Class.extend(Request, {
+    /**
+     * Set request body.
+     *
+     * @param  {object|string} body
+     * @return {Request}
+     */
     setBody: function(body){
         if (body != null &&
+            // these methods do not take request body
             this.method != Request.METHOD.HEAD &&
-            this.method != Request.METHOD.GET) {
+            this.method != Request.METHOD.GET
+        ) {
+            // if content type json (generally)
             if (this.headers["Content-Type"] == "application/json") {
                 this.body = JSON.stringify(body);
             } else {
                 this.body = body;
             }
+
+            // add content length
             this.headers["Content-Length"] = this.body.length;
         }
+
         return this;
     }
 });
 
-// add supported methods by couchdb
+/**
+ * Add supported methods by CouchDB.
+ * @type {Object}
+ */
 Request.METHOD = {
     HEAD: "HEAD",
      GET: "GET",
@@ -140,4 +194,7 @@ Request.METHOD = {
     COPY: "COPY"
 };
 
+/**
+ * Expose module.
+ */
 module.exports = Request;
