@@ -228,11 +228,11 @@ var database = new Couch.Database(client, "foo");
 //     log(data)
 // })
 
-var db = new Couch.Database(client, "foo2");
-var doc = new Couch.Document(db);
-doc._id = "attc_test";
-doc._rev = "9-c3791b86bacc762468034a8c0fbdea7c";
-var docAttc = new Couch.DocumentAttachment(doc, "./test/attc1.txt");
+// var db = new Couch.Database(client, "foo2");
+// var doc = new Couch.Document(db);
+// doc._id = "attc_test";
+// doc._rev = "9-c3791b86bacc762468034a8c0fbdea7c";
+// var docAttc = new Couch.DocumentAttachment(doc, "./test/attc1.txt");
 // log(docAttc)
 
 // docAttc.fileName = "attc.txt";
@@ -246,3 +246,8 @@ var docAttc = new Couch.DocumentAttachment(doc, "./test/attc1.txt");
 // log(s = Couch.Util.Base64.encode("foo:bar"))
 // log(s = Couch.Util.Base64.decode(s))
 // log(s = Couch.Util.Base64.decode(s, "ascii"))
+
+// var r;
+// r = Couch.Util.execSync("ls -la");
+// r = Couch.Util.fileInfo(__filename);
+// log(r)
