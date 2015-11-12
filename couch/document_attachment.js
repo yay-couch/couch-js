@@ -138,7 +138,7 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
             headers["If-None-Match"] = Util.format('"%s"', this.digest);
         }
 
-        return this.document.database.client.head(Util.format("%s/%s/%s",
+        this.document.database.client.head(Util.format("%s/%s/%s",
             this.document.database.name, docId, encodeURIComponent(this.fileName)), {
                 uriParams: query, headers: headers
             }, callback);
@@ -164,8 +164,8 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         if (this.digest) {
             headers["If-None-Match"] = Util.format('"%s"', this.digest);
         }
-        return this.document.database.client.get(
-            Util.format("%s/%s/%s", this.document.database.name, docId, encodeURIComponent(this.fileName)), {
+        this.document.database.client.get(Util.format("%s/%s/%s",
+            this.document.database.name, docId, encodeURIComponent(this.fileName)), {
                 uriParams: query, headers: headers
             }, callback);
     },
@@ -188,8 +188,8 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         var headers = {};
         headers["If-Match"] = docRev;
         headers["Content-Type"] = this.contentType;
-        return this.document.database.client.put(
-            Util.format("%s/%s/%s", this.document.database.name, docId, encodeURIComponent(this.fileName)), {
+        this.document.database.client.put(Util.format("%s/%s/%s",
+            this.document.database.name, docId, encodeURIComponent(this.fileName)), {
                 body: this.data, headers: headers
             }, callback);
     },
@@ -214,8 +214,8 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         if (fullCommit) {
             headers["X-Couch-Full-Commit"] = "true";
         }
-        return this.document.database.client.delete(
-            Util.format("%s/%s/%s%s", this.document.database.name, docId, encodeURIComponent(this.fileName), batch), {
+        this.document.database.client.delete(Util.format("%s/%s/%s%s",
+            this.document.database.name, docId, encodeURIComponent(this.fileName), batch), {
                 headers: headers
             }, callback);
     },
