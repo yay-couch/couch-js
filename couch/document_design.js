@@ -18,10 +18,25 @@
  * limitations under the License.
  */
 
+/**
+ * Module objects.
+ * @private
+ */
 var Class = require("./util/class");
 
+/**
+ * DocumentDesign object.
+ * @public
+ *
+ * @module Couch
+ * @object Couch.DocumentDesign
+ * @author Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 var DocumentDesign = Class.create("DocumentDesign", {
-    //
+    // @todo
 });
 
+/**
+ * Expose module.
+ */
 module.exports = DocumentDesign;
