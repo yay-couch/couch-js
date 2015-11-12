@@ -235,9 +235,12 @@ var doc = new Couch.Document(db);
 // var docAttc = new Couch.DocumentAttachment(doc, "./test/attc1.txt");
 // log(docAttc)
 
-doc.setAttachment({file: "./test/attc1.txt"});
-log(doc)
-doc.save(false, false, logStream)
+doc.setAttachment({file: "./test/attc2.txt"});
+doc._id = "7f9231672eac835f0e39e5235700847d"
+doc._rev = "3-532a91ea589317daa818e34f186e98dd";
+// log(doc)
+// doc.save(false, false, logStream)
+doc.remove(false, false, logStream)
 
 // docAttc.fileName = "attc.txt";
 // docAttc.digest = "U1p5BLvdnOZVRyR6YrXBoQ==";

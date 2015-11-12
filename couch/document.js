@@ -267,6 +267,26 @@ var Document = Class.create("Document", {
             {body: data, headers: headers}, callback);
     },
 
+    remove: function(batch, fullCommit, callback) {
+        // check required fields
+        if (!this._id || !this._rev) {
+            throw new Error("Both _id & _rev fields could not be empty!");
+        }
+
+        // prepare batch query
+        batch = batch ? "?batch=ok" : "";
+
+        // prepare headers
+        var headers = {}
+        headers["If-Match"] = this._rev;
+        if (fullCommit) {
+            headers["X-Couch-Full-Commit"] = "true";
+        }
+
+        this.database.client.delete(this.database.name +"/"+ this._id + batch,
+            {headers: headers}, callback);
+    },
+
     findRevisions: function(callback){
         return this.find({revs: true}, function(stream, data){
             callback(stream, (data._revisions ? data._revisions : null));
