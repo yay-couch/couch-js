@@ -65,55 +65,160 @@ var Server = Class.create("Server", {
     ping: function(callback){
         this.client.head("/", null, callback);
     },
+
+    /**
+     * Get server info.
+     * @public @async
+     *
+     * @param  {String}   key
+     * @param  {Function} callback
+     * @return {void}
+     */
     info: function(key, callback) {
         this.client.get("/", null, function(stream){
             callback(stream, stream.response.getData(key));
         });
     },
+
+    /**
+     * Get server version.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     version: function(callback){
         this.info("version", callback);
     },
+
+    /**
+     * Get active tasks.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     getActiveTasks: function(callback){
         this.client.get("/_active_tasks", null, callback);
     },
+
+    /**
+     * Get databases.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     getAllDatabases: function(callback){
         this.client.get("/_all_dbs", null, callback);
     },
+
+    /**
+     * Get database updates.
+     * @public @async
+     *
+     * @param  {Object}   query
+     * @param  {Function} callback
+     * @return {void}
+     */
     getDatabaseUpdates: function(query, callback){
         this.client.get("/_db_updates", {uriParams: query}, callback);
     },
+
+    /**
+     * Get database logs.
+     * @public @async
+     *
+     * @param  {Object}   query
+     * @param  {Function} callback
+     * @return {void}
+     */
     getLogs: function(query, callback){
         this.client.get("/_log", {uriParams: query}, callback);
     },
+
+    /**
+     * Replicate database.
+     * @public @async
+     *
+     * @param  {Object}   query
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     replicate: function(query, callback) {
         query = query || {};
         if (!query.source || !query.target) {
             throw new Error("Both source & target required!");
         }
+
         this.client.post("/_replicate", {body: query}, callback);
     },
+
+    /**
+     * Restart database.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     restart: function(callback){
         this.client.post("/_restart", null, callback);
     },
+
+    /**
+     * Get database stats.
+     * @public @async
+     *
+     * @param  {String}   path
+     * @param  {Function} callback
+     * @return {void}
+     */
     getStats: function(path, callback){
         this.client.get("/_stats/"+ (path || ""), null, callback);
     },
+
+    /**
+     * Get new UUID(s) from database.
+     * @public @async
+     *
+     * @param  {Number}   count
+     * @param  {Function} callback
+     * @return {void}
+     */
     getUuid: function(count, callback){
         count = count || 1;
         this.client.get("/_uuids?count="+ count, null, function(stream){
             var data = stream.response.getData("uuids");
+
+            // return as array or string (if count=1)
             if (data.length) {
                 data = (count === 1) ? data[0] : data;
             }
+
             callback(stream, data);
-        })
+        });
     },
+
+    /**
+     * Get database config.
+     * @public @async
+     *
+     * @param  {String}   section
+     * @param  {String}   key
+     * @param  {Function} callback
+     * @return {void}
+     */
     getConfig: function(section, key, callback){
+        // prepare path
         var path = [section, key].filter(function(value){
             return !!value;
         }).join("/");
+
         this.client.get("/_config/"+ path, null, callback);
     },
+
+
     setConfig: function(section, key, value, callback){
         if (!section || !key) {
             throw new Error("Both section & key required!");
