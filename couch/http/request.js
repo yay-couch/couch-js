@@ -59,8 +59,8 @@ var Request = Class.create("Request", {
 
     /**
      * Object constructor.
-     * @constructor
      * @param {Couch.Client} client
+     * @constructor
      */
     __init__: function(client){
         // used in Stream.toString
