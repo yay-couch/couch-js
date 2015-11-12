@@ -236,6 +236,32 @@ var Document = Class.create("Document", {
         return this.database.client.get(this.database.name +"/"+ this._id, {uriParams: query}, callback);
     },
 
+    findRevisions: function(callback){
+        return this.find({revs: true}, function(stream, data){
+            callback(stream, (data._revisions ? data._revisions : null));
+        });
+    },
+    findRevisionsExtended: function(callback){
+        return this.find({revs_info: true}, function(stream, data){
+            callback(stream, (data._revs_info ? data._revs_info : null));
+        });
+    },
+    findAttachments: function(attEncInfo, attsSince, callback){
+        var query = {};
+        query.attachments = true;
+        query.att_encoding_info = attEncInfo || false;
+        if (attsSince && attsSince.length) {
+            var attsSinceArray = [];
+            attsSince.forEach(function(attsSince){
+                attsSinceArray.push(Util.format('"%s"', Util.quote(attsSince)));
+            });
+            query.atts_since = Util.format("[%s]", attsSinceArray.join(","));
+        }
+        return this.find(query, function(stream, data){
+            return callback(stream, (data._attachments ? data._attachments : null));
+        })
+    },
+
     save: function(batch, fullCommit, callback){
         // prepare batch query
         batch = batch ? "?batch=ok" : "";
@@ -287,30 +313,29 @@ var Document = Class.create("Document", {
             {headers: headers}, callback);
     },
 
-    findRevisions: function(callback){
-        return this.find({revs: true}, function(stream, data){
-            callback(stream, (data._revisions ? data._revisions : null));
-        });
-    },
-    findRevisionsExtended: function(callback){
-        return this.find({revs_info: true}, function(stream, data){
-            callback(stream, (data._revs_info ? data._revs_info : null));
-        });
-    },
-    findAttachments: function(attEncInfo, attsSince, callback){
-        var query = {};
-        query.attachments = true;
-        query.att_encoding_info = attEncInfo || false;
-        if (attsSince && attsSince.length) {
-            var attsSinceArray = [];
-            attsSince.forEach(function(attsSince){
-                attsSinceArray.push(Util.format('"%s"', Util.quote(attsSince)));
-            });
-            query.atts_since = Util.format("[%s]", attsSinceArray.join(","));
+    copy: function(dest, batch, fullCommit, callback) {
+        // check id
+        if (!this._id) {
+            throw new Error("_id field could not be empty!");
         }
-        return this.find(query, function(stream, data){
-            return callback(stream, (data._attachments ? data._attachments : null));
-        })
+
+        // check destination
+        if (!dest) {
+            throw new Error("Destination could not be empty!");
+        }
+
+        // prepare batch query
+        batch = batch ? "?batch=ok" : "";
+
+        // prepare headers
+        var headers = {};
+        headers["Destination"] = dest;
+        if (fullCommit) {
+            headers["X-Couch-Full-Commit"] = "true";
+        }
+
+        return this.database.client.copy(this.database.name +"/"+ this._id + batch,
+            {headers: headers}, callback);
     }
 });
 
