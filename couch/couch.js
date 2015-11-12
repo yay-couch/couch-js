@@ -18,16 +18,43 @@
  * limitations under the License.
  */
 
+/**
+ * Couch object.
+ * @type {Object}
+ */
 var Couch = {};
 Couch.NAME = "Couch";
 Couch.VERSION = "1.0";
 
+/**
+ * Couch.Couch object.
+ * @public
+ *
+ * @module Couch
+ * @object Couch.Couch
+ * @author Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 Couch.Couch = function(config){
     this.setConfig(config);
 };
 
+/**
+ * Couch.Couch prototype.
+ * @type {Object}
+ */
 Couch.Couch.prototype = {
+    /**
+     * Config.
+     * @type {Object}
+     */
     config: {},
+
+    /**
+     * Set config.
+     * @public
+     *
+     * @param {Object} config
+     */
     setConfig: function(config){
         if (config) {
             for (var i in config) {
@@ -35,6 +62,13 @@ Couch.Couch.prototype = {
             }
         }
     },
+
+    /**
+     * Get config.
+     * @public
+     *
+     * @return {Object}
+     */
     getConfig: function(){
         return this.config;
     }
