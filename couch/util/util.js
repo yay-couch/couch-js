@@ -166,6 +166,8 @@ var Util = {
         // detect name
         if ((i = file.lastIndexOf("/")) > 0) {
             name = file.substring(i + 1);
+        } else {
+            name = file;
         }
         // detect extension
         if ((i = file.lastIndexOf(".")) > 0) {
