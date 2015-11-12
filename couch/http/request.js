@@ -111,6 +111,7 @@ var Request = Class.create("Request", {
             var request = http.request(options, function(response){
                 // set encoding
                 response.setEncoding("utf8");
+
                 // use raw headers
                 var headers = request._header.trim().split("\r\n");
                 headers.shift();
@@ -123,7 +124,7 @@ var Request = Class.create("Request", {
                 });
 
                 var key, value;
-                // use parse headers
+                // use parsed headers
                 for (key in response.headers) {
                     value = !isNone(response.headers[key])
                         ? response.headers[key].trim() : null;
