@@ -37,7 +37,8 @@ var http = require("http");
  * Request object.
  * @public
  *
- * @class   Couch.Request
+ * @package Couch
+ * @object  Couch.Request
  * @extends Couch.Stream
  */
 var Request = Class.create("Request", {
