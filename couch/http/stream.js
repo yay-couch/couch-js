@@ -16,10 +16,10 @@ var Stream = Class.create("Stream", {
     body: null,
 
     __init__: function(headers, body){
-        if (headers != null) {
+        if (!isNone(headers)) {
             this.headers = headers;
         }
-        if (body != null) {
+        if (!isNone(body)) {
             this.body = body;
         }
     },
