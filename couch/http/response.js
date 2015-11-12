@@ -18,9 +18,22 @@
  * limitations under the License.
  */
 
+/**
+ * Module objects.
+ * @private
+ */
 var Class = require("../util/class"),
     Stream = require("./stream");
 
+/**
+ * Response object.
+ * @public
+ *
+ * @module  Couch
+ * @object  Couch.Response
+ * @extends Couch.Stream
+ * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 var Response = Class.create("Response", {
     statusCode: undefined,
     statusText: undefined,
