@@ -187,55 +187,107 @@ var Database = Class.create("Database", {
                 {uriParams: query, body: {keys: keys}}, callback);
         }
     },
+
+    /**
+     * Create a document.
+     * @public @async
+     *
+     * @param  {Object|Couch.Document} document
+     * @param  {Function}              callback
+     * @return {void}
+     * @throws {Error}
+     */
     createDocument: function(document, callback){
         this.createDocumentAll([document], function(stream, data){
             return callback(stream, (data && data[0]) || null);
         });
     },
+
+    /**
+     * Create multiple documents.
+     * @public @async
+     *
+     * @param  {Array}    documents
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     createDocumentAll: function(documents, callback){
         if (!documents || !documents.length) {
             throw new Error("Documents are required for create actions!");
         }
+
         var docs = [];
         documents.forEach(function(doc){
             if (!doc || typeof doc != "object") {
                 throw new Error("Each document must be a valid JSON object!");
             }
+
+            // get doc as object
             if (isInstanceOf(doc, Document)) {
                 doc = doc.getData();
             }
+
             // this is create method, no update allowed
             if (doc._id)      delete doc._id;
             if (doc._rev)     delete doc._rev;
             if (doc._deleted) delete doc._deleted;
+
             docs.push(doc);
         });
+
         this.client.post(this.name +"/_bulk_docs", {body: {docs: docs}}, callback);
     },
+
+    /**
+     * Update a document.
+     * @public @async
+     *
+     * @param  {Object|Couch.Document} document
+     * @param  {Function}              callback
+     * @return {void}
+     * @throws {Error}
+     */
     updateDocument: function(document, callback){
         this.updateDocumentAll([document], function(stream, data){
             return callback(stream, (data && data[0]) || null);
         });
     },
+
+    /**
+     * Update multiple documents.
+     * @public @async
+     *
+     * @param  {Array}    documents
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     updateDocumentAll: function(documents, callback){
         if (!documents || !documents.length) {
             throw new Error("Documents are required for update actions!");
         }
+
         var docs = [];
         documents.forEach(function(doc){
             if (!doc || typeof doc != "object") {
                 throw new Error("Each document must be a valid JSON object!");
             }
+
+            // get doc as object
             if (isInstanceOf(doc, Document)) {
                 doc = doc.getData();
             }
+
             // these are required params
             if (!doc._id || !doc._rev) {
                 throw new Error("Both _id & _rev fields are required!");
             }
+
             docs.push(doc);
         });
-        this.client.post(this.name +"/_bulk_docs", {body: {"docs": docs}}, callback);
+
+        this.client.post(this.name +"/_bulk_docs", {body: {docs: docs}}, callback);
     },
     deleteDocument: function(document, callback){
         this.deleteDocumentAll([document], function(stream, data){
