@@ -40,6 +40,7 @@ var http = require("http");
  * @module  Couch
  * @object  Couch.Request
  * @extends Couch.Stream
+ * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
  */
 var Request = Class.create("Request", {
     /**
