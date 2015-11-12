@@ -180,8 +180,8 @@ var Client = Class.create("Client", {
  */
 ["head", "get", "post", "put", "copy", "delete"].forEach(function(method){
     Client.prototype[method] = function(uri, options, callback){
-        return this.request(
-            Request.METHOD[method.toUpperCase()]+" /"+ uri, options).done(callback);
+        return this.request(Request.METHOD[method.toUpperCase()]+" /"+ uri, options)
+            .done(callback);
     };
 });
 
