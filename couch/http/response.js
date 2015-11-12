@@ -123,7 +123,7 @@ var Response = Class.create("Response", {
 /**
  * Extend Response width a fresh Stream object.
  */
-Class.extend(Response, Stream.init({}, null));
+Class.extend(Response, new Stream());
 
 /**
  * Re-define setBody() method.

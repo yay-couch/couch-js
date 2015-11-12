@@ -222,7 +222,7 @@ var Request = Class.create("Request", {
 /**
  * Extend Request width a fresh Stream object.
  */
-Class.extend(Request, Stream.init({}, null));
+Class.extend(Request, new Stream());
 
 /**
  * Re-define setBody() method.
