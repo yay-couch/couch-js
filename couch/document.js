@@ -198,8 +198,16 @@ var Document = Class.create("Document", {
             this.data[i] = data[i];
         }
     },
-    getData: function(key){
-        return (key != null) ? this.data[key] : this.data;
+    getData: function(key, filter){
+        var value = (key != null) ? this.data[key] : this.data;
+        if (filter) {
+            for (var i in value) {
+                if (value[i] === undefined) {
+                    delete value[i];
+                }
+            }
+        }
+        return value;
     },
     ping: function(callback){
         if (!this._id) {
@@ -221,6 +229,8 @@ var Document = Class.create("Document", {
         }
         return this.database.client.get(this.database.name +"/"+ this._id, {uriParams: query}, callback);
     },
+
+
     findRevisions: function(callback){
         return this.find({revs: true}, function(stream, data){
             callback(stream, (data._revisions ? data._revisions : null));
