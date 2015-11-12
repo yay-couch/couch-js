@@ -96,6 +96,7 @@ var Request = Class.create("Request", {
      */
     send: function(callback){
         if (callback && callback.call) {
+            // request options
             var options = {
                   host: this.client.host,
                   port: this.client.port,
@@ -104,39 +105,53 @@ var Request = Class.create("Request", {
                headers: this.client.Request.headers
             }, $this = this;
 
+            // create http.request
             var request = http.request(options, function(response){
+                // set encoding
                 response.setEncoding("utf8");
+                // use raw headers
                 var headers = request._header.trim().split("\r\n");
                 headers.shift();
                 headers.forEach(function(header){
                     var tmp = header.split(":");
                     if (tmp.length == 2) {
+                        // set Client.Request headers
                         $this.client.Request.setHeader(tmp.shift(), tmp.join(":").trim());
                     }
                 });
 
                 var key, value;
+                // use parse headers
                 for (key in response.headers) {
                     value = response.headers[key];
                     value = !isNone(value) ? value.trim() : null;
                     key = key.split("-").map(function(k){
                         return k.substr(0, 1).toUpperCase() + k.substr(1);
                     }).join("-");
+                    // set Client.Response headers
                     $this.client.Response.setHeader(key, value);
                 };
 
+                // set Client.Response.statusCode
                 $this.client.Response.setStatusCode(response.statusCode);
+                // set Client.Response.statusText (auto-detected by statusCode)
                 $this.client.Response.setStatusText(response.statusCode);
 
+                // handle data (also if chunked)
                 var body = "";
                 response.on("data", function(data){
                     body += data;
                 });
 
+                // handle end
                 response.on("end", function(){
+                    // set Client.Response.body
                     $this.client.Response.setBody(body,
-                        $this.client.Response.getHeader("Content-Type") == "application/json");
+                        // is json?
+                        $this.client.Response.getHeader("Content-Type") == "application/json"
+                    );
 
+                    // success -> callback (stream, data)
                     callback({
                         error: null,
                         request: $this.client.Request,
@@ -144,6 +159,7 @@ var Request = Class.create("Request", {
                     }, $this.client.Response.getData());
                 });
             }).on("error", function(error) {
+                // error -> callback (stream, data)
                 callback({
                     error: error,
                     request: $this.client.Request,
@@ -151,11 +167,13 @@ var Request = Class.create("Request", {
                 }, $this.client.Response.getData());
             });
 
+            // set Client.Request.body if provided
             var body = $this.client.Request.getBody();
             if (!isNone(body)) {
                 request.write(body);
             }
 
+            // end request
             request.end();
         }
     },
