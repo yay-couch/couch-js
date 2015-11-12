@@ -39,18 +39,43 @@ var http = require("http");
  * @extends Couch.Stream
  */
 var Request = Class.create("Request", {
+    /**
+     * Client object
+     * @type {Couch.Client}
+     */
     client: null,
+
+    /**
+     * Request method.
+     * @type {string}
+     */
     method: undefined,
+
+    /**
+     * Request URI.
+     * @type {string}
+     */
     uri: undefined,
 
+    /**
+     * Object constructor.
+     * @constructor
+     * @param {Couch.Client} client
+     */
     __init__: function(client){
+        // used in Stream.toString
         this.type = Stream.TYPE.REQUEST;
         this.httpVersion = "1.1";
+
         this.client = client;
+
+        // set basic authorization header
         if (this.client.username && this.client.password) {
             this.headers["Authorization"] = "Basic "+
                 (new Buffer(this.client.username +":"+ this.client.password)).toString("base64");
         }
+
+        // set default headers
         this.headers["Host"] = Util.format("%s:%s", this.client.host, this.client.port);
         this.headers["Connection"] = "close";
         this.headers["Accept"] = "application/json";
