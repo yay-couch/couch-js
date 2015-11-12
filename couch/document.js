@@ -387,6 +387,15 @@ var Document = Class.create("Document", {
             {body: data, headers: headers}, callback);
     },
 
+    /**
+     * Remove document.
+     * @public @async
+     *
+     * @param  {Boolean}  batch
+     * @param  {Boolean}  fullCommit
+     * @param  {Function} callback
+     * @return {void}
+     */
     remove: function(batch, fullCommit, callback) {
         // check required fields
         if (!this._id || !this._rev) {
@@ -407,6 +416,17 @@ var Document = Class.create("Document", {
             {headers: headers}, callback);
     },
 
+    /**
+     * Copy (this) document to destination.
+     * @public @async
+     *
+     * @param  {String}   dest
+     * @param  {Boolean}  batch
+     * @param  {Boolean}  fullCommit
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     copy: function(dest, batch, fullCommit, callback) {
         // check id
         if (!this._id) {
@@ -432,6 +452,17 @@ var Document = Class.create("Document", {
             {headers: headers}, callback);
     },
 
+    /**
+     * Copy a (this) document to destination with specific revision.
+     * @public @async
+     *
+     * @param  {String}   dest
+     * @param  {Boolean}  batch
+     * @param  {Boolean}  fullCommit
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     copyFrom: function(dest, batch, fullCommit, callback) {
         // check id & rev
         if (!this._id || !this._rev) {
@@ -458,6 +489,18 @@ var Document = Class.create("Document", {
             {headers: headers}, callback);
     },
 
+    /**
+     * Copy (this) document to existing document.
+     * @public @async
+     *
+     * @param  {String}   dest
+     * @param  {String}   destRev
+     * @param  {Boolean}  batch
+     * @param  {Boolean}  fullCommit
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     copyTo: function(dest, destRev, batch, fullCommit, callback) {
         // check id & rev
         if (!this._id || !this._rev) {
