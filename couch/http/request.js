@@ -75,7 +75,7 @@ var Request = Class.create("Request", {
         // set basic authorization header
         if (this.client.username && this.client.password) {
             this.headers["Authorization"] = "Basic "+
-                (new Buffer(this.client.username +":"+ this.client.password)).toString("base64");
+                Util.Base64.encode(this.client.username +":"+ this.client.password);
         }
 
         // set default headers

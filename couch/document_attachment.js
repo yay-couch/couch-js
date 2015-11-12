@@ -145,7 +145,7 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         }
         var data = fs.readFileSync(this.file, "utf-8");
         if (encode !== false) {
-            this.data = (new Buffer(data)).toString("base64");
+            this.data = Util.Base64.encode(data);
         } else {
             this.data = data;
         }
