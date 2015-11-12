@@ -97,45 +97,75 @@ var Client = Class.create("Client", {
         if ("username" in config) this.username = config.username;
         if ("password" in config) this.password = config.password;
     },
+
+    /**
+     * Get request object.
+     * @return {Couch.Request}
+     */
     getRequest: function(){
         return this.Request;
     },
+
+    /**
+     * Get resonse object.
+     * @return {Couch.Response}
+     */
     getResponse: function(){
         return this.Response;
     },
+
+    /**
+     * Perform a request.
+     *
+     * @return {Couch.Request}
+     * @throws {Error}
+     */
     request: function(uri, options){
         options = options || {};
 
         var uriType = typeof uri;
+
+        // notation: GET /foo
         if (uriType == "string") {
             var r = uri.trim().match(/^([a-z]+)\s+(.+)/i);
             if (!r || !(r.length == 3)) {
                 throw new Error("Usage: <REQUEST METHOD> <REQUEST URI>!");
             }
-            options.method = r[1], options.uri = r[2].replace(/\/+/g, "/");
-        } else if (uriType == "object") {
+            options.method = r[1],
+            options.uri    = r[2].replace(/\/+/g, "/");
+        }
+        // notation: {method: "GET", uri: "/foo"}
+        else if (uriType == "object") {
             Util.extend(options, uri);
         }
 
+        // method & uri are required
         if (!options.method || !options.uri) {
             throw new Error("You should provide both method & uri!");
         }
 
         var $this = this;
 
+        // init request/response objects
         $this.Request = new Request($this);
         $this.Response = new Response();
 
+        // set request method & uri
         $this.Request
             .setMethod(options.method)
             .setUri(options.uri, options.uriParams);
+
+        // set request headers
         if (options.headers) {
             for (var key in options.headers) {
                 $this.Request.setHeader(key, options.headers[key]);
             }
         }
+
+        // set request body
         $this.Request.setBody(options.body);
 
+        // simply static method to call callback
         return {
             done: function(callback){
                 $this.Request.send(callback);
