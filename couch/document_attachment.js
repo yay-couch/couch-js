@@ -106,6 +106,14 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
             }
         }
     },
+
+    /**
+     * Ping attachment.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     ping: function(callback){
         if (!this.document) {
             throw new Error("Attachment document is not defined!");
@@ -113,20 +121,25 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         if (!this.fileName) {
             throw new Error("Attachment file name is required!");
         }
+
         var docId = this.document._id;
         var docRev = this.document._rev;
         if (!docId) {
             throw new Error("Attachment document _id is required!");
         }
-        var query = {}, headers = {};
+
+        var query = {};
         if (docRev) {
             query.rev = docRev;
         }
+
+        var headers = {};
         if (this.digest) {
             headers["If-None-Match"] = Util.format('"%s"', this.digest);
         }
-        return this.document.database.client.head(
-            Util.format("%s/%s/%s", this.document.database.name, docId, encodeURIComponent(this.fileName)), {
+
+        return this.document.database.client.head(Util.format("%s/%s/%s",
+            this.document.database.name, docId, encodeURIComponent(this.fileName)), {
                 uriParams: query, headers: headers
             }, callback);
     },
