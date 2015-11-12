@@ -294,20 +294,46 @@ var Document = Class.create("Document", {
             {uriParams: query}, callback);
     },
 
+    /**
+     * Find document revisions.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     findRevisions: function(callback){
         this.find({revs: true}, function(stream, data){
             return callback(stream, (data._revisions ? data._revisions : null));
         });
     },
+
+    /**
+     * Find document revisions (extended).
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     findRevisionsExtended: function(callback){
         this.find({revs_info: true}, function(stream, data){
             return callback(stream, (data._revs_info ? data._revs_info : null));
         });
     },
+
+    /**
+     * Find attachments.
+     * @public @async
+     *
+     * @param  {Boolean}  attEncInfo
+     * @param  {Array}    attsSince
+     * @param  {Function} callback
+     * @return {void}
+     */
     findAttachments: function(attEncInfo, attsSince, callback){
         var query = {};
         query.attachments = true;
         query.att_encoding_info = attEncInfo || false;
+
         if (attsSince && attsSince.length) {
             var attsSinceArray = [];
             attsSince.forEach(function(attsSince){
@@ -315,6 +341,7 @@ var Document = Class.create("Document", {
             });
             query.atts_since = Util.format("[%s]", attsSinceArray.join(","));
         }
+
         this.find(query, function(stream, data){
             return callback(stream, (data._attachments ? data._attachments : null));
         })
