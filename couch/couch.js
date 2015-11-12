@@ -74,14 +74,38 @@ Couch.Couch.prototype = {
     }
 };
 
+/**
+ * Add Couch to global scope.
+ */
 global.Couch = Couch;
+
+/**
+ * Global isNone() function.
+ * @public
+ *
+ * @param  {mixed} input
+ * @return {Boolean}
+ */
 global.isNone = function(input){
     return (input == null);
 };
+
+/**
+ * Glboal isInstanceOf() function.
+ * @public
+ *
+ * @param  {Object}  a
+ * @param  {Object}  b
+ * @return {Boolean}
+ */
 global.isInstanceOf = function(a, b){
     return (a instanceof b);
 };
 
+/**
+ * Append Couch modules into Couch object.
+ * @type {[type]}
+ */
 Couch.Util = require("./util/util");
 Couch.Query = require("./query");
 Couch.Client = require("./client");
@@ -92,4 +116,7 @@ Couch.DocumentAttachment = require("./document_attachment");
 Couch.DocumentDesign = require("./document_design");
 Couch.Uuid = require("./uuid");
 
+/**
+ * Expose module.
+ */
 module.exports = Couch;
