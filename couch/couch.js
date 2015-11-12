@@ -103,17 +103,25 @@ global.isInstanceOf = function(a, b){
 };
 
 /**
+ * Couch modules.
+ * @private
+ */
+var modules = {
+    Util: "./util/util",
+    Query: "./query",
+    Client: "./client",
+    Server: "./server",
+    Database: "./database",
+    Document: "./document",
+    DocumentAttachment: "./document_attachment",
+    DocumentDesign: "./document_design",
+    Uuid: "./uuid"
+}, i;
+
+/**
  * Append Couch modules into Couch object.
  */
-Couch.Util = require("./util/util");
-Couch.Query = require("./query");
-Couch.Client = require("./client");
-Couch.Server = require("./server");
-Couch.Database = require("./database");
-Couch.Document = require("./document");
-Couch.DocumentAttachment = require("./document_attachment");
-Couch.DocumentDesign = require("./document_design");
-Couch.Uuid = require("./uuid");
+for (i in modules) Couch[i] = require(modules[i]);
 
 /**
  * Expose module.
