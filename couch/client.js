@@ -1,22 +1,99 @@
+/**
+ * Copyright 2015 Kerem Güneş
+ *    <http://qeremy.com>
+ *
+ * Apache License, Version 2.0
+ *    <http://www.apache.org/licenses/LICENSE-2.0>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Module objects.
+ * @private
+ */
 var Class = require("./util/class"),
     Util = require("./util/util");
-
 var Request = require("./http/request"),
     Response = require("./http/response");
 
+/**
+ * Client object.
+ * @public
+ *
+ * @module Couch
+ * @object Couch.Client
+ * @author Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 var Client = Class.create("Client", {
+    /**
+     * Couch object
+     * @type {Couch}
+     */
     couch: null,
+
+    /**
+     * CouchDB host.
+     * @type {String}
+     */
     host: "localhost",
+
+    /**
+     * CouchDB port.
+     * @type {Number}
+     */
     port: 5984,
+
+    /**
+     * CouchDB username.
+     * @type {String}
+     */
     username: null,
+
+    /**
+     * CouchDB password.
+     * @type {String}
+     */
     password: null,
+
+    /**
+     * Request object.
+     * @type {Couch.Request}
+     */
     Request: null,
+
+    /**
+     * Response object.
+     * @type {Couch.Response}
+     */
     Response: null,
+
+    /**
+     * Object constructor.
+     * @private
+     *
+     * @param  {Cocuh}
+     */
     __init__: function(couch){
         this.couch = couch;
+
+        // get Couch config
         var config = this.couch.getConfig();
+
+        // set Client props if in config
         if ("host" in config) this.host = config.host;
         if ("port" in config) this.port = config.port;
+
         if ("username" in config) this.username = config.username;
         if ("password" in config) this.password = config.password;
     },
