@@ -39,12 +39,29 @@ var Server = Class.create("Server", {
      * @type {Couch.Client}
      */
     client: null,
+
+    /**
+     * Object constructor.
+     * @private
+     *
+     * @param  {Couch.Client} client
+     * @throws {Error}
+     */
     __init__: function(client){
         if (!isInstanceOf(client, Client)) {
             throw new Error("Client must me instance of Couch.Client!");
         }
+
         this.client = client;
     },
+
+    /**
+     * Ping server.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     ping: function(callback){
         return this.client.head("/", null, callback);
     },
