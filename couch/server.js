@@ -210,10 +210,14 @@ var Server = Class.create("Server", {
      * @return {void}
      */
     getConfig: function(section, key, callback){
+        var path = "";
+
         // prepare path
-        var path = [section, key].filter(function(value){
-            return !!value;
-        }).join("/");
+        if (section || key) {
+            path = [section, key].filter(function(value){
+                return !!value;
+            }).join("/");
+        }
 
         this.client.get("/_config/"+ path, null, callback);
     },
