@@ -164,11 +164,11 @@ var Util = {
 
         var mime, charset, name, extension, i;
         // detect name
-        if ((i = file.lastIndexOf("/")) > -1) {
+        if ((i = file.lastIndexOf("/")) > 0) {
             name = file.substring(i + 1);
         }
         // detect extension
-        if ((i = file.lastIndexOf(".")) > -1) {
+        if ((i = file.lastIndexOf(".")) > 0) {
             extension = file.substring(i + 1);
         }
 
