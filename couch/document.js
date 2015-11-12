@@ -230,13 +230,14 @@ var Document = Class.create("Document", {
     getData: function(key, filter){
         var data = (key != null) ? this.data[key] : this.data;
 
-        // remove filtered keys
         if (filter) {
+            // remove undefined fields
             for (var i in data) {
                 if (data[i] === undefined) {
                     delete data[i];
                 }
             }
+            // remove default _deleted
             if (data._deleted === false) {
                 delete data._deleted;
             }
