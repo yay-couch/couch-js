@@ -162,7 +162,11 @@ var Util = {
             throw new Error("Could not open file `"+ file +"`!");
         }
 
-        var mime, charset, extension, i;
+        var mime, charset, name, extension, i;
+        // detect name
+        if ((i = file.lastIndexOf("/")) > -1) {
+            name = file.substring(i + 1);
+        }
         // detect extension
         if ((i = file.lastIndexOf(".")) > -1) {
             extension = file.substring(i + 1);
@@ -180,7 +184,7 @@ var Util = {
                 charset = tmp[1].trim().split("=")[1];
             }
 
-            return {mime: mime, charset: charset, extension: extension};
+            return {mime: mime, charset: charset, name: name, extension: extension};
         }
     },
 
