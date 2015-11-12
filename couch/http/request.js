@@ -123,8 +123,8 @@ var Request = Class.create("Request", {
                 var key, value;
                 // use parse headers
                 for (key in response.headers) {
-                    value = response.headers[key];
-                    value = !isNone(value) ? value.trim() : null;
+                    value = !isNone(response.headers[key])
+                        ? response.headers[key].trim() : null;
                     key = key.split("-").map(function(k){
                         return k.substr(0, 1).toUpperCase() + k.substr(1);
                     }).join("-");
