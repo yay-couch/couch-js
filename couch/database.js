@@ -149,7 +149,7 @@ var Database = Class.create("Database", {
 
         key = key ? Util.format('"%s"', Util.quote(key)) : "";
         this.client.get(this.name +"/_all_docs", {
-            uriParams: {"include_docs": true, "key": key}
+            uriParams: {include_docs: true, key: key}
         }, function(stream, data){
             return callback(stream, (data && data.rows && data.rows[0]) || null);
         });
@@ -349,7 +349,7 @@ var Database = Class.create("Database", {
             if (!query.filter) {
                 query.filter = "_doc_ids";
             }
-            this.client.post(this.name +"/_changes", {uriParams: query, body: {"doc_ids": docIds}}, callback);
+            this.client.post(this.name +"/_changes", {uriParams: query, body: {doc_ids: docIds}}, callback);
         }
     },
 
