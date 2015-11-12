@@ -113,6 +113,7 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
      *
      * @param  {Function} callback
      * @return {void}
+     * @throws {Error}
      */
     ping: function(callback){
         if (!this.document) {
@@ -143,6 +144,15 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
                 uriParams: query, headers: headers
             }, callback);
     },
+
+    /**
+     * Find attachment.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     find: function(callback){
         if (!this.document) {
             throw new Error("Attachment document is not defined!");
@@ -150,25 +160,39 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         if (!this.fileName) {
             throw new Error("Attachment file name is required!");
         }
+
         var docId = this.document._id;
         var docRev = this.document._rev;
         if (!docId) {
             throw new Error("Attachment document _id is required!");
         }
-        var query = {}, headers = {};
+
+        var query = {};
         if (docRev) {
             query.rev = docRev;
         }
+
+        var headers = {};
         headers["Accept"] = "*/*";
-        headers["Content-Type"] = null;
+        headers["Content-Type"] = null; // remove
         if (this.digest) {
             headers["If-None-Match"] = Util.format('"%s"', this.digest);
         }
+
         this.document.database.client.get(Util.format("%s/%s/%s",
             this.document.database.name, docId, encodeURIComponent(this.fileName)), {
                 uriParams: query, headers: headers
             }, callback);
     },
+
+    /**
+     * Save attachment.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     save: function(callback){
         if (!this.document) {
             throw new Error("Attachment document is not defined!");
@@ -176,6 +200,7 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         if (!this.fileName) {
             throw new Error("Attachment file name is required!");
         }
+
         var docId = this.document._id;
         var docRev = this.document._rev;
         if (!docId) {
@@ -184,15 +209,30 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         if (!docRev) {
             throw new Error("Attachment document _rev is required!");
         }
+
+        // read file and set data, set dataLength, set contentType
         this.readFile(false);
+
         var headers = {};
         headers["If-Match"] = docRev;
         headers["Content-Type"] = this.contentType;
+
         this.document.database.client.put(Util.format("%s/%s/%s",
             this.document.database.name, docId, encodeURIComponent(this.fileName)), {
                 body: this.data, headers: headers
             }, callback);
     },
+
+    /**
+     * Remove attachment.
+     * @public @async
+     *
+     * @param  {Boolean}  batch
+     * @param  {Boolean}  fullCommit
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     remove: function(batch, fullCommit, callback){
         if (!this.document) {
             throw new Error("Attachment document is not defined!");
@@ -200,6 +240,7 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         if (!this.fileName) {
             throw new Error("Attachment file name is required!");
         }
+
         var docId = this.document._id;
         var docRev = this.document._rev;
         if (!docId) {
@@ -208,43 +249,82 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         if (!docRev) {
             throw new Error("Attachment document _rev is required!");
         }
+
         batch = batch ? "?batch=ok" : "";
+
         var headers = {};
         headers["If-Match"] = docRev;
         if (fullCommit) {
             headers["X-Couch-Full-Commit"] = "true";
         }
+
         this.document.database.client.delete(Util.format("%s/%s/%s%s",
             this.document.database.name, docId, encodeURIComponent(this.fileName), batch), {
                 headers: headers
             }, callback);
     },
+
+    /**
+     * Get attachment as JSON string.
+     * @public
+     *
+     * @return {String}
+     */
     toJson: function(){
         return JSON.stringify(this.toArray());
     },
+
+    /**
+     * Get attachment as CouchDB expects.
+     * @public
+     *
+     * @return {Object}
+     */
     toArray: function(){
+        // read file
         this.readFile();
+
         return {
             data: this.data,
             content_type: this.contentType
         };
     },
+
+    /**
+     * Read attachment file, set data/dataLength/contentType
+     * @public
+     *
+     * @param  {Boolean} encode
+     * @return {void}
+     * @throws {Error}
+     */
     readFile: function(encode){
         if (!this.file) {
             throw new Error("Attachment file is empty!");
         }
+
+        // i loved this! :)
         var info = Util.fileInfo(this.file);
         if (info) {
             this.contentType = info.mime;
         }
+
+        // read file contents
         var data = fs.readFileSync(this.file, "utf-8");
+
+        // default to Base64
         if (encode !== false) {
             this.data = Util.Base64.encode(data);
         } else {
             this.data = data;
         }
+
+        // set data length
         this.dataLength = this.data.length;
     }
 });
 
+/**
+ * Expose module.
+ */
 module.exports = DocumentAttachment;
