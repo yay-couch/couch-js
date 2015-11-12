@@ -35,8 +35,8 @@ var Class = require("../util/class"),
  * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
  */
 var Response = Class.create("Response", {
-    statusCode: undefined,
-    statusText: undefined,
+    statusCode: 0,
+    statusText: "",
 
     __init__: function(){
         this.type = Stream.TYPE.RESPONSE;
