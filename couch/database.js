@@ -18,25 +18,65 @@
  * limitations under the License.
  */
 
+/**
+ * Module objects.
+ * @private
+ */
 var Class = require("./util/class"),
     Util = require("./util/util"),
     Client = require("./client"),
     Query = require("./query"),
     Document = require("./document");
 
+/**
+ * Database object.
+ * @public
+ *
+ * @module Couch
+ * @object Couch.Database
+ * @author Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 var Database = Class.create("Database", {
+    /**
+     * Client object.
+     * @type {Couch.Client}
+     */
     client: null,
+
+    /**
+     * Database name.
+     * @type {String}
+     */
     name: undefined,
+
+    /**
+     * Object constructor.
+     * @private
+     *
+     * @param  {Couch.Client} client
+     * @param  {String}       name
+     * @throws {Error}
+     */
     __init__: function(client, name){
+        // check client
         if (!isInstanceOf(client, Client)) {
             throw new Error("Given client must be instance of Couch.Client!");
         }
+        // check name
         if (!name) {
             throw new Error("Name must be a valid database name!");
         }
-        this.client = client;
-        this.name = name;
+
+        this.client = client, this.name = name;
     },
+
+    /**
+     * Ping database.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     ping: function(callback){
         return this.client.head(this.name, null, callback);
     },
