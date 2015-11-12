@@ -199,15 +199,21 @@ var Document = Class.create("Document", {
         }
     },
     getData: function(key, filter){
-        var value = (key != null) ? this.data[key] : this.data;
+        var data = (key != null) ? this.data[key] : this.data;
         if (filter) {
-            for (var i in value) {
-                if (value[i] === undefined) {
-                    delete value[i];
+            for (var i in data) {
+                if (data[i] === undefined) {
+                    delete data[i];
                 }
             }
+            if (isInstanceOf(data._id, Uuid)) {
+                data._id = data._id.toString();
+            }
+            if (data._deleted === false) {
+                delete data._deleted;
+            }
         }
-        return value;
+        return data;
     },
     ping: function(callback){
         if (!this._id) {
@@ -242,9 +248,6 @@ var Document = Class.create("Document", {
         }
 
         var data = this.getData(null, true);
-        if (data._deleted === false) {
-            delete data._deleted;
-        }
 
         // normalize attachment
         for (var i in this._attachments) {
@@ -254,6 +257,7 @@ var Document = Class.create("Document", {
                 data._attachments[i] = this._attachments[i];
             }
         }
+
         this.database.client.post(this.database.name + batch,
             {body: data, headers: headers}, callback);
     },
