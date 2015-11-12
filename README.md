@@ -1,9 +1,11 @@
 ##Couch##
+
 Simply port of [Couch](https://github.com/qeremy/couch) for Node.js.
 
 Notice: See CouchDB's official documents before using this library.
 
 ##In a Nutshell##
+
 ```js
 // create a fresh document
 var doc = new Couch.Document(client);
@@ -16,6 +18,7 @@ doc.save();
 ```
 
 ##Configuration##
+
 Configuration is optional but you can provide all these options;
 
 ```js
@@ -32,15 +35,22 @@ config.password = "************";
 ```
 
 ##Objects##
+
 #####Couch Object#####
 ```js
 // init couch object with default config
-couch = new Couch.Couch();
+var couch = new Couch.Couch();
 
 // init couch object with given config
-couch = new Couch.Couch(config);
+var couch = new Couch.Couch(config);
 // or
 couch.setConfig(config);
+```
+
+#####Client Object#####
+```js
+// used in Server and Database objects
+var client = new Couch.Client(couch);
 ```
 
 ##Structure##
