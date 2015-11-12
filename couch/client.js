@@ -9,7 +9,7 @@ var Client = Class.create("Client", {
     host: "localhost",
     port: 5984,
     username: null,
-    username: null,
+    password: null,
     Request: null,
     Response: null,
     __init__: function(couch){
