@@ -18,10 +18,20 @@
  * limitations under the License.
  */
 
+/**
+ * Module objects.
+ * @private
+ */
 var Class = require("../util/class"),
     Util = require("../util/util");
 
-// http://stackoverflow.com/a/11864828/362780
+/**
+ * Extractor.
+ * @link   http://stackoverflow.com/a/11864828/362780
+ * @param  {String} key
+ * @param  {Object} object
+ * @return {mixed}
+ */
 function extract(key, object) {
     key = key.split(".");
     var k = key.shift();
@@ -29,12 +39,46 @@ function extract(key, object) {
         ? extract(key.join("."), object[k]) : object[k];
 }
 
+/**
+ * Stream object.
+ * @public
+ *
+ * @module  Couch
+ * @object  Couch.Stream
+ * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 var Stream = Class.create("Stream", {
+    /**
+     * Stream type.
+     * @type {Number}
+     */
     type: undefined,
+
+    /**
+     * HTTP (protocol) version.
+     * @type {String}
+     */
     httpVersion: undefined,
+
+    /**
+     * Stream headers.
+     * @type {Object}
+     */
     headers: {},
+
+    /**
+     * Stream body.
+     * @type {String}
+     */
     body: null,
 
+    /**
+     * Object constructor.
+     * @private
+     *
+     * @param  {Object} headers
+     * @param  {String} body
+     */
     __init__: function(headers, body){
         if (!isNone(headers)) {
             this.headers = headers;
@@ -43,45 +87,103 @@ var Stream = Class.create("Stream", {
             this.body = body;
         }
     },
+
+    /**
+     * Get stream data.
+     * @public
+     *
+     * @uses   extract()
+     * @param  {String} key
+     * @return {mixed}
+     */
     getData: function(key){
         if (isNone(key)) {
             return this.body;
         }
+
         return extract(key, this.body || {});
     },
-    // abstract
+
+    /**
+     * Set stream body.
+     * @public @abstract
+     *
+     * @param  {String} body
+     * @return {self}
+     */
     setBody: function(body){
         // force re-define abstract method
         if (this.__proto__.constructor.nameOrig == "Stream") {
             throw new Error("You should re-define [<OBJECT>].setBody(body) method!");
         }
     },
+
+    /**
+     * Get stream body.
+     * @public
+     *
+     * @return {String}
+     */
     getBody: function(){
         return this.body;
     },
 
+    /**
+     * Set stream header.
+     * @public
+     *
+     * @param  {String}             key
+     * @param  {String|Number|null} value
+     * @return {self}
+     */
     setHeader: function(key, value){
+        // null means "remove" header
         if (value === null) {
-            // remove command
             delete this.headers[key];
         } else {
             this.headers[key] = value;
         }
+
         return this;
     },
+
+    /**
+     * Get stream header.
+     * @public
+     *
+     * @param  {String} key
+     * @return {String|Number}
+     */
     getHeader: function(key){
         return this.headers[key];
     },
+
+    /**
+     * Get stream headers.
+     * @public
+     *
+     * @return {Object}
+     */
     getHeaderAll: function(){
         return this.headers;
     },
+
+    /**
+     * Get stream as string (raw).
+     * @public
+     *
+     * @return {String}
+     */
     toString: function(){
         var string = "";
+        // add first line checking stream type
         if (this.type == Stream.TYPE.REQUEST) {
             string = Util.format("%s %s HTTP/%s\r\n", this.method, this.uri, this.httpVersion);
         } else if (this.type == Stream.TYPE.RESPONSE) {
             string = Util.format("HTTP/%s %s %s\r\n", this.httpVersion, this.statusCode, this.statusText);
         }
+
+        // add headers
         var key, value;
         for (key in this.headers) {
             value = this.headers[key];
@@ -89,21 +191,41 @@ var Stream = Class.create("Stream", {
                 string += Util.format("%s: %s\r\n", key, value);
             }
         }
+
+        // add headers/body separator
         string += "\r\n";
+
+        // add body
         if (this.body != null) {
             string += (typeof this.body == "string") ? this.body : JSON.stringify(this.body);
         }
+
         return string;
     }
 });
 
+/**
+ * Shortcut.
+ * @public
+ *
+ * @param  {Object} headers
+ * @param  {String} body
+ * @return {Couch.Stream}
+ */
 Stream.init = function(headers, body){
     return new Stream(headers, body);
 };
 
+/**
+ * Stream types.
+ * @type {Object}
+ */
 Stream.TYPE = {
     REQUEST: 1,
     RESPONSE: 2
 };
 
+/**
+ * Expose module.
+ */
 module.exports = Stream;
