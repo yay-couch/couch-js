@@ -347,6 +347,15 @@ var Document = Class.create("Document", {
         })
     },
 
+    /**
+     * Save document.
+     * @public @async
+     *
+     * @param  {Boolean}  batch
+     * @param  {Boolean}  fullCommit
+     * @param  {Function} callback
+     * @return {void}
+     */
     save: function(batch, fullCommit, callback){
         // prepare batch query
         batch = batch ? "?batch=ok" : "";
