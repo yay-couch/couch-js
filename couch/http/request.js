@@ -15,8 +15,8 @@ var Request = Class.create("Request", {
         this.httpVersion = "1.1";
         this.client = client;
         if (this.client.username && this.client.password) {
-            this.headers["Authorization"] = Util.format(
-                "Basic %s", Base64.encode(this.client.username +":"+ this.client.password));
+            this.headers["Authorization"] = "Basic "+
+                (new Buffer(this.client.username +":"+ this.client.password)).toString("base64");
         }
         this.headers["Host"] = Util.format("%s:%s", this.client.host, this.client.port);
         this.headers["Connection"] = "close";
