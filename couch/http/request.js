@@ -35,7 +35,7 @@ var http = require("http");
 
 /**
  * Request object.
- * @public
+ *
  * @extends Couch.Stream
  */
 var Request = Class.create("Request", {
@@ -58,8 +58,7 @@ var Request = Class.create("Request", {
     uri: undefined,
 
     /**
-     * Object constructor.
-     * @constructor
+     * Object constructor. @constructor
      * @param {Couch.Client} client
      */
     __init__: function(client){
