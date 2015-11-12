@@ -68,7 +68,7 @@ var Request = Class.create("Request", {
      * @param {Couch.Client} client
      */
     __init__: function(client){
-        // used in Stream.toString
+        // used in Couch.Stream.toString
         this.type = Stream.TYPE.REQUEST;
         this.httpVersion = "1.1";
 
@@ -229,6 +229,7 @@ Class.extend(Request, Stream.init({}, null));
 Class.extend(Request, {
     /**
      * Set request body.
+     * @public
      *
      * @param  {object|string} body
      * @return {self}

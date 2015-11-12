@@ -37,14 +37,12 @@ var Class = require("../util/class"),
 var Response = Class.create("Response", {
     /**
      * Status code.
-     * @public
      * @type {Number}
      */
     statusCode: 0,
 
     /**
      * Status text.
-     * @public
      * @type {String}
      */
     statusText: "",
@@ -54,45 +52,105 @@ var Response = Class.create("Response", {
      * @private
      */
     __init__: function(){
+        // used in Couch.Stream.toString
         this.type = Stream.TYPE.RESPONSE;
         this.httpVersion = "1.1";
     },
 
+    /**
+     * Set status code.
+     * @public
+     *
+     * @param  {Number} statusCode
+     * @return {self}
+     */
     setStatusCode: function(statusCode){
         this.statusCode = statusCode;
+
         return this;
     },
+
+    /**
+     * Get status code.
+     * @public
+     *
+     * @return {Number}
+     */
     getStatusCode: function(){
         return this.statusCode;
     },
+
+    /**
+     * Set status text.
+     * @public
+     *
+     * @param  {String} statusCode
+     * @return {self}
+     */
     setStatusText: function(statusText){
+        // auto-detect
         if (typeof statusText == "number"
                 && statusText in Response.STATUS) {
             statusText = Response.STATUS[statusText];
         }
         this.statusText = statusText;
+
         return this;
     },
+
+    /**
+     * Get status text.
+     * @public
+     *
+     * @return {String}
+     */
     getStatusText: function(){
         return this.statusText;
     },
+
+    /**
+     * Check status code is?
+     * @public
+     *
+     * @param  {Number}  statusCode
+     * @return {Boolean}
+     */
     isStatusCode: function(statusCode){
         return (this.statusCode === statusCode);
     }
 });
 
+/**
+ * Extend Response width a fresh Stream object.
+ */
 Class.extend(Response, Stream.init({}, null));
 
+/**
+ * Re-define setBody() method.
+ */
 Class.extend(Response, {
+    /**
+     * Set response body.
+     * @public
+     *
+     * @param  {String}  body
+     * @param  {Boolean} isJson
+     * @return {self}
+     */
     setBody: function(body, isJson){
         if (body != null) {
             this.body = (isJson !== false && body !== "")
                 ? JSON.parse(body) : body;
         }
+
         return this;
     }
 });
 
+/**
+ * Add supported statuses by CouchDB.
+ * @type {Object}
+ */
 Response.STATUS = {
     200: "OK",
     201: "Created",
@@ -112,4 +170,7 @@ Response.STATUS = {
     500: "Internal Server Error"
 };
 
+/**
+ * Expose module.
+ */
 module.exports = Response;
