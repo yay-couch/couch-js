@@ -112,21 +112,22 @@ var Util = {
      * Sync'ed exec.
      * @public
      *
-     * @link   http://uri.li/yKHV
+     * @link   http://uri.li/yKHV Original source.
      * @param  {String} cmd
      * @param  {Object} options Used only if built-in execSync() exists.
      * @return {String}
      */
     execSync: function(cmd, options) {
-        // check built-in execSync()
+        // check built-in execSync() @kerem
         if (cp.execSync) {
             return cp.execSync(cmd, options || {});
         }
 
+        // process files @kerem
         var outFile = "./__execsync.out.tmp",
             donFile = "./__execsync.don.tmp";
 
-        // remove if these files exists
+        // remove if these files exists @kerem
         try {
             fs.unlinkSync(outFile);
             fs.unlinkSync(donFile);
