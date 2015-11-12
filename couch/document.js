@@ -247,9 +247,14 @@ var Document = Class.create("Document", {
             headers["X-Couch-Full-Commit"] = "true";
         }
 
+        // update action
+        if (this._rev) {
+            headers["If-Match"] = this._rev;
+        }
+
         var data = this.getData(null, true);
 
-        // normalize attachment
+        // normalize attachments
         for (var i in this._attachments) {
             if (isInstanceOf(data._attachments[i], DocumentAttachment)) {
                 data._attachments[i] = this._attachments[i].toArray();
