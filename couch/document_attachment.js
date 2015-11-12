@@ -18,29 +18,90 @@
  * limitations under the License.
  */
 
+/**
+ * Module objects.
+ * @private
+ */
 var Class = require("./util/class"),
     Util = require("./util/util"),
     Document = require("./document");
 
+/**
+ * FS object.
+ * @private
+ */
 var fs = require("fs");
 
+/**
+ * DocumentAttachment object.
+ * @public
+ *
+ * @module Couch
+ * @object Couch.DocumentAttachment
+ * @author Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 var DocumentAttachment = Class.create("DocumentAttachment", {
+    /**
+     * Owner document.
+     * @type {Couch.Document}
+     */
     document: null,
+
+    /**
+     * Attachment file.
+     * @type {String}
+     */
     file: undefined,
+
+    /**
+     * Attachment file name.
+     * @type {String}
+     */
     fileName: undefined,
+
+    /**
+     * Attachment file contents.
+     * @type {String}
+     */
     data: null,
+
+    /**
+     * Attachment file contents length.
+     * @type {Number}
+     */
     dataLength: 0,
+
+    /**
+     * Attachment mime.
+     * @type {String}
+     */
     contentType: undefined,
+
+    /**
+     * CouchDB file digest.
+     * @type {String}
+     */
     digest: undefined,
+
+    /**
+     * Object constructor.
+     * @private
+     *
+     * @param {Couch.Document} document
+     * @param {String}         file
+     * @param {String}         fileName
+     */
     __init__: function(document, file, fileName){
         if (isInstanceOf(document, Document)) {
             this.document = document;
         }
+
         if (file) {
             this.file = file;
             if (fileName) {
                 this.fileName = fileName;
             } else {
+                // auto-detect
                 this.fileName = file.substring(file.lastIndexOf("/") + 1);
             }
         }
