@@ -117,7 +117,7 @@ var Client = Class.create("Client", {
     /**
      * Perform a request.
      *
-     * @return {Couch.Request}
+     * @return {Object}
      * @throws {Error}
      */
     request: function(uri, options){
