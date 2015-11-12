@@ -147,11 +147,20 @@ var Query = Class.create("Query", {
     }
 });
 
-Query.parse = function(query, returnQueryObject){
-    var pars = query.trim().replace(/&+/g, "&").split('&'),
+/**
+ * Simply query parser.
+ * @public
+ *
+ * @param  {String}  query
+ * @param  {Boolean} rQO Return a new Query object?
+ * @return {[type]}
+ */
+Query.parse = function(query, rQO){
+    var pars = query.trim().replace(/&+/g, "&").split("&"),
         par, key, value, re = /^([\w]+)\[(.*)\]/i, ra, ks, ki, i = 0,
         params = {};
-    while ((par = pars.shift()) && (par = par.split('=', 2))) {
+
+    while ((par = pars.shift()) && (par = par.split("=", 2))) {
         key = decodeURIComponent(par[0]);
         // prevent param value going to be "undefined" as string
         value = decodeURIComponent(par[1] || "").replace(/\+/g, " ");
@@ -172,7 +181,16 @@ Query.parse = function(query, returnQueryObject){
         // set param
         params[key] = value;
     }
-    return !returnQueryObject ? params : new Query(params);
+
+    // return a new Query object
+    if (rQO) {
+        return new Query(params);
+    }
+
+    return params;
 };
 
+/**
+ * Expose module.
+ */
 module.exports = Query;
