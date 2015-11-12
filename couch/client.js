@@ -38,7 +38,7 @@ var Request = require("./http/request"),
 var Client = Class.create("Client", {
     /**
      * Couch object
-     * @type {Couch}
+     * @type {Couch.Couch}
      */
     couch: null,
 
@@ -82,7 +82,7 @@ var Client = Class.create("Client", {
      * Object constructor.
      * @private
      *
-     * @param  {Cocuh}
+     * @param  {Couch.Couch}
      */
     __init__: function(couch){
         this.couch = couch;
