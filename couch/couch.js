@@ -99,7 +99,11 @@ global.isNone = function(input){
  * @return {Boolean}
  */
 global.isInstanceOf = function(a, b){
-    return (a instanceof b);
+    try {
+        return (a instanceof b);
+    } catch (e) {
+        return (a instanceof b.constructor);
+    }
 };
 
 /**
