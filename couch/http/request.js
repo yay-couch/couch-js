@@ -45,19 +45,19 @@ var http = require("http");
 var Request = Class.create("Request", {
     /**
      * Client object.
-     * @type {Couch.Client} @public
+     * @type {Couch.Client}
      */
     client: null,
 
     /**
      * Request method.
-     * @type {string} @public
+     * @type {string}
      */
     method: undefined,
 
     /**
      * Request URI.
-     * @type {string} @public
+     * @type {string}
      */
     uri: undefined,
 
