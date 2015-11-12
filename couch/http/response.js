@@ -35,9 +35,24 @@ var Class = require("../util/class"),
  * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
  */
 var Response = Class.create("Response", {
+    /**
+     * Status code.
+     * @public
+     * @type {Number}
+     */
     statusCode: 0,
+
+    /**
+     * Status text.
+     * @public
+     * @type {String}
+     */
     statusText: "",
 
+    /**
+     * Object constructor.
+     * @private
+     */
     __init__: function(){
         this.type = Stream.TYPE.RESPONSE;
         this.httpVersion = "1.1";
