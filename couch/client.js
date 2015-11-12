@@ -174,11 +174,18 @@ var Client = Class.create("Client", {
     }
 });
 
-// add shortcut methods
+/**
+ * Add shortcut methods into Client.prototype.
+ * @public
+ */
 ["head", "get", "post", "put", "copy", "delete"].forEach(function(method){
     Client.prototype[method] = function(uri, options, callback){
-        return this.request(Request.METHOD[method.toUpperCase()] +" /"+ uri, options).done(callback);
+        return this.request(
+            Request.METHOD[method.toUpperCase()]+" /"+ uri, options).done(callback);
     };
 });
 
+/**
+ * Expose module.
+ */
 module.exports = Client;
