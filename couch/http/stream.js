@@ -202,7 +202,7 @@ var Stream = Class.create("Stream", {
 
 /**
  * Shortcut.
- * @public
+ * @public @static
  *
  * @param  {Object} headers
  * @param  {String} body
