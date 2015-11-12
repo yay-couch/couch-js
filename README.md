@@ -15,14 +15,42 @@ doc.setAttachment(new Couch.DocumentAttachment(doc, "./file.txt"));
 doc.save();
 ```
 
+##Configuration##
+Configuration is optional but you can provide all these options;
+
+```js
+var config = {};
+
+// default=localhost
+config.host = "couchdb_host";
+// default=5984
+config.port = 1234;
+// default=null
+config.username = "couchdb_user";
+// default=null
+config.password = "************";
+```
+
+##Objects##
+#####Couch Object#####
+```js
+// init couch object with default config
+couch = new Couch.Couch();
+
+// init couch object with given config
+couch = new Couch.Couch(config);
+// or
+couch.setConfig(config);
+```
+
 ##Structure##
 ```js
 // console.log(Couch);
 { NAME: "Couch",
   VERSION: "1.0",
   Couch: [Function],
-  Util:
-   { extend: [Function],
+  Util: {
+     extend: [Function],
      format: [Function],
      quote: [Function],
      forEach: [Function],
@@ -37,8 +65,8 @@ doc.save();
   Document: { [Function: Class] nameOrig: "Document" },
   DocumentAttachment: { [Function: Class] nameOrig: "DocumentAttachment" },
   DocumentDesign: { [Function: Class] nameOrig: "DocumentDesign" },
-  Uuid:
-   { [Function: Class]
+  Uuid: {
+     [Function: Class]
      nameOrig: "Uuid",
      generate: [Function],
      HEX_8: 8,
