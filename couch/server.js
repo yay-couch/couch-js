@@ -222,31 +222,64 @@ var Server = Class.create("Server", {
         this.client.get("/_config/"+ path, null, callback);
     },
 
-
+    /**
+     * Set database config.
+     * @public @async
+     *
+     * @param  {String}   section
+     * @param  {String}   key
+     * @param  {String}   value
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     setConfig: function(section, key, value, callback){
         if (!section || !key) {
             throw new Error("Both section & key required!");
         }
+
+        // prepare path
         var path = [section, key].join("/");
+
         this.client.put("/_config/"+ path, {body: value}, function(stream, data){
+            // modify data as "false" if fails
             if (200 !== stream.response.getStatusCode()) {
                 data = false;
             }
+
             callback(stream, data);
         });
     },
+
+    /**
+     * Remove database config.
+     * @public @async
+     *
+     * @param  {String}   section
+     * @param  {String}   key
+     * @param  {Function} callback
+     * @return {void}
+     */
     removeConfig: function(section, key, callback){
         if (!section || !key) {
             throw new Error("Both section & key required!");
         }
+
+        // prepare path
         var path = [section, key].join("/");
+
         this.client.delete("/_config/"+ path, null, function(stream, data){
+            // modify data as "false" if fails
             if (200 !== stream.response.getStatusCode()) {
                 data = false;
             }
+
             callback(stream, data);
         });
     }
 });
 
+/**
+ * Expose module.
+ */
 module.exports = Server;
