@@ -18,12 +18,39 @@
  * limitations under the License.
  */
 
+/**
+ * Module objects.
+ * @private
+ */
 var Class = require("./util/class");
 
+/**
+ * Query object.
+ * @public
+ *
+ * @module Couch
+ * @object Couch.Query
+ * @author Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 var Query = Class.create("Query", {
+    /**
+     * Query data.
+     * @type {Object}
+     */
     data: {},
+
+    /**
+     * Query string.
+     * @type {String}
+     */
     dataString: "",
 
+    /**
+     * Object constructor.
+     * @private
+     *
+     * @param {Object} data
+     */
     __init__: function(data){
         this.data = data || {};
         this.dataString = '';
