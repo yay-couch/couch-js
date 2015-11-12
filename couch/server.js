@@ -22,7 +22,8 @@
  * Module objects.
  * @private
  */
-var Class = require("./util/class");
+var Class = require("./util/class"),
+    Client = require("./client");
 
 /**
  * Server object.
@@ -39,7 +40,7 @@ var Server = Class.create("Server", {
      */
     client: null,
     __init__: function(client){
-        if (!client) {
+        if (!isInstanceOf(client, Client)) {
             throw new Error("Client must me instance of Couch.Client!");
         }
         this.client = client;
