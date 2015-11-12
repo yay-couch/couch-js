@@ -52,8 +52,9 @@ var Query = Class.create("Query", {
      * @param {Object} data
      */
     __init__: function(data){
-        this.data = data || {};
-        this.dataString = '';
+        if (!isNone(data)) {
+            this.data = data;
+        }
     },
 
     set: function(key, value) {
