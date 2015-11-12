@@ -25,7 +25,8 @@
 var Class = require("./util/class"),
     Util = require("./util/util"),
     Uuid = require("./uuid"),
-    Database = require("./database");
+    Database = require("./database"),
+    DocumentAttachment = require("./document_attachment");
 
 /**
  * Document object.
@@ -56,9 +57,9 @@ var Document = Class.create("Document", {
 
     /**
      * Document _attachments.
-     * @type {Array}
+     * @type {Object}
      */
-    _attachments: [],
+    _attachments: {},
 
     /**
      * Document database object.
@@ -70,7 +71,12 @@ var Document = Class.create("Document", {
      * Document data.
      * @type {Object}
      */
-    data: {},
+    data: {
+        _id: undefined,
+        _rev: undefined,
+        _deleted: false,
+        _attachments: {}
+    },
 
     /**
      * Object constructor.
@@ -86,7 +92,7 @@ var Document = Class.create("Document", {
         var $this = this;
 
         // define setter/getter's
-        ["_id", "_rev", "_deleted", "_attachments"].forEach(function(key){
+        ["_id", "_rev", "_deleted"].forEach(function(key){
             Object.defineProperty($this, key, {
                 get: function(){
                     var value = $this.data[key];
@@ -157,9 +163,27 @@ var Document = Class.create("Document", {
     setDeleted: function(deleted){
         this._deleted = !!deleted;
     },
+
     setAttachment: function(attachment){
-        //
+        attachment = attachment || {};
+        if (!isInstanceOf(attachment, DocumentAttachment)) {
+            if (!attachment.file) {
+                throw new Error("Attachment file is required!");
+            }
+
+            var file = attachment.file;
+            var fileName = attachment.file_name;
+            attachment = new DocumentAttachment(this, file, fileName);
+        }
+
+        if (this.data._attachments[attachment.fileName]) {
+            throw new Exception("Attachment is alredy exists on this document!");
+        }
+
+        this._attachments[attachment.fileName] =
+            this.data._attachments[attachment.fileName] = attachment;
     },
+
     setData: function(data){
         if (data._id) this.setId(data._id);
         if (data._rev) this.setRev(data._rev);
