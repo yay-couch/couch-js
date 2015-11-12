@@ -89,7 +89,7 @@ var Request = Class.create("Request", {
 
     /**
      * Send request.
-     * @async
+     * @public @async
      *
      * @param  {Function} callback
      * @return {void}
@@ -177,6 +177,14 @@ var Request = Class.create("Request", {
             request.end();
         }
     },
+
+    /**
+     * Set request method.
+     * @public
+     *
+     * @param  {string} method
+     * @return {self}
+     */
     setMethod: function(method) {
         this.method = method.toUpperCase();
         if (this.method != Request.METHOD.HEAD &&
@@ -184,8 +192,18 @@ var Request = Class.create("Request", {
             this.method != Request.METHOD.POST) {
             this.setHeader("X-HTTP-Method-Override", this.method);
         }
+
         return this;
     },
+
+    /**
+     * Set request URI.
+     * @public
+     *
+     * @param  {string} uri
+     * @param  {object} uriParams
+     * @return {self}
+     */
     setUri: function(uri, uriParams) {
         this.uri = uri;
         if (uriParams) {
@@ -194,6 +212,7 @@ var Request = Class.create("Request", {
                 this.uri += "?"+ query.toString();
             }
         }
+
         return this;
     }
 });
@@ -211,7 +230,7 @@ Class.extend(Request, {
      * Set request body.
      *
      * @param  {object|string} body
-     * @return {Request}
+     * @return {self}
      */
     setBody: function(body){
         if (body != null &&
