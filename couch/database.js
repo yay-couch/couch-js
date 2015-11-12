@@ -80,46 +80,111 @@ var Database = Class.create("Database", {
     ping: function(callback){
         this.client.head(this.name, null, callback);
     },
+
+    /**
+     * Get database info.
+     * @public @async
+     *
+     * @param  {String|void} key
+     * @param  {Function}    callback
+     * @return {void}
+     */
     info: function(key, callback) {
         this.client.get(this.name, null, function(stream){
             return callback(stream, stream.response.getData(key));
         });
     },
+
+    /**
+     * Create database.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     create: function(callback){
         this.client.put(this.name, null, callback);
     },
+
+    /**
+     * Remove database.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     remove: function(callback){
         this.client.delete(this.name, null, callback);
     },
+
+    /**
+     * Replicate database.
+     * @public @async
+     *
+     * @param  {String}   target
+     * @param  {Boolean}  targetCreate
+     * @param  {Function} callback
+     * @return {void}
+     */
     replicate: function(target, targetCreate, callback) {
         this.client.post("/_replicate", {
-            body: {"source": this.name, "target": target, "create_target": (targetCreate !== false)}
+            body: {source: this.name, target: target,
+                   create_target: (targetCreate !== false)}
         }, callback);
     },
+
+    /**
+     * Get a database document.
+     * @public @async
+     *
+     * @param  {String}   key
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     getDocument: function(key, callback) {
         if (!key) {
-            throw new Error("Document is required!");
+            throw new Error("Document key is required!");
         }
+
+        key = key ? Util.format('"%s"', Util.quote(key)) : "";
         this.client.get(this.name +"/_all_docs", {
-            uriParams: {"include_docs": true, "key": (key ? Util.format('"%s"', Util.quote(key)) : "")}
+            uriParams: {"include_docs": true, "key": key}
         }, function(stream, data){
             return callback(stream, (data && data.rows && data.rows[0]) || null);
         });
     },
+
+    /**
+     * Get all database documents.
+     * @public @async
+     *
+     * @param  {Object|String|Couch.Query} query
+     * @param  {Array}                     keys
+     * @param  {Function}                  callback
+     * @return {void}
+     */
     getDocumentAll: function(query, keys, callback){
+        // convert query to plain object
         if (isInstanceOf(query, Query)) {
             query = query.toArray();
         } else if (typeof query == "string") {
             query = Query.parse(query);
         }
+
         query = query || {};
+        // ensure include documents
         if (query.include_docs == null) {
             query.include_docs = true;
         }
+
+        // if no keys provided
         if (!keys || !keys.length) {
-            this.client.get(this.name +"/_all_docs", {uriParams: query}, callback);
+            this.client.get(this.name +"/_all_docs",
+                {uriParams: query}, callback);
         } else {
-            this.client.post(this.name +"/_all_docs", {uriParams: query, body: {"keys": keys}}, callback);
+            this.client.post(this.name +"/_all_docs",
+                {uriParams: query, body: {keys: keys}}, callback);
         }
     },
     createDocument: function(document, callback){
@@ -145,7 +210,7 @@ var Database = Class.create("Database", {
             if (doc._deleted) delete doc._deleted;
             docs.push(doc);
         });
-        this.client.post(this.name +"/_bulk_docs", {body: {"docs": docs}}, callback);
+        this.client.post(this.name +"/_bulk_docs", {body: {docs: docs}}, callback);
     },
     updateDocument: function(document, callback){
         this.updateDocumentAll([document], function(stream, data){
