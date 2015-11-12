@@ -164,8 +164,17 @@ var Document = Class.create("Document", {
         this._deleted = !!deleted;
     },
 
+    /**
+     * Set an attachment.
+     * @public
+     *
+     * @param  {Object|Couch.DocumentAttachment} attachment
+     * @return {void}
+     * @throws {Error}
+     */
     setAttachment: function(attachment){
         attachment = attachment || {};
+        // classify attachments
         if (!isInstanceOf(attachment, DocumentAttachment)) {
             if (!attachment.file) {
                 throw new Error("Attachment file is required!");
@@ -176,6 +185,7 @@ var Document = Class.create("Document", {
             attachment = new DocumentAttachment(this, file, fileName);
         }
 
+        // check duplicated attachments
         if (this.data._attachments[attachment.fileName]) {
             throw new Exception("Attachment is alredy exists on this document!");
         }
@@ -184,35 +194,58 @@ var Document = Class.create("Document", {
             this.data._attachments[attachment.fileName] = attachment;
     },
 
+    /**
+     * Set data.
+     * @public
+     *
+     * @param  {Object} data
+     * @return {void}
+     */
     setData: function(data){
-        if (data._id) this.setId(data._id);
-        if (data._rev) this.setRev(data._rev);
+        if (data._id)      this.setId(data._id);
+        if (data._rev)     this.setRev(data._rev);
         if (data._deleted) this.setRev(data._deleted);
+
+        // handle attachments
         if (data._attachments && data._attachments.length) {
             data._attachments.forEach(function(attachment){
                 this.setAttachment(attachment);
             });
             delete data._attachments;
         }
+
         for (var i in data) {
             this.data[i] = data[i];
         }
     },
+
+    /**
+     * Get data.
+     * @public
+     *
+     * @param  {String}  key
+     * @param  {Boolean} filter
+     * @return {mixed}
+     */
     getData: function(key, filter){
         var data = (key != null) ? this.data[key] : this.data;
+
+        // remove filtered keys
         if (filter) {
             for (var i in data) {
                 if (data[i] === undefined) {
                     delete data[i];
                 }
             }
-            if (isInstanceOf(data._id, Uuid)) {
-                data._id = data._id.toString();
-            }
             if (data._deleted === false) {
                 delete data._deleted;
             }
+            // handle id
+            if (isInstanceOf(data._id, Uuid)) {
+                data._id = data._id.toString();
+            }
         }
+
         return data;
     },
     ping: function(callback){
