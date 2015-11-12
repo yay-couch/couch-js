@@ -241,3 +241,8 @@ var docAttc = new Couch.DocumentAttachment(doc, "./test/attc1.txt");
 // docAttc.find(logStream);
 // docAttc.save(logStream);
 // docAttc.remove(false, false, logStream);
+
+// var s;
+// log(s = Couch.Util.Base64.encode("foo:bar"))
+// log(s = Couch.Util.Base64.decode(s))
+// log(s = Couch.Util.Base64.decode(s, "ascii"))
