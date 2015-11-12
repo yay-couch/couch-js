@@ -18,36 +18,86 @@
  * limitations under the License.
  */
 
+/**
+ * Module objects.
+ * @private
+ */
 var Class = require("./util/class"),
     Util = require("./util/util"),
     Uuid = require("./uuid"),
     Database = require("./database");
 
+/**
+ * Document object.
+ * @public
+ *
+ * @module Couch
+ * @object Couch.Document
+ * @author Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 var Document = Class.create("Document", {
+    /**
+     * Document _id.
+     * @type {String}
+     */
     _id: undefined,
+
+    /**
+     * Document _rev.
+     * @type {String}
+     */
     _rev: undefined,
+
+    /**
+     * Document _deleted flag.
+     * @type {Boolean}
+     */
     _deleted: false,
+
+    /**
+     * Document _attachments.
+     * @type {Array}
+     */
     _attachments: [],
+
+    /**
+     * Document database object.
+     * @type {Couch.Database}
+     */
     database: null,
+
+    /**
+     * Document data.
+     * @type {Object}
+     */
     data: {},
+
+    /**
+     * Object constructor.
+     * @private
+     *
+     * @param {Couch.Database} database
+     * @param {Object}         data
+     */
     __init__: function(database, data){
-        if (database) {
-            this.database = database;
-        }
-        if (data) {
-            this.setData(data);
-        }
+        if (database) this.database = database;
+        if (data)     this.setData(data);
+
         var $this = this;
+
+        // define setter/getter's
         ["_id", "_rev", "_deleted", "_attachments"].forEach(function(key){
             Object.defineProperty($this, key, {
                 get: function(){
                     var value = $this.data[key];
+                    // normalize _id
                     if (key == "_id" && isInstanceOf(value, Uuid)) {
                         value = value.toString();
                     }
                     return value;
                 },
                 set: function(value){
+                    // _id to uuid object
                     if (key == "_id") {
                         value = new Uuid(value);
                     }
@@ -56,22 +106,54 @@ var Document = Class.create("Document", {
             });
         });
     },
+
+    /**
+     * Serialize document data.
+     * @public
+     *
+     * @return {String}
+     */
     toJson: function(){
         var data = this.data;
+        // normalize _id
         if (isInstanceOf(data._id, Uuid)) {
             data._id = data._id.toString();
         }
+
         return JSON.stringify(data);
     },
+
+    /**
+     * Set _id.
+     * @public
+     *
+     * @param {String|Number|Couch.Uuid} id
+     * @return {void}
+     */
     setId: function(id){
         if (!isInstanceOf(id, Uuid)) {
             id = new Uuid(id);
         }
+
         this._id = id;
     },
+
+    /**
+     * Set _rev.
+     * @public
+     *
+     * @param {String} rev
+     */
     setRev: function(rev){
         this._rev = rev;
     },
+
+    /**
+     * Set _deleted.
+     * @public
+     *
+     * @param {Boolean} deleted
+     */
     setDeleted: function(deleted){
         this._deleted = !!deleted;
     },
