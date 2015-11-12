@@ -59,9 +59,9 @@ var Request = Class.create("Request", {
 
     /**
      * Object constructor.
-     * @param {Couch.Client} client
-     * @constructor
      * @private
+     *
+     * @param {Couch.Client} client
      */
     __init__: function(client){
         // used in Stream.toString
@@ -85,6 +85,13 @@ var Request = Class.create("Request", {
             "%s/v%s (+http://github.com/qeremy/couch-js)", Couch.NAME, Couch.VERSION);
     },
 
+    /**
+     * Send request.
+     * @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     send: function(callback){
         if (callback && callback.call) {
             var options = {
