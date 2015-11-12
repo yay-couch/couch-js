@@ -245,7 +245,9 @@ doc._id = "7f9231672eac835f0e39e52357008c18";
 // doc.copy("7f9231672eac835f0e39e52357008c18_copy", false, false, logStream)
 doc._id = "7f9231672eac835f0e39e52357008c18_copy";
 doc._rev = "1-7da81219ee8c64accc3bff85f250e626";
-doc.copyFrom("7f9231672eac835f0e39e52357008c18_copy_copy", false, false, logStream)
+// doc.copyFrom("7f9231672eac835f0e39e52357008c18_copy_copy", false, false, logStream)
+doc.copyTo("7f9231672eac835f0e39e52357008c18_copy_copy", "1-7da81219ee8c64accc3bff85f250e626",
+    false, false, logStream)
 
 // docAttc.fileName = "attc.txt";
 // docAttc.digest = "U1p5BLvdnOZVRyR6YrXBoQ==";

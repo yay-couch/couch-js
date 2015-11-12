@@ -362,6 +362,32 @@ var Document = Class.create("Document", {
 
         this.database.client.copy(this.database.name +"/"+ this._id + batch,
             {headers: headers}, callback);
+    },
+
+    copyTo: function(dest, destRev, batch, fullCommit, callback) {
+        // check id & rev
+        if (!this._id || !this._rev) {
+            throw new Error("Both _id & _rev fields could not be empty!");
+        }
+
+        // check destination
+        if (!dest || !destRev) {
+            throw new Error("Destination & destination revision could not be empty!");
+        }
+
+        // prepare batch query
+        batch = batch ? "?batch=ok" : "";
+
+        // prepare headers
+        var headers = {};
+        headers["If-Match"] = this._rev;
+        headers["Destination"] = Util.format("%s?rev=%s", dest, destRev);
+        if (fullCommit) {
+            headers["X-Couch-Full-Commit"] = "true";
+        }
+
+        this.database.client.copy(this.database.name +"/"+ this._id + batch,
+            {headers: headers}, callback);
     }
 });
 
