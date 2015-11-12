@@ -248,25 +248,50 @@ var Document = Class.create("Document", {
 
         return data;
     },
+
+    /**
+     * Ping document.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     ping: function(callback){
         if (!this._id) {
             throw new Error("_id field could not be empty!");
         }
+
         var headers = {};
         if (this._rev) {
             headers["If-None-Match"] = Util.format('"%s"', this._rev);
         }
-        return this.database.client.head(this.database.name +"/"+ this._id, {headers: headers}, callback);
+
+        return this.database.client.head(this.database.name +"/"+ this._id,
+            {headers: headers}, callback);
     },
+
+    /**
+     * Find document.
+     * @public @async
+     *
+     * @param  {Object}   query
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     find: function(query, callback){
         if (!this._id) {
             throw new Error("_id field could not be empty!");
         }
+
         query = query || {};
         if (this._rev && !query.rev) {
             query.rev = this._rev;
         }
-        return this.database.client.get(this.database.name +"/"+ this._id, {uriParams: query}, callback);
+
+        return this.database.client.get(this.database.name +"/"+ this._id,
+            {uriParams: query}, callback);
     },
 
     findRevisions: function(callback){
