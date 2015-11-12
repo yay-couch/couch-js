@@ -70,7 +70,7 @@ var Stream = Class.create("Stream", {
      * Stream body.
      * @type {String}
      */
-    body: null,
+    body: "",
 
     /**
      * Object constructor.
