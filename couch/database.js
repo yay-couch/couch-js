@@ -147,7 +147,9 @@ var Database = Class.create("Database", {
             throw new Error("Document key is required!");
         }
 
-        key = key ? Util.format('"%s"', Util.quote(key)) : "";
+        // quote key
+        key = Util.format('"%s"', Util.quote(key));
+
         this.client.get(this.name +"/_all_docs", {
             uriParams: {include_docs: true, key: key}
         }, function(stream, data){
