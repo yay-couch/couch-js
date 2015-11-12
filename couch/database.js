@@ -78,21 +78,21 @@ var Database = Class.create("Database", {
      * @return {void}
      */
     ping: function(callback){
-        return this.client.head(this.name, null, callback);
+        this.client.head(this.name, null, callback);
     },
     info: function(key, callback) {
-        return this.client.get(this.name, null, function(stream){
+        this.client.get(this.name, null, function(stream){
             return callback(stream, stream.response.getData(key));
         });
     },
     create: function(callback){
-        return this.client.put(this.name, null, callback);
+        this.client.put(this.name, null, callback);
     },
     remove: function(callback){
-        return this.client.delete(this.name, null, callback);
+        this.client.delete(this.name, null, callback);
     },
     replicate: function(target, targetCreate, callback) {
-        return this.client.post("/_replicate", {
+        this.client.post("/_replicate", {
             body: {"source": this.name, "target": target, "create_target": (targetCreate !== false)}
         }, callback);
     },
@@ -117,13 +117,13 @@ var Database = Class.create("Database", {
             query.include_docs = true;
         }
         if (!keys || !keys.length) {
-            return this.client.get(this.name +"/_all_docs", {uriParams: query}, callback);
+            this.client.get(this.name +"/_all_docs", {uriParams: query}, callback);
         } else {
-            return this.client.post(this.name +"/_all_docs", {uriParams: query, body: {"keys": keys}}, callback);
+            this.client.post(this.name +"/_all_docs", {uriParams: query, body: {"keys": keys}}, callback);
         }
     },
     createDocument: function(document, callback){
-        return this.createDocumentAll([document], function(stream, data){
+        this.createDocumentAll([document], function(stream, data){
             return callback(stream, (data && data[0]) || null);
         });
     },
@@ -145,10 +145,10 @@ var Database = Class.create("Database", {
             if (doc._deleted) delete doc._deleted;
             docs.push(doc);
         });
-        return this.client.post(this.name +"/_bulk_docs", {body: {"docs": docs}}, callback);
+        this.client.post(this.name +"/_bulk_docs", {body: {"docs": docs}}, callback);
     },
     updateDocument: function(document, callback){
-        return this.updateDocumentAll([document], function(stream, data){
+        this.updateDocumentAll([document], function(stream, data){
             return callback(stream, (data && data[0]) || null);
         });
     },
@@ -170,10 +170,10 @@ var Database = Class.create("Database", {
             }
             docs.push(doc);
         });
-        return this.client.post(this.name +"/_bulk_docs", {body: {"docs": docs}}, callback);
+        this.client.post(this.name +"/_bulk_docs", {body: {"docs": docs}}, callback);
     },
     deleteDocument: function(document, callback){
-        return this.deleteDocumentAll([document], function(stream, data){
+        this.deleteDocumentAll([document], function(stream, data){
             return callback(stream, (data && data[0]) || null);
         });
     },
@@ -187,58 +187,59 @@ var Database = Class.create("Database", {
             }
             doc._deleted = true;
         });
-        return this.updateDocumentAll(documents, callback);
+        this.updateDocumentAll(documents, callback);
     },
     getChanges: function(query, docIds, callback){
         query = query || {};
         if (!docIds || !docIds.length) {
-            return this.client.get(this.name +"/_changes", {uriParams: query}, callback);
+            this.client.get(this.name +"/_changes", {uriParams: query}, callback);
+        } else {
+            if (!query.filter) {
+                query.filter = "_doc_ids";
+            }
+            this.client.post(this.name +"/_changes", {uriParams: query, body: {"doc_ids": docIds}}, callback);
         }
-        if (!query.filter) {
-            query.filter = "_doc_ids";
-        }
-        return this.client.post(this.name +"/_changes", {uriParams: query, body: {"doc_ids": docIds}}, callback);
     },
     compact: function(ddoc, callback) {
         if (!ddoc) {
-            return this.client.post(this.name +"/_compact", null, callback);
+            this.client.post(this.name +"/_compact", null, callback);
         } else {
-            return this.client.post(this.name +"/_compact"+ ddoc, null, callback);
+            this.client.post(this.name +"/_compact"+ ddoc, null, callback);
         }
     },
     ensureFullCommit: function(callback) {
-        return this.client.post(this.name +"/_ensure_full_commit", null, callback);
+        this.client.post(this.name +"/_ensure_full_commit", null, callback);
     },
     viewCleanup: function(callback){
-        return this.client.post(this.name +"/_view_cleanup", null, callback);
+        this.client.post(this.name +"/_view_cleanup", null, callback);
     },
     viewTemp: function(map, reduce, callback){
-        return this.client.post(this.name +"/_temp_view", {body: {map: map, reduce: reduce}}, callback);
+        this.client.post(this.name +"/_temp_view", {body: {map: map, reduce: reduce}}, callback);
     },
     getSecurity: function(callback){
-        return this.client.get(this.name +"/_security", null, callback)
+        this.client.get(this.name +"/_security", null, callback)
     },
     setSecurity: function(admins, members, callback){
         if ((!admins || !admins.names || !admins.roles) ||
             (!members || !members.names || !members.roles)) {
             throw new Error("Specify admins and/or members with names=>roles fields!");
         }
-        return this.client.put(this.name +"/_security", {body: {admins: admins, members: members}}, callback)
+        this.client.put(this.name +"/_security", {body: {admins: admins, members: members}}, callback)
     },
     purge: function(docId, docRevs, callback){
-        return this.client.post(this.name +"/_purge", {body: {docId: docRevs}}, callback);
+        this.client.post(this.name +"/_purge", {body: {docId: docRevs}}, callback);
     },
     getMissingRevisions: function(docId, docRevs, callback){
-        return this.client.post(this.name +"/_missing_revs", {body: {docId: docRevs}}, callback);
+        this.client.post(this.name +"/_missing_revs", {body: {docId: docRevs}}, callback);
     },
     getMissingRevisionsDiff: function(docId, docRevs, callback){
-        return this.client.post(this.name +"/_revs_diff", {body: {docId: docRevs}}, callback);
+        this.client.post(this.name +"/_revs_diff", {body: {docId: docRevs}}, callback);
     },
     getRevisionLimit: function(callback){
-        return this.client.get(this.name +"/_revs_limit", null, callback);
+        this.client.get(this.name +"/_revs_limit", null, callback);
     },
     setRevisionLimit: function(limit, callback){
-        return this.client.put(this.name +"/_revs_limit", {body: limit}, callback);
+        this.client.put(this.name +"/_revs_limit", {body: limit}, callback);
     }
 });
 
