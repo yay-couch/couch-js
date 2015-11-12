@@ -26,11 +26,6 @@ var Class = require("../util/class"),
     Stream = require("./stream"),
     Util = require("../util/util"),
     Query = require("../query");
-
-/**
- * HTTP object.
- * @private
- */
 var http = require("http");
 
 /**
