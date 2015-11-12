@@ -187,7 +187,9 @@ var Server = Class.create("Server", {
      * @return {void}
      */
     getUuid: function(count, callback){
+        // set count=1 as default
         count = count || 1;
+
         this.client.get("/_uuids?count="+ count, null, function(stream){
             var data = stream.response.getData("uuids");
 
