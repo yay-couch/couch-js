@@ -123,9 +123,12 @@ var Request = Class.create("Request", {
                 for (key in response.headers) {
                     value = !isNone(response.headers[key])
                         ? response.headers[key].trim() : null;
+
+                    // foo-bar => Foo-Bar
                     key = key.split("-").map(function(k){
                         return k.substr(0, 1).toUpperCase() + k.substr(1);
                     }).join("-");
+
                     // set Client.Response headers
                     $this.client.Response.setHeader(key, value);
                 };
