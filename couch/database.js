@@ -346,12 +346,14 @@ var Database = Class.create("Database", {
     getChanges: function(query, docIds, callback){
         query = query || {};
         if (!docIds || !docIds.length) {
-            this.client.get(this.name +"/_changes", {uriParams: query}, callback);
+            this.client.get(this.name +"/_changes",
+                {uriParams: query}, callback);
         } else {
             if (!query.filter) {
                 query.filter = "_doc_ids";
             }
-            this.client.post(this.name +"/_changes", {uriParams: query, body: {doc_ids: docIds}}, callback);
+            this.client.post(this.name +"/_changes",
+                {uriParams: query, body: {doc_ids: docIds}}, callback);
         }
     },
 
