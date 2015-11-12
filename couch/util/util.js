@@ -153,8 +153,10 @@ var Util = {
      * @public
      *
      * @param  {String} file
-     * @return {Object|undefined}  Eg: {mime: 'text/plain', charset: 'us-ascii', extension: 'js'}
+     * @return {Object|undefined}
      * @throws {Error}
+     * @example
+     *    {mime: 'text/plain', charset: 'us-ascii', name: 'index.js' extension: 'js'}
      */
     fileInfo: function(file){
         // check file exists
