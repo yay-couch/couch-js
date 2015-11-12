@@ -104,7 +104,6 @@ global.isInstanceOf = function(a, b){
 
 /**
  * Append Couch modules into Couch object.
- * @type {[type]}
  */
 Couch.Util = require("./util/util");
 Couch.Query = require("./query");
