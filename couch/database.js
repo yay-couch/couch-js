@@ -331,6 +331,16 @@ var Database = Class.create("Database", {
 
         this.updateDocumentAll(documents, callback);
     },
+
+    /**
+     * Get database changes.
+     * @public @async
+     *
+     * @param  {Object}   query
+     * @param  {Array}    docIds
+     * @param  {Function} callback
+     * @return {void}
+     */
     getChanges: function(query, docIds, callback){
         query = query || {};
         if (!docIds || !docIds.length) {
@@ -342,6 +352,15 @@ var Database = Class.create("Database", {
             this.client.post(this.name +"/_changes", {uriParams: query, body: {"doc_ids": docIds}}, callback);
         }
     },
+
+    /**
+     * Compact database.
+     * @public @async
+     *
+     * @param  {String}   ddoc
+     * @param  {Function} callback
+     * @return {void}
+     */
     compact: function(ddoc, callback) {
         if (!ddoc) {
             this.client.post(this.name +"/_compact", null, callback);
@@ -349,40 +368,135 @@ var Database = Class.create("Database", {
             this.client.post(this.name +"/_compact"+ ddoc, null, callback);
         }
     },
+
+    /**
+     * Ensure full-commit.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     ensureFullCommit: function(callback) {
         this.client.post(this.name +"/_ensure_full_commit", null, callback);
     },
+
+    /**
+     * Remove unneded view index files.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     viewCleanup: function(callback){
         this.client.post(this.name +"/_view_cleanup", null, callback);
     },
+
+    /**
+     * Create (and execute) a temporary view.
+     * @public @async
+     *
+     * @param  {String}   map
+     * @param  {String}   reduce
+     * @param  {Function} callback
+     * @return {void}
+     */
     viewTemp: function(map, reduce, callback){
         this.client.post(this.name +"/_temp_view", {body: {map: map, reduce: reduce}}, callback);
     },
+
+    /**
+     * Get the current security object of the database.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     getSecurity: function(callback){
         this.client.get(this.name +"/_security", null, callback)
     },
+
+    /**
+     * Set the security object for the database.
+     * @public @async
+     *
+     * @param  {Object}   admins
+     * @param  {Object}   members
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     setSecurity: function(admins, members, callback){
         if ((!admins || !admins.names || !admins.roles) ||
             (!members || !members.names || !members.roles)) {
             throw new Error("Specify admins and/or members with names=>roles fields!");
         }
+
         this.client.put(this.name +"/_security", {body: {admins: admins, members: members}}, callback)
     },
+
+    /**
+     * Permanently remove the references to deleted documents from the database.
+     * @public @async
+     *
+     * @param  {String}   docId
+     * @param  {Array}    docRevs
+     * @param  {Function} callback
+     * @return {void}
+     */
     purge: function(docId, docRevs, callback){
         this.client.post(this.name +"/_purge", {body: {docId: docRevs}}, callback);
     },
+
+    /**
+     * Get the document revisions that do not exist in the database.
+     * @public @async
+     *
+     * @param  {String}   docId
+     * @param  {Array}    docRevs
+     * @param  {Function} callback
+     * @return {void}
+     */
     getMissingRevisions: function(docId, docRevs, callback){
         this.client.post(this.name +"/_missing_revs", {body: {docId: docRevs}}, callback);
     },
+
+    /**
+     * Get the subset of those that do not correspond to revisions stored in the database.
+     * @public @async
+     *
+     * @param  {String}   docId
+     * @param  {Array}    docRevs
+     * @param  {Function} callback
+     * @return {void}
+     */
     getMissingRevisionsDiff: function(docId, docRevs, callback){
         this.client.post(this.name +"/_revs_diff", {body: {docId: docRevs}}, callback);
     },
+
+    /**
+     * Get the current "revs_limit" (revision limit) setting.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
     getRevisionLimit: function(callback){
         this.client.get(this.name +"/_revs_limit", null, callback);
     },
+
+    /**
+     * Set the current "revs_limit" (revision limit) setting.
+     * @public @async
+     *
+     * @param {Number}   limit
+     * @param {Function} callback
+     */
     setRevisionLimit: function(limit, callback){
         this.client.put(this.name +"/_revs_limit", {body: limit}, callback);
     }
 });
 
+/**
+ * Expose module.
+ */
 module.exports = Database;
