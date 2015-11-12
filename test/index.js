@@ -11,11 +11,18 @@ function logData(stream, data){
 global.log = log; // tmp
 
 var Couch = require("../index");
-log(Couch)
+// log(Couch)
 
 var couch = new Couch.Couch();
 // var couch = new Couch.Couch({host:"127.0.0.1"});
 var client = new Couch.Client(couch);
+
+// client.request('GET /', {uriParams: {}, body: null, headers: {}})
+//     .done(function(stream, data){
+//         console.log(stream.request.toString());
+//         console.log(stream.response.toString());
+//         console.log(data);
+//     });
 
 // client.request("POST /!!!BOOOOOOM!!!").done(function(stream, data){
 //     // log(data)
