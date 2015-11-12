@@ -267,7 +267,7 @@ var Document = Class.create("Document", {
             headers["If-None-Match"] = Util.format('"%s"', this._rev);
         }
 
-        return this.database.client.head(this.database.name +"/"+ this._id,
+        this.database.client.head(this.database.name +"/"+ this._id,
             {headers: headers}, callback);
     },
 
@@ -290,18 +290,18 @@ var Document = Class.create("Document", {
             query.rev = this._rev;
         }
 
-        return this.database.client.get(this.database.name +"/"+ this._id,
+        this.database.client.get(this.database.name +"/"+ this._id,
             {uriParams: query}, callback);
     },
 
     findRevisions: function(callback){
-        return this.find({revs: true}, function(stream, data){
-            callback(stream, (data._revisions ? data._revisions : null));
+        this.find({revs: true}, function(stream, data){
+            return callback(stream, (data._revisions ? data._revisions : null));
         });
     },
     findRevisionsExtended: function(callback){
-        return this.find({revs_info: true}, function(stream, data){
-            callback(stream, (data._revs_info ? data._revs_info : null));
+        this.find({revs_info: true}, function(stream, data){
+            return callback(stream, (data._revs_info ? data._revs_info : null));
         });
     },
     findAttachments: function(attEncInfo, attsSince, callback){
@@ -315,7 +315,7 @@ var Document = Class.create("Document", {
             });
             query.atts_since = Util.format("[%s]", attsSinceArray.join(","));
         }
-        return this.find(query, function(stream, data){
+        this.find(query, function(stream, data){
             return callback(stream, (data._attachments ? data._attachments : null));
         })
     },
