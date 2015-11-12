@@ -162,7 +162,7 @@ var Util = {
     fileInfo: function(file){
         // check file exists
         if (!this.fileExists(file)) {
-            throw new Error("Could not open file `"+ file +"`!");
+            throw new Error("Given file does not exist! file: '"+ file +"'");
         }
 
         var mime, charset, name, extension, i;
