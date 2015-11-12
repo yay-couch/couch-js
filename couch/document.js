@@ -230,6 +230,33 @@ var Document = Class.create("Document", {
         return this.database.client.get(this.database.name +"/"+ this._id, {uriParams: query}, callback);
     },
 
+    save: function(batch, fullCommit, callback){
+        // prepare batch query
+        batch = batch ? "?batch=ok" : "";
+
+        // prepare headers
+        var headers = {};
+        headers["Content-Type"] = "application/json";
+        if (fullCommit) {
+            headers["X-Couch-Full-Commit"] = "true";
+        }
+
+        var data = this.getData(null, true);
+        if (data._deleted === false) {
+            delete data._deleted;
+        }
+
+        // normalize attachment
+        for (var i in this._attachments) {
+            if (isInstanceOf(data._attachments[i], DocumentAttachment)) {
+                data._attachments[i] = this._attachments[i].toArray();
+            } else {
+                data._attachments[i] = this._attachments[i];
+            }
+        }
+        this.database.client.post(this.database.name + batch,
+            {body: data, headers: headers}, callback);
+    },
 
     findRevisions: function(callback){
         return this.find({revs: true}, function(stream, data){

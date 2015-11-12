@@ -228,12 +228,16 @@ var database = new Couch.Database(client, "foo");
 //     log(data)
 // })
 
-// var db = new Couch.Database(client, "foo2");
-// var doc = new Couch.Document(db);
+var db = new Couch.Database(client, "foo2");
+var doc = new Couch.Document(db);
 // doc._id = "attc_test";
 // doc._rev = "9-c3791b86bacc762468034a8c0fbdea7c";
 // var docAttc = new Couch.DocumentAttachment(doc, "./test/attc1.txt");
 // log(docAttc)
+
+doc.setAttachment({file: "./test/attc1.txt"});
+log(doc)
+doc.save(false, false, logStream)
 
 // docAttc.fileName = "attc.txt";
 // docAttc.digest = "U1p5BLvdnOZVRyR6YrXBoQ==";
