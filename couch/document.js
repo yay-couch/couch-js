@@ -76,6 +76,9 @@ var Document = Class.create("Document", {
         return (key != null) ? this.data[key] : this.data;
     },
     ping: function(callback){
+        if (!this._id) {
+            throw new Error("_id field could not be empty!");
+        }
         var headers = {};
         if (this._rev) {
             headers["If-None-Match"] = Util.format('"%s"', this._rev);
@@ -83,10 +86,10 @@ var Document = Class.create("Document", {
         return this.database.client.head(this.database.name +"/"+ this._id, {headers: headers}, callback);
     },
     find: function(query, callback){
-        query = query || {};
         if (!this._id) {
             throw new Error("_id field could not be empty!");
         }
+        query = query || {};
         if (this._rev && !query.rev) {
             query.rev = this._rev;
         }
