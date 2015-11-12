@@ -304,7 +304,7 @@ var Document = Class.create("Document", {
      */
     findRevisions: function(callback){
         this.find({revs: true}, function(stream, data){
-            return callback(stream, (data._revisions ? data._revisions : null));
+            callback(stream, (data._revisions ? data._revisions : null));
         });
     },
 
@@ -317,7 +317,7 @@ var Document = Class.create("Document", {
      */
     findRevisionsExtended: function(callback){
         this.find({revs_info: true}, function(stream, data){
-            return callback(stream, (data._revs_info ? data._revs_info : null));
+            callback(stream, (data._revs_info ? data._revs_info : null));
         });
     },
 
@@ -344,7 +344,7 @@ var Document = Class.create("Document", {
         }
 
         this.find(query, function(stream, data){
-            return callback(stream, (data._attachments ? data._attachments : null));
+            callback(stream, (data._attachments ? data._attachments : null));
         })
     },
 
