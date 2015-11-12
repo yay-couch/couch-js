@@ -405,7 +405,8 @@ var Database = Class.create("Database", {
      * @return {void}
      */
     viewTemp: function(map, reduce, callback){
-        this.client.post(this.name +"/_temp_view", {body: {map: map, reduce: reduce}}, callback);
+        this.client.post(this.name +"/_temp_view",
+            {body: {map: map, reduce: reduce}}, callback);
     },
 
     /**
@@ -435,7 +436,8 @@ var Database = Class.create("Database", {
             throw new Error("Specify admins and/or members with names=>roles fields!");
         }
 
-        this.client.put(this.name +"/_security", {body: {admins: admins, members: members}}, callback)
+        this.client.put(this.name +"/_security",
+            {body: {admins: admins, members: members}}, callback)
     },
 
     /**
@@ -448,7 +450,8 @@ var Database = Class.create("Database", {
      * @return {void}
      */
     purge: function(docId, docRevs, callback){
-        this.client.post(this.name +"/_purge", {body: {docId: docRevs}}, callback);
+        this.client.post(this.name +"/_purge",
+            {body: {docId: docRevs}}, callback);
     },
 
     /**
@@ -461,7 +464,8 @@ var Database = Class.create("Database", {
      * @return {void}
      */
     getMissingRevisions: function(docId, docRevs, callback){
-        this.client.post(this.name +"/_missing_revs", {body: {docId: docRevs}}, callback);
+        this.client.post(this.name +"/_missing_revs",
+            {body: {docId: docRevs}}, callback);
     },
 
     /**
@@ -474,7 +478,8 @@ var Database = Class.create("Database", {
      * @return {void}
      */
     getMissingRevisionsDiff: function(docId, docRevs, callback){
-        this.client.post(this.name +"/_revs_diff", {body: {docId: docRevs}}, callback);
+        this.client.post(this.name +"/_revs_diff",
+            {body: {docId: docRevs}}, callback);
     },
 
     /**
