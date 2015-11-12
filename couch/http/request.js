@@ -148,8 +148,7 @@ var Request = Class.create("Request", {
                     // set Client.Response.body
                     $this.client.Response.setBody(body,
                         // is json?
-                        $this.client.Response.getHeader("Content-Type") == "application/json"
-                    );
+                        $this.client.Response.getHeader("Content-Type") == "application/json");
 
                     // success -> callback (stream, data)
                     callback({
