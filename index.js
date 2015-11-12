@@ -250,4 +250,5 @@ var database = new Couch.Database(client, "foo");
 // var r;
 // r = Couch.Util.execSync("ls -la");
 // r = Couch.Util.fileInfo(__filename);
+// r = Couch.Util.fileInfo("./foo");
 // log(r)
