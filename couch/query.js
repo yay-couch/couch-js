@@ -57,15 +57,45 @@ var Query = Class.create("Query", {
         }
     },
 
+    /**
+     * Set data field.
+     * @public
+     *
+     * @param  {String} key
+     * @param  {mixed} value
+     * @return {void}
+     */
     set: function(key, value) {
         this.data[key.toLowerCase()] = value;
     },
+
+    /**
+     * Get data field.
+     * @public
+     *
+     * @param  {String} key
+     * @return {mixed}
+     */
     get: function(key){
         return this.data[key];
     },
+
+    /**
+     * Get data as array.
+     * @public
+     *
+     * @return {Object}
+     */
     toArray: function(){
         return this.data;
     },
+
+    /**
+     * Get data as query string.
+     * @public
+     *
+     * @return {String}
+     */
     toString: function(){
         if (this.dataString != "") {
             return this.dataString;
@@ -77,18 +107,40 @@ var Query = Class.create("Query", {
             if (typeof value == "undefined") {
                 continue;
             }
+
+            // handle CouchDB booleans
             if (value === true || value === false) {
                 data[key] = value ? "true" : "false";
             }
+
             data.push(encodeURIComponent(key) +"="+ encodeURIComponent(value));
         }
 
-        return (this.dataString = data.join("&").replace(/%5B/gi, "[").replace(/%5D/gi, "]"));
+        return (this.dataString = data.join("&")
+            // fix brackets
+            .replace(/%5B/gi, "[").replace(/%5D/gi, "]"));
     },
+
+    /**
+     * Add skip param.
+     * @public
+     *
+     * @param  {Number} num
+     * @return {self}
+     */
     skip: function(num){
         this.data.skip = num;
+
         return this;
     },
+
+    /**
+     * Add limit param.
+     * @public
+     *
+     * @param  {Number} num
+     * @return {self}
+     */
     limit: function(num){
         this.data.limit = num;
         return this;
