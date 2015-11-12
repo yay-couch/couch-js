@@ -1,6 +1,3 @@
-var Couch = require("../index");
-log(Couch)
-
 function log(){
     return console.log.apply(this, arguments);
 }
@@ -12,6 +9,9 @@ function logData(stream, data){
     console.log(data);
 }
 global.log = log; // tmp
+
+var Couch = require("../index");
+log(Couch)
 
 var couch = new Couch.Couch();
 // var couch = new Couch.Couch({host:"127.0.0.1"});
