@@ -34,9 +34,11 @@ var Class = require("../util/class"),
 var http = require("http");
 
 /**
+ * Request object.
+ * @public
+ *
  * @class   Couch.Request
  * @extends Couch.Stream
- * @public
  */
 var Request = Class.create("Request", {
     /**
