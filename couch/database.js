@@ -134,7 +134,7 @@ var Database = Class.create("Database", {
     },
 
     /**
-     * Get a database document.
+     * Get a document.
      * @public @async
      *
      * @param  {String}   key
@@ -156,7 +156,7 @@ var Database = Class.create("Database", {
     },
 
     /**
-     * Get all database documents.
+     * Get all documents.
      * @public @async
      *
      * @param  {Object|String|Couch.Query} query
@@ -223,7 +223,7 @@ var Database = Class.create("Database", {
                 throw new Error("Each document must be a valid JSON object!");
             }
 
-            // get doc as object
+            // serialize document
             if (isInstanceOf(doc, Document)) {
                 doc = doc.getData();
             }
@@ -274,7 +274,7 @@ var Database = Class.create("Database", {
                 throw new Error("Each document must be a valid JSON object!");
             }
 
-            // get doc as object
+            // serialize document
             if (isInstanceOf(doc, Document)) {
                 doc = doc.getData();
             }
@@ -289,21 +289,46 @@ var Database = Class.create("Database", {
 
         this.client.post(this.name +"/_bulk_docs", {body: {docs: docs}}, callback);
     },
+
+    /**
+     * Delete a document.
+     * @public @async
+     *
+     * @param  {Object|Couch.Document} document
+     * @param  {Function}              callback
+     * @return {void}
+     * @throws {Error}
+     */
     deleteDocument: function(document, callback){
         this.deleteDocumentAll([document], function(stream, data){
             return callback(stream, (data && data[0]) || null);
         });
     },
+
+    /**
+     * Delete multiple documents.
+     * @public @async
+     *
+     * @param  {Array}    documents
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
     deleteDocumentAll: function(documents, callback){
         if (!documents || !documents.length) {
             throw new Error("Documents are required for delete actions!");
         }
+
         documents.map(function(doc){
+            // serialize document
             if (isInstanceOf(doc, Document)) {
                 doc = doc.getData();
             }
+
+            // just add _deleted flag
             doc._deleted = true;
         });
+
         this.updateDocumentAll(documents, callback);
     },
     getChanges: function(query, docIds, callback){
