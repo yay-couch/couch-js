@@ -22,10 +22,9 @@
  * Class object.
  * @public
  *
- * @module  Couch
- * @object  Couch.Class
- * @extends Couch.Stream
- * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ * @module Couch
+ * @object Couch.Class
+ * @author Kerem Güneş <qeremy[at]gmail[dot]com>
  */
 var Class = (function() {
     return {

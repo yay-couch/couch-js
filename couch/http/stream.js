@@ -43,9 +43,9 @@ function extract(key, object) {
  * Stream object.
  * @public
  *
- * @module  Couch
- * @object  Couch.Stream
- * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ * @module Couch
+ * @object Couch.Stream
+ * @author Kerem Güneş <qeremy[at]gmail[dot]com>
  */
 var Stream = Class.create("Stream", {
     /**
