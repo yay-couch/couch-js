@@ -134,7 +134,7 @@ server.getStats(?path"", callback);
 server.getStats("/couchdb/request_time", callback);
 
 server.getUuid(?limit%, callback); // get one
-server.getUuid(3, callback);      // get three
+server.getUuid(3, callback);       // get three
 
 server.getConfig(?section"", ?key"", callback);
 server.getConfig("couchdb", "", callback);
