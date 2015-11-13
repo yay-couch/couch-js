@@ -390,16 +390,8 @@ var Document = Class.create("Document", {
             headers["If-Match"] = this._rev;
         }
 
-        var data = this.getData(null, true);
-
-        // normalize attachments
-        for (var i in this._attachments) {
-            if (isInstanceOf(data._attachments[i], DocumentAttachment)) {
-                data._attachments[i] = this._attachments[i].toArray();
-            } else {
-                data._attachments[i] = this._attachments[i];
-            }
-        }
+        // get data with "filter & normalize" options
+        var data = this.getData(null, true, true);
 
         this.database.client.post(this.database.name + batch,
             {body: data, headers: headers}, callback);
