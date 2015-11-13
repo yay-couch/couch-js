@@ -299,11 +299,55 @@ String attc.toJson();
 Object attc.toArray();
 ```
 
+#####DocumentDesign Object#####
+```js
+// @todo
+```
 
+##Uuid##
+```js
+// create uuid given value
+var uuid = new Couch.Uuid("my_uuid");
+// auto-generate using Math.random() => 32 length hexed
+var uuid = new Couch.Uuid(true);
 
+// also setValue & getValue methods available
+var uuid = new Couch.Uuid();
+uuid.setValue("my_uuid");
 
+// print
+console.log(uuid.toString());
 
+// generate method (default=HEX_32)
+var uuidValue = Couch.Uuid.generate();
+var uuidValue = Couch.Uuid.generate(Couch.Uuid.HEX_40);
 
+// available methods
+HEX_8 = 8;
+HEX_32 = 32;
+HEX_40 = 40;
+TIMESTAMP = 0;
+```
+
+##Query##
+```js
+// init query
+var query = new Couch.Query();
+// init query with data (params)
+var query = new Couch.Query({foo: 1});
+
+// add params
+query.set("conflicts", true)
+    .set("stale", "ok")
+    .skip(1)
+    .limit(2);
+
+// get as string
+console.log(query.toString());
+
+// use it!
+db.getDocumentAll(query, ?keys[], callback);
+```
 
 
 
