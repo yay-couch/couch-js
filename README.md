@@ -175,9 +175,7 @@ db.getMissingRevisionsDiff(docId"", docRevs[], callback);
 // get a document
 db.getDocument(key"", callback);
 // get all documents
-db.getDocumentAll(callback);
-// get all documents by keys
-db.getDocumentAll(?query?, keys[], callback);
+db.getDocumentAll(?query?, ?keys[], callback);
 
 // create a document
 var doc = new Couch.Document();
@@ -349,12 +347,70 @@ console.log(query.toString());
 db.getDocumentAll(query, ?keys[], callback);
 ```
 
+##Request / Response##
+```js
+// after any http stream (server ping, database ping, document save etc)
+client.request("GET /").done(function(stream, data){
+    // actually callback's stream param contains request/response
+    // objects that could be retrieved by getRequest()/getResponse()
+    // >> true
+    console.log("%j", stream.request === client.getRequest());
+
+    // dump raw stream
+    console.log(client.getRequest().toString());
+    console.log(client.getResponse().toString());
+
+    // get response body
+    console.log(client.getResponse().getBody());
+
+    // get response data (rendered)
+    console.log(client.getResponse().getData());
+    // >> { version: '14.04', name: 'Ubuntu' }
+    console.log(client.getResponse().getData("vendor"));
+    // >> Ubuntu
+    console.log(client.getResponse().getData("vendor.name"));
+});
+
+/*
+GET / HTTP/1.1
+Host: localhost:5984
+Connection: close
+Accept: application/json
+Content-Type: application/json
+User-Agent: Couch/v1.0 (+http://github.com/qeremy/couch-js)
 
 
+HTTP/1.1 200 OK
+Server: CouchDB/1.5.0 (Erlang OTP/R16B03)
+Date: Fri, 13 Nov 2015 02:45:12 GMT
+Content-Type: application/json
+Content-Length: 127
+Cache-Control: must-revalidate
 
+{"couchdb":"Welcome","uuid":"5a660f4695a5fa9ab2cd22722bc01e96", ...
+*/
+```
 
+##Error Handling##
 
+Couch will not throw any server response error, such as `409 Conflict` etc. It only throws library-related errors or wrong usages of the library (ie. when `_id` is required for some action but you did not provide it).
 
+```js
+// create issue
+var doc = new Couch.Document();
+doc._id = "an_existing_docid";
+
+// no error will be thrown
+doc.save(function(stream, data){
+    // but could be so
+    if (!stream.response.isStatusCode(201)) {
+        console.log("nö!");
+        // or log response error data
+        console.log(data.error);
+        console.log(data.reason);
+    }
+});
+```
 
 ##Structure##
 ```js
