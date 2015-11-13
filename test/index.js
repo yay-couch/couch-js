@@ -17,12 +17,25 @@ var couch = new Couch.Couch();
 // var couch = new Couch.Couch({host:"127.0.0.1"});
 var client = new Couch.Client(couch);
 
-// client.request('GET /', {uriParams: {}, body: null, headers: {}})
-//     .done(function(stream, data){
-//         console.log(stream.request.toString());
-//         console.log(stream.response.toString());
-//         console.log(data);
-//     });
+var options = {};
+
+// client.request("GET /", options).done(function(stream, data){
+//     console.log(stream.request.toString());
+//     console.log(stream.response.toString());
+//     console.log(data);
+// });
+
+// options.method    = Couch.Request.METHOD.GET;
+// options.uri       = "/";
+// options.uriParams = {foo: 1};
+// options.body      = null; // object or string or null
+// options.headers   = {"X-Foo": "Bar"};
+
+// client.request(options).done(function(stream, data){
+//     console.log(stream.request.toString());
+//     console.log(stream.response.toString());
+//     console.log(data);
+// });
 
 // client.request("POST /!!!BOOOOOOM!!!").done(function(stream, data){
 //     // log(data)
