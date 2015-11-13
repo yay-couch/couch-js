@@ -14,11 +14,6 @@ Notice: See CouchDB's official documents before using this library.
 - `foo?  = Mixed foo`
 - `?foo"" = Nullable String foo`
 
-##Install##
-```sh
-npm install qeremy-couch
-```
-
 ##In a Nutshell##
 
 ```js
@@ -30,6 +25,11 @@ doc.save();
 // append an attachment
 doc.setAttachment(new Couch.DocumentAttachment(doc, "./file.txt"));
 doc.save();
+```
+
+##Install##
+```sh
+npm install qeremy-couch
 ```
 
 ##Configuration##
