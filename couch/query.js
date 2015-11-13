@@ -118,10 +118,11 @@ var Query = Class.create("Query", {
             data.push(encodeURIComponent(key) +"="+ encodeURIComponent(value));
         }
 
-        return (this.dataString = data.join("&")
-            // fix brackets
-            .replace(/%5B/gi, "[")
-            .replace(/%5D/gi, "]")
+        return (
+            this.dataString = data.join("&")
+                // fix brackets
+                .replace(/%5B/gi, "[")
+                .replace(/%5D/gi, "]")
         );
     },
 
