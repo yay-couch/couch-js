@@ -29,7 +29,7 @@ doc.save();
 
 ##Install##
 ```sh
-npm install qeremy-couch
+$~ npm install qeremy-couch
 ```
 
 ##Configuration##
@@ -53,6 +53,8 @@ config.password = "************";
 
 #####Couch Object#####
 ```js
+var Couch = require("qeremy-couch");
+
 // init couch object with default config
 var couch = new Couch.Couch();
 
