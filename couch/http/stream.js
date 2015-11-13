@@ -177,9 +177,11 @@ var Stream = Class.create("Stream", {
         var string = "";
         // add first line checking stream type
         if (this.type == Stream.TYPE.REQUEST) {
-            string = Util.format("%s %s HTTP/%s\r\n", this.method, this.uri, this.httpVersion);
+            string = Util.format("%s %s HTTP/%s\r\n",
+                this.method, this.uri, this.httpVersion);
         } else if (this.type == Stream.TYPE.RESPONSE) {
-            string = Util.format("HTTP/%s %s %s\r\n", this.httpVersion, this.statusCode, this.statusText);
+            string = Util.format("HTTP/%s %s %s\r\n",
+                this.httpVersion, this.statusCode, this.statusText);
         }
 
         // add headers
@@ -196,7 +198,8 @@ var Stream = Class.create("Stream", {
 
         // add body
         if (this.body != null) {
-            string += (typeof this.body == "string") ? this.body : JSON.stringify(this.body);
+            string += (typeof this.body == "string")
+                ? this.body : JSON.stringify(this.body);
         }
 
         return string;
