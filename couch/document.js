@@ -225,9 +225,10 @@ var Document = Class.create("Document", {
      *
      * @param  {String}  key
      * @param  {Boolean} filter
+     * @param  {Boolean} normalize
      * @return {mixed}
      */
-    getData: function(key, filter){
+    getData: function(key, filter, normalize){
         var data = (key != null) ? this.data[key] : this.data;
 
         if (filter) {
@@ -241,9 +242,25 @@ var Document = Class.create("Document", {
             if (data._deleted === false) {
                 delete data._deleted;
             }
+        }
+
+        if (normalize) {
             // handle id
             if (isInstanceOf(data._id, Uuid)) {
                 data._id = data._id.toString();
+            }
+            // handle attachments
+            if (data._attachments) {
+                var isEmpty = true;
+                for (var i in data._attachments) {
+                    isEmpty = false;
+                    if (isInstanceOf(data._attachments[i], DocumentAttachment)) {
+                        data._attachments[i] = data._attachments[i].toArray();
+                    } else {
+                        data._attachments[i] = data._attachments[i];
+                    }
+                }
+                if (isEmpty) delete data._attachments;
             }
         }
 
