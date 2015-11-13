@@ -37,6 +37,18 @@ var options = {};
 //     console.log(data);
 // });
 
+// client.request("GET /").done(function(stream, data){
+//     log("%j", stream.request === client.getRequest())
+//     log(client.getRequest().toString())
+//     log(client.getResponse().toString())
+//     // get response body
+//     log(client.getResponse().getBody());
+//     // get response data
+//     log(client.getResponse().getData());
+//     log(client.getResponse().getData("vendor"));
+//     log(client.getResponse().getData("vendor.name"));
+// });
+
 // client.request("POST /!!!BOOOOOOM!!!").done(function(stream, data){
 //     // log(data)
 //     // log(stream.request.headers)
@@ -246,14 +258,14 @@ var database = new Couch.Database(client, "foo");
 //     log(data)
 // })
 
-var db = new Couch.Database(client, "foo2");
-var doc = new Couch.Document(db);
-doc._id = "attc_test";
-doc._rev = "9-c3791b86bacc762468034a8c0fbdea7c";
-var docAttc = new Couch.DocumentAttachment(doc, "./attc1.txt");
-doc.setAttachment(docAttc);
-log(doc.toJson())
-log(doc.toArray())
+// var db = new Couch.Database(client, "foo2");
+// var doc = new Couch.Document(db);
+// doc._id = "attc_test";
+// doc._rev = "9-c3791b86bacc762468034a8c0fbdea7c";
+// var docAttc = new Couch.DocumentAttachment(doc, "./attc1.txt");
+// doc.setAttachment(docAttc);
+// log(doc.toJson())
+// log(doc.toArray())
 
 // doc.setAttachment({file: "./attc1.txt"});
 // doc._id = "7f9231672eac835f0e39e5235700847d"
