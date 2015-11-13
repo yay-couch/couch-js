@@ -38,16 +38,16 @@ var Util = {
      * Simply mixin.
      * @public
      *
-     * @param  {Object} to
-     * @param  {Object} from
+     * @param  {Object} target
+     * @param  {Object} source
      * @return {Object}
      */
-    extend: function(to, from) {
-        for (var i in from) {
-            to[i] = from[i];
+    extend: function(target, source) {
+        for (var i in source) {
+            target[i] = source[i];
         }
 
-        return to;
+        return target;
     },
 
     /**
