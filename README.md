@@ -4,6 +4,16 @@ Simply port of [Couch](https://github.com/qeremy/couch) for Node.js.
 
 Notice: See CouchDB's official documents before using this library.
 
+**Symbols on README**
+
+- `foo"" = String foo`
+- `foo{} = Object foo`
+- `foo[] = Array foo`
+- `foo#  = Number foo`
+- `foo!  = Boolean foo`
+- `foo?  = Mixed foo`
+- `?foo"" = Nullable String foo`
+
 ##In a Nutshell##
 
 ```js
