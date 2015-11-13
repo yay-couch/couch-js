@@ -120,13 +120,7 @@ var Document = Class.create("Document", {
      * @return {String}
      */
     toJson: function(){
-        var data = this.data;
-        // normalize _id
-        if (isInstanceOf(data._id, Uuid)) {
-            data._id = data._id.toString();
-        }
-
-        return JSON.stringify(data);
+        return JSON.stringify(this.toArray());
     },
 
     /**
