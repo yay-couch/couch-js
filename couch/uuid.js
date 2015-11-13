@@ -57,7 +57,7 @@ var Uuid = Class.create("Uuid", {
     /**
      * Alias of self.getValue() method.
      *
-     * @return {String}
+     * @return {String|Number}
      */
     toString: function(){
         return this.getValue();
