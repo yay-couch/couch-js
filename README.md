@@ -52,32 +52,102 @@ couch.setConfig(config);
 // used in Server and Database objects
 var client = new Couch.Client(couch);
 ```
+If you need any direct request for any reason, you can use the methods below.
+```js
+var options = {}; // could be null too
+
+client.request("GET /", options).done(function(stream, data){
+    console.log(stream.request.toString());
+    console.log(stream.response.toString());
+    console.log(data); // rendered response data
+});
+
+// or with fulfilled options
+options.method    = Couch.Request.METHOD.GET;
+options.uri       = "/";
+options.uriParams = {foo: 1};
+options.body      = null; // object or string or null
+options.headers   = {"X-Foo": "Bar"};
+
+client.request(options).done(function(stream, data){
+    // ...
+});
+
+// shortcut methods that handle HEAD, GET, POST, PUT, COPY, DELETE
+client.head(uri, options, callback);
+client.get(uri, options, callback);
+client.copy(uri, options, callback);
+client.delete(uri, options, callback);
+// with body
+client.put(uri, options, callback);
+client.post(uri, options, callback);
+
+// after request operations
+var request  = client.getRequest();
+var response = client.getResponse();
+```
 
 ##Structure##
 ```js
 // console.log(Couch);
-{ NAME: "Couch",
-  VERSION: "1.0",
+{ NAME: 'Couch',
+  VERSION: '1.0',
   Couch: [Function],
-  Util: {
-     extend: [Function],
+  Util:
+   { extend: [Function],
      format: [Function],
      quote: [Function],
      forEach: [Function],
      execSync: [Function],
      fileInfo: [Function],
      fileExists: [Function],
-     Base64: { encoding: "utf-8", encode: [Function], decode: [Function] } },
-  Query: { [Function: Class] nameOrig: "Query", parse: [Function] },
-  Client: { [Function: Class] nameOrig: "Client" },
-  Server: { [Function: Class] nameOrig: "Server" },
-  Database: { [Function: Class] nameOrig: "Database" },
-  Document: { [Function: Class] nameOrig: "Document" },
-  DocumentAttachment: { [Function: Class] nameOrig: "DocumentAttachment" },
-  DocumentDesign: { [Function: Class] nameOrig: "DocumentDesign" },
-  Uuid: {
-     [Function: Class]
-     nameOrig: "Uuid",
+     Base64: { encoding: 'utf-8', encode: [Function], decode: [Function] } },
+  Class: { create: [Function], extend: [Function] },
+  Stream:
+   { [Function: Class]
+     nameOrig: 'Stream',
+     init: [Function],
+     TYPE: { REQUEST: 1, RESPONSE: 2 } },
+  Request:
+   { [Function: Class]
+     nameOrig: 'Request',
+     METHOD:
+      { HEAD: 'HEAD',
+        GET: 'GET',
+        POST: 'POST',
+        PUT: 'PUT',
+        DELETE: 'DELETE',
+        COPY: 'COPY' } },
+  Response:
+   { [Function: Class]
+     nameOrig: 'Response',
+     STATUS:
+      { '200': 'OK',
+        '201': 'Created',
+        '202': 'Accepted',
+        '304': 'Not Modified',
+        '400': 'Bad Request',
+        '401': 'Unauthorized',
+        '403': 'Forbidden',
+        '404': 'Not Found',
+        '405': 'Resource Not Allowed',
+        '406': 'Not Acceptable',
+        '409': 'Conflict',
+        '412': 'Precondition Failed',
+        '415': 'Bad Content Type',
+        '416': 'Requested Range Not Satisfiable',
+        '417': 'Expectation Failed',
+        '500': 'Internal Server Error' } },
+  Client: { [Function: Class] nameOrig: 'Client' },
+  Server: { [Function: Class] nameOrig: 'Server' },
+  Database: { [Function: Class] nameOrig: 'Database' },
+  Document: { [Function: Class] nameOrig: 'Document' },
+  DocumentAttachment: { [Function: Class] nameOrig: 'DocumentAttachment' },
+  DocumentDesign: { [Function: Class] nameOrig: 'DocumentDesign' },
+  Query: { [Function: Class] nameOrig: 'Query', parse: [Function] },
+  Uuid:
+   { [Function: Class]
+     nameOrig: 'Uuid',
      generate: [Function],
      HEX_8: 8,
      HEX_32: 32,
