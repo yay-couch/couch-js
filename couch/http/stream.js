@@ -80,8 +80,8 @@ var Stream = Class.create("Stream", {
      * @param  {String} body
      */
     __init__: function(headers, body){
-        if (!isNone(headers)) this.headers = headers;
-        if (!isNone(body))    this.body = body;
+        this.headers = headers || {};
+        this.body    = body    || null;
     },
 
     /**
