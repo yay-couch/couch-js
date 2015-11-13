@@ -9,7 +9,7 @@ Notice: See CouchDB's official documents before using this library.
 - `foo"" = String foo`
 - `foo{} = Object foo`
 - `foo[] = Array foo`
-- `foo#  = Number foo`
+- `foo%  = Number foo`
 - `foo!  = Boolean foo`
 - `foo?  = Mixed foo`
 - `?foo"" = Nullable String foo`
@@ -133,7 +133,7 @@ server.replicate(query={source: "foo", target: "foo2",
 server.getStats(?path"", callback);
 server.getStats("/couchdb/request_time", callback);
 
-server.getUuid(?limit#, callback); // get one
+server.getUuid(?limit%, callback); // get one
 server.getUuid(3, callback);      // get three
 
 server.getConfig(?section"", ?key"", callback);
@@ -161,7 +161,7 @@ db.getSecurity(callback);
 db.setSecurity(admins{}, members{}, callback);
 
 db.getRevisionLimit(callback);
-db.setRevisionLimit(limit#, callback);
+db.setRevisionLimit(limit%, callback);
 
 /** tmp view method  */
 db.viewTemp(map"", callback);
