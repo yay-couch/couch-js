@@ -129,7 +129,8 @@ var Database = Class.create("Database", {
     replicate: function(target, targetCreate, callback) {
         this.client.post("/_replicate", {
             body: {source: this.name, target: target,
-                   create_target: (targetCreate !== false)}
+                create_target: (targetCreate !== false)
+            }
         }, callback);
     },
 
