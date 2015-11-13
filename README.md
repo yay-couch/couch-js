@@ -379,7 +379,7 @@ Host: localhost:5984
 Connection: close
 Accept: application/json
 Content-Type: application/json
-User-Agent: Couch/v1.0 (+http://github.com/qeremy/couch-js)
+User-Agent: couch/v1.0 (+http://github.com/qeremy/couch-js)
 
 
 HTTP/1.1 200 OK
@@ -417,7 +417,7 @@ doc.save(function(stream, data){
 ##Structure##
 ```js
 // console.log(Couch);
-{ NAME: 'Couch',
+{ NAME: 'couch',
   VERSION: '1.0',
   Couch: [Function],
   Util:
