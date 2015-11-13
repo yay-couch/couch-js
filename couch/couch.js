@@ -80,13 +80,13 @@ Couch.Couch.prototype = {
 global.Couch = Couch;
 
 /**
- * Global isNone() function.
+ * Global isVoid() function.
  * @public
  *
  * @param  {mixed} input
  * @return {Boolean}
  */
-global.isNone = function(input){
+global.isVoid = function(input){
     return (input == null);
 };
 

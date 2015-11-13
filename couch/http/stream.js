@@ -93,7 +93,7 @@ var Stream = Class.create("Stream", {
      * @return {mixed}
      */
     getData: function(key){
-        if (isNone(key)) {
+        if (isVoid(key)) {
             return this.body;
         }
 
@@ -183,7 +183,7 @@ var Stream = Class.create("Stream", {
         var key, value;
         for (key in this.headers) {
             value = this.headers[key];
-            if (!isNone(value)) {
+            if (!isVoid(value)) {
                 string += Util.format("%s: %s\r\n", key, value);
             }
         }

@@ -121,7 +121,7 @@ var Request = Class.create("Request", {
                 var key, value;
                 // use parsed headers
                 for (key in response.headers) {
-                    value = !isNone(response.headers[key])
+                    value = !isVoid(response.headers[key])
                         ? response.headers[key].trim() : null;
 
                     // foo-bar => Foo-Bar
@@ -169,7 +169,7 @@ var Request = Class.create("Request", {
 
             // set Client.Request.body if provided
             var body = $this.client.Request.getBody();
-            if (!isNone(body)) {
+            if (!isVoid(body)) {
                 request.write(body);
             }
 

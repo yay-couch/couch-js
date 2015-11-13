@@ -52,7 +52,7 @@ var Query = Class.create("Query", {
      * @param {Object} data
      */
     __init__: function(data){
-        if (!isNone(data)) {
+        if (!isVoid(data)) {
             this.data = data;
         }
     },
