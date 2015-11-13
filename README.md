@@ -74,13 +74,13 @@ client.request(options).done(function(stream, data){
 });
 
 // shortcut methods that handle HEAD, GET, POST, PUT, COPY, DELETE
-client.head(uri, options, callback);
-client.get(uri, options, callback);
-client.copy(uri, options, callback);
-client.delete(uri, options, callback);
+client.head(uri"", options{}, callback);
+client.get(uri"", options{}, callback);
+client.copy(uri"", options{}, callback);
+client.delete(uri"", options{}, callback);
 // with body
-client.put(uri, options, callback);
-client.post(uri, options, callback);
+client.put(uri"", options{}, callback);
+client.post(uri"", options{}, callback);
 
 // after request operations
 var request  = client.getRequest();
@@ -108,29 +108,170 @@ var server = new Couch.Server(client);
 
 // methods
 server.ping(callback);
-server.info(key|null, callback);
+server.info(?key"", callback);
 server.version(callback);
 
 server.getActiveTasks(callback);
 server.getAllDatabases(callback);
-server.getDatabaseUpdates(query|null, callback);
-server.getLogs(query|null, callback);
+server.getDatabaseUpdates(query{}?, callback);
+server.getLogs(query?, callback);
 
 server.restart(callback);
-server.replicate(query={source: "foo", target: "foo2", create_target: true}, callback);
+server.replicate(query={source: "foo", target: "foo2",
+    create_target: true}, callback);
 
-server.getStats(path|null, callback);
+server.getStats(?path"", callback);
 server.getStats("/couchdb/request_time", callback);
 
-server.getUuid(null, callback); // get one
-server.getUuid(3, callback);    // get three
+server.getUuid(?limit#, callback); // get one
+server.getUuid(3, callback);      // get three
 
-server.getConfig(section|null, key|null, callback);
-server.getConfig("couchdb");
-server.getConfig("couchdb", "uuid");
-server.setConfig("couchdb", "foo", "the foo!");
-server.removeConfig("couchdb", "foo");
+server.getConfig(?section"", ?key"", callback);
+server.getConfig("couchdb", "", callback);
+server.getConfig("couchdb", "uuid", callback);
+server.setConfig("couchdb", "foo", "the foo!", callback);
+server.removeConfig("couchdb", "foo", callback);
 ```
+
+#####Database Object#####
+```js
+var db = new Couch.Database(client, "foo");
+
+// db methods
+db.ping(callback);
+db.info(?key"", callback);
+db.create(callback);
+db.remove(callback);
+db.replicate(target"", targetCreate!, callback);
+db.getChanges(?query{}, ?docIds[], callback);
+db.compact(ddoc"", callback);
+db.ensureFullCommit(callback);
+db.viewCleanup(callback);
+db.getSecurity(callback);
+db.setSecurity(admins{}, members{}, callback);
+
+db.getRevisionLimit(callback);
+db.setRevisionLimit(limit#, callback);
+
+/** tmp view method  */
+db.viewTemp(map"", callback);
+db.viewTemp(map"", reduce", callback);
+
+/** document methods  */
+db.purge(docId, docRevs, callback);
+db.getMissingRevisions(docId, docRevs, callback);
+db.getMissingRevisionsDiff(docId, docRevs, callback);
+
+// get a document
+db.getDocument(key, callback);
+// get all documents
+db.getDocumentAll(callback);
+// get all documents by keys
+db.getDocumentAll(query?, keys, callback);
+
+// create a document
+var doc = new Couch.Document();
+doc.name = "test";
+// param as Couch.Document
+db.createDocument(doc);
+// param as object
+db.createDocument({name: "test"});
+
+// update a document
+doc = new Couch.Document();
+doc._id = "e90636c398458a9d5969d2e71b04ad81";
+doc._rev = "3-9aeefae43b9fad5df8cc87fe8bcc2718";
+// param as Couch.Document
+db.updateDocument(doc);
+// param as array
+db.updateDocument({
+     "_id": "e90636c398458a9d5969d2e71b04b0a4",
+    "_rev": "1-afa338dcbc6870f1a1dd441557f79859",
+    "test": "test (update)"
+});
+
+// delete a document
+doc = new Couch.Document(null, {
+     "_id": "e90636c398458a9d5969d2e71b04b0a4",
+    "_rev": "1-afa338dcbc6870f1a1dd441557f79859",
+});
+db.deleteDocument(doc);
+
+/** multiple CRUD */
+var docs = [];
+
+// all accepted, just fill the doc data
+docs.push({/* doc data id etc (and rev for updade/delete) */});
+docs.push(new Couch.Document(null,
+    {/* doc data id etc (and rev for updade/delete) */}));
+doc = new Couch.Document();
+doc.foo = "...";
+docs.push(doc);
+
+// multiple create
+db.createDocumentAll(docs);
+// multiple update
+db.updateDocumentAll(docs);
+// multiple delete
+db.deleteDocumentAll(docs);
+```
+
+#####Document Object#####
+```php
+var doc = new Couch.Document(db);
+// set props (so data)
+doc._id = "e90636c398458a9d5969d2e71b04b2e4";
+doc._rev = "2-393dbbc2cca7eea546a3c750ebeddd70";
+
+// checker method
+doc.ping(callback);
+
+// CRUD methods
+doc.find(query, callback);
+doc.remove(batch!, fullCommit!, callback);
+// create
+doc.save(batch!, fullCommit!, callback);
+// update
+doc._id = "abc";
+doc._rev = "1-abc";
+doc.save(batch!, fullCommit!, callback);
+
+// copy methods
+doc.copy(dest, batch!, fullCommit!, callback);
+doc.copyFrom(dest, batch!, fullCommit!, callback);
+doc.copyTo(dest, destRev, batch!, fullCommit!, callback);
+
+// find revisions
+doc.findRevisions(callback);
+doc.findRevisionsExtended(callback);
+
+// find attachments
+doc.findAttachments(attEncInfo!, attsSince[], callback);
+
+// add attachments
+doc.setAttachment({file: "./file.txt"}); // name goes to be file.txt
+doc.setAttachment({file: "./file.txt", file_name: "my_file_name"});
+doc.setAttachment(new Couch.DocumentAttachment(doc, "./file.txt"));
+doc.save();
+
+// to json
+console.log(doc.toJson());
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ##Structure##
 ```js
