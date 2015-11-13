@@ -1,5 +1,12 @@
 {
-    "name" : "Couch",
+    "name": "Couch",
+    "version": "1.0.0",
     "description": "CouchDB Wrapper for Node.js",
-    "version" : "1.0"
+    "license": "Apache License, Version 2.0",
+    "author": "Kerem Güneş <qeremy@gmail.com>",
+    "homepage": "http://qeremy.com",
+    "repository": "qeremy/couch-js",
+    "engines": {
+        "node": ">= 0.10.25"
+    }
 }
