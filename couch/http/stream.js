@@ -108,6 +108,7 @@ var Stream = Class.create("Stream", {
      *
      * @param  {String} body
      * @return {self}
+     * @throws {Error}
      */
     setBody: function(body){
         // force re-define abstract method
