@@ -155,7 +155,7 @@ var Util = {
      * @public
      *
      * @param  {String} file
-     * @return {Object|undefined}
+     * @return {Object|void}
      * @throws {Error}
      * @example
      *    {mime: 'text/plain', charset: 'us-ascii', name: 'index.js' extension: 'js'}
