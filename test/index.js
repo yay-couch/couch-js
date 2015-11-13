@@ -252,7 +252,8 @@ doc._id = "attc_test";
 doc._rev = "9-c3791b86bacc762468034a8c0fbdea7c";
 var docAttc = new Couch.DocumentAttachment(doc, "./attc1.txt");
 doc.setAttachment(docAttc);
-log(doc.getData(null, true, true))
+log(doc.toJson())
+log(doc.toArray())
 
 // doc.setAttachment({file: "./attc1.txt"});
 // doc._id = "7f9231672eac835f0e39e5235700847d"
