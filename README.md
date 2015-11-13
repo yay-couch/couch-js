@@ -53,7 +53,9 @@ var couch = new Couch.Couch();
 
 // init couch object with given config
 var couch = new Couch.Couch(config);
-// or
+
+// or set later but before streaming
+var couch = new Couch.Couch();
 couch.setConfig(config);
 ```
 
