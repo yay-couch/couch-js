@@ -163,11 +163,11 @@ db.getMissingRevisions(docId"", docRevs[], callback);
 db.getMissingRevisionsDiff(docId"", docRevs[], callback);
 
 // get a document
-db.getDocument(key, callback);
+db.getDocument(key"", callback);
 // get all documents
 db.getDocumentAll(callback);
 // get all documents by keys
-db.getDocumentAll(query?, keys, callback);
+db.getDocumentAll(?query?, keys[], callback);
 
 // create a document
 var doc = new Couch.Document();
@@ -227,7 +227,7 @@ doc._rev = "2-393dbbc2cca7eea546a3c750ebeddd70";
 doc.ping(callback);
 
 // CRUD methods
-doc.find(query, callback);
+doc.find(?query{}, callback);
 doc.remove(batch!, fullCommit!, callback);
 // create
 doc.save(batch!, fullCommit!, callback);
@@ -237,9 +237,9 @@ doc._rev = "1-abc";
 doc.save(batch!, fullCommit!, callback);
 
 // copy methods
-doc.copy(dest, batch!, fullCommit!, callback);
-doc.copyFrom(dest, batch!, fullCommit!, callback);
-doc.copyTo(dest, destRev, batch!, fullCommit!, callback);
+doc.copy(dest"", batch!, fullCommit!, callback);
+doc.copyFrom(dest"", batch!, fullCommit!, callback);
+doc.copyTo(dest"", destRev"", batch!, fullCommit!, callback);
 
 // find revisions
 doc.findRevisions(callback);
