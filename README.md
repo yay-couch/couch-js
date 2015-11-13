@@ -227,7 +227,7 @@ db.deleteDocumentAll(docs);
 ```
 
 #####Document Object#####
-```php
+```js
 var doc = new Couch.Document(db);
 // set props (so data)
 doc._id = "e90636c398458a9d5969d2e71b04b2e4";
