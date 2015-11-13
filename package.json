@@ -6,6 +6,7 @@
     "author": "Kerem Güneş <qeremy@gmail.com>",
     "homepage": "http://qeremy.com",
     "repository": "qeremy/couch-js",
+    "keywords": ["couchdb", "couchjs", "nosql"],
     "engines": {
         "node": ">= 0.10.25"
     }
