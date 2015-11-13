@@ -85,10 +85,13 @@ client.post(uri, options, callback);
 // after request operations
 var request  = client.getRequest();
 var response = client.getResponse();
+```
 
-// generally, all callback's get only two params (stream, data)
-// stream = {error,request,response}
-// data   = {response.data (rendered)}
+Notice: All callback's get only two params (stream, data)
+
+- stream = {error,request,response} (Object)
+- data   = {response.data}          (Object|String|Boolean|null) // rendered
+```js
 server.ping(function(stream, data){
     console.log("%j", stream.response.isStatusCode(200));
     console.log("%j", (200 === stream.response.getStatusCode()));
