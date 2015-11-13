@@ -27,6 +27,8 @@ var Class = require("../util/class"),
 
 /**
  * Extractor.
+ * @private
+ *
  * @link   http://stackoverflow.com/a/11864828/362780
  * @param  {String} key
  * @param  {Object} object
