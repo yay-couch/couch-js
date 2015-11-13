@@ -1,13 +1,13 @@
 {
-  "name": "@qeremy/couch",
+  "name": "qeremy-couch",
   "version": "1.0.0",
   "description": "CouchDB Wrapper for Node.js.",
-  "license": "Apache License, Version 2.0",
+  "license": "Apache-2.0",
   "author": "Kerem Güneş <qeremy@gmail.com>",
   "homepage": "http://qeremy.com",
   "repository": {
     "type": "git",
-    "url": "git://github.com/qeremy/couch-js"
+    "url": "git://github.com/qeremy/couch-js.git"
   },
   "keywords": [
     "couchdb",
