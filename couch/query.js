@@ -145,6 +145,7 @@ var Query = Class.create("Query", {
      */
     limit: function(num){
         this.data.limit = num;
+
         return this;
     }
 });
