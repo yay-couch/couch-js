@@ -120,7 +120,9 @@ var Query = Class.create("Query", {
 
         return (this.dataString = data.join("&")
             // fix brackets
-            .replace(/%5B/gi, "[").replace(/%5D/gi, "]"));
+            .replace(/%5B/gi, "[")
+            .replace(/%5D/gi, "]")
+        );
     },
 
     /**
