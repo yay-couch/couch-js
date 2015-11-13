@@ -155,12 +155,12 @@ db.setRevisionLimit(limit#, callback);
 
 /** tmp view method  */
 db.viewTemp(map"", callback);
-db.viewTemp(map"", reduce", callback);
+db.viewTemp(map"", reduce"", callback);
 
 /** document methods  */
-db.purge(docId, docRevs, callback);
-db.getMissingRevisions(docId, docRevs, callback);
-db.getMissingRevisionsDiff(docId, docRevs, callback);
+db.purge(docId"", docRevs[], callback);
+db.getMissingRevisions(docId"", docRevs[], callback);
+db.getMissingRevisionsDiff(docId"", docRevs[], callback);
 
 // get a document
 db.getDocument(key, callback);
