@@ -112,13 +112,17 @@ global.isInstanceOf = function(a, b){
  */
 var modules = {
     Util: "./util/util",
-    Query: "./query",
+    Class: "./util/class",
+    Stream: "./http/stream",
+    Request: "./http/request",
+    Response: "./http/response",
     Client: "./client",
     Server: "./server",
     Database: "./database",
     Document: "./document",
     DocumentAttachment: "./document_attachment",
     DocumentDesign: "./document_design",
+    Query: "./query",
     Uuid: "./uuid"
 }, i;
 
