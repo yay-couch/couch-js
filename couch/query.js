@@ -63,10 +63,12 @@ var Query = Class.create("Query", {
      *
      * @param  {String} key
      * @param  {mixed} value
-     * @return {void}
+     * @return {self}
      */
     set: function(key, value) {
         this.data[key.toLowerCase()] = value;
+
+        return this;
     },
 
     /**
