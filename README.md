@@ -1,6 +1,6 @@
 ##Couch##
 
-Simply port of [Couch](https://github.com/qeremy/couch) for Node.js.
+Simply port of [Couch](https://github.com/qeremy/couch) library for Node.js.
 
 Notice: See CouchDB's official documents before using this library.
 
