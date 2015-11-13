@@ -319,10 +319,10 @@ uuid.setValue("my_uuid");
 console.log(uuid.toString());
 
 // generate method (default=HEX_32)
-var uuidValue = Couch.Uuid.generate();
+var uuidValue = Couch.Uuid.generate(?limit%);
 var uuidValue = Couch.Uuid.generate(Couch.Uuid.HEX_40);
 
-// available methods
+// available limits
 HEX_8 = 8;
 HEX_32 = 32;
 HEX_40 = 40;
