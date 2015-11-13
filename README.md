@@ -85,6 +85,18 @@ client.post(uri, options, callback);
 // after request operations
 var request  = client.getRequest();
 var response = client.getResponse();
+
+// generally, all callback's get only two params (stream, data)
+// stream = {error,request,response}
+// data   = {response.data (rendered)}
+server.ping(function(stream, data){
+    console.log("%j", stream.response.isStatusCode(200));
+    console.log("%j", (200 === stream.response.getStatusCode()));
+    console.log(data.length); // 0
+});
+server.version(function(stream, data){
+    console.log(data); // 1.5.0
+});
 ```
 
 #####Server Object#####
@@ -95,15 +107,21 @@ var server = new Couch.Server(client);
 server.ping(callback);
 server.info(key|null, callback);
 server.version(callback);
+
 server.getActiveTasks(callback);
 server.getAllDatabases(callback);
 server.getDatabaseUpdates(query|null, callback);
 server.getLogs(query|null, callback);
-server.replicate(query={source: "foo", target: "foo2", create_target: true}, callback);
+
 server.restart(callback);
+server.replicate(query={source: "foo", target: "foo2", create_target: true}, callback);
+
 server.getStats(path|null, callback);
 server.getStats("/couchdb/request_time", callback);
-server.getUuid(3, callback);
+
+server.getUuid(null, callback); // get one
+server.getUuid(3, callback);    // get three
+
 server.getConfig(section|null, key|null, callback);
 server.getConfig("couchdb");
 server.getConfig("couchdb", "uuid");
