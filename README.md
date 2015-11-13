@@ -267,7 +267,7 @@ doc.findAttachments(attEncInfo!, attsSince[], callback);
 // add attachments
 doc.setAttachment({file: "./file.txt"}); // name goes to be file.txt
 doc.setAttachment({file: "./file.txt", file_name: "my_file_name"});
-doc.setAttachment(new Couch.DocumentAttachment(doc, "./file.txt"));
+doc.setAttachment(new Couch.DocumentAttachment(doc, file"", ?fileName""));
 doc.save();
 
 // to json/array
