@@ -90,7 +90,7 @@ var Util = {
      */
     forEach: function(input, fn, scope){
         var len = input && input.length, i;
-        // array iterator (value => index)
+        // array iterator (index => value)
         if (typeof len !== "undefined") {
             for (i = 0; i < len; i++) {
                 if (false === fn.call(scope || input[i], i, input[i], input)) {
