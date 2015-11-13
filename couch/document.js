@@ -130,6 +130,16 @@ var Document = Class.create("Document", {
     },
 
     /**
+     * Get data object filtering/normalizing.
+     * @public
+     *
+     * @return {Object}
+     */
+    toArray: function(){
+        return this.getData(null, true, true);
+    },
+
+    /**
      * Set _id.
      * @public
      *
