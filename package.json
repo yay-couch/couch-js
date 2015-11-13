@@ -1,5 +1,5 @@
 {
-  "name": "couch",
+  "name": "@qeremy/couch",
   "version": "1.0.0",
   "description": "CouchDB Wrapper for Node.js.",
   "license": "Apache License, Version 2.0",
