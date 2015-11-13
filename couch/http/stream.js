@@ -121,7 +121,7 @@ var Stream = Class.create("Stream", {
      * Get stream body.
      * @public
      *
-     * @return {String}
+     * @return {String|null}
      */
     getBody: function(){
         return this.body;
