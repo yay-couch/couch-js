@@ -14,6 +14,11 @@ Notice: See CouchDB's official documents before using this library.
 - `foo?  = Mixed foo`
 - `?foo"" = Nullable String foo`
 
+##Install##
+```sh
+npm install qeremy-couch
+```
+
 ##In a Nutshell##
 
 ```js
