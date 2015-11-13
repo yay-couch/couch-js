@@ -264,11 +264,40 @@ doc.setAttachment({file: "./file.txt", file_name: "my_file_name"});
 doc.setAttachment(new Couch.DocumentAttachment(doc, "./file.txt"));
 doc.save();
 
-// to json
-console.log(doc.toJson());
+// to json/array
+String doc.toJson();
+Object doc.toArray();
 ```
 
+#####DocumentAttachment Object#####
+```js
+var attc = new Couch.DocumentAttachment(doc);
 
+// ping attachment
+attc.ping(callback);
+
+// find an attachment
+attc.fileName = "my_attc_name";
+attc.find(callback);
+
+// find an attachment by digest
+attc.fileName = "my_attc_name";
+attc.digest   = "U1p5BLvdnOZVRyR6YrXBoQ==";
+attc.find(callback);
+
+// add an attachment to document
+attc.file     = "attc.txt";
+attc.fileName = "my_attc_name";
+attc.save(callback);
+
+// remove an attachment from document
+attc.fileName = "my_attc_name";
+attc.remove();
+
+// to json/array
+String attc.toJson();
+Object attc.toArray();
+```
 
 
 
