@@ -87,6 +87,30 @@ var request  = client.getRequest();
 var response = client.getResponse();
 ```
 
+#####Server Object#####
+```js
+var server = new Couch.Server(client);
+
+// methods
+server.ping(callback);
+server.info(key|null, callback);
+server.version(callback);
+server.getActiveTasks(callback);
+server.getAllDatabases(callback);
+server.getDatabaseUpdates(query|null, callback);
+server.getLogs(query|null, callback);
+server.replicate(query={source: "foo", target: "foo2", create_target: true}, callback);
+server.restart(callback);
+server.getStats(path|null, callback);
+server.getStats("/couchdb/request_time", callback);
+server.getUuid(3, callback);
+server.getConfig(section|null, key|null, callback);
+server.getConfig("couchdb");
+server.getConfig("couchdb", "uuid");
+server.setConfig("couchdb", "foo", "the foo!");
+server.removeConfig("couchdb", "foo");
+```
+
 ##Structure##
 ```js
 // console.log(Couch);
