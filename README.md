@@ -374,7 +374,7 @@ client.request("GET /").done(function(stream, data){
     // objects that could be retrieved by getRequest()/getResponse()
     console.log("%j", stream.request === client.getRequest()); // >> true
 
-    // dump raw stream
+    // dump raw stream with headers/body parts
     console.log(client.getRequest().toString());
     console.log(client.getResponse().toString());
 
