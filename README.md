@@ -372,8 +372,7 @@ db.getDocumentAll(query, ?keys[], callback);
 client.request("GET /").done(function(stream, data){
     // actually callback's stream param contains request/response
     // objects that could be retrieved by getRequest()/getResponse()
-    // >> true
-    console.log("%j", stream.request === client.getRequest());
+    console.log("%j", stream.request === client.getRequest()); // >> true
 
     // dump raw stream
     console.log(client.getRequest().toString());
