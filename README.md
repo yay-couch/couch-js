@@ -136,8 +136,8 @@ server.version(callback);
 
 server.getActiveTasks(callback);
 server.getAllDatabases(callback);
-server.getDatabaseUpdates(query{}?, callback);
-server.getLogs(query?, callback);
+server.getDatabaseUpdates(?query{}, callback);
+server.getLogs(?query, callback);
 
 server.restart(callback);
 server.replicate(query={source: "foo", target: "foo2",
