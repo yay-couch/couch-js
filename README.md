@@ -1,4 +1,4 @@
-##Couch##
+## Couch
 
 Simply port of [Couch](https://github.com/qeremy/couch) library for Node.js.
 
@@ -14,7 +14,7 @@ Notice: See CouchDB's official documents before using this library.
 - `foo?  = Mixed foo`
 - `?foo"" = Nullable String foo`
 
-##In a Nutshell##
+## In a Nutshell
 
 ```js
 // create a fresh document
@@ -27,12 +27,13 @@ doc.setAttachment(new Couch.DocumentAttachment(doc, "./file.txt"));
 doc.save();
 ```
 
-##Install##
+## Install
+
 ```sh
 $~ npm install qeremy-couch
 ```
 
-##Configuration##
+## Configuration
 
 Configuration is optional but you can provide all these options;
 
@@ -49,9 +50,10 @@ config.username = "couchdb_user";
 config.password = "************";
 ```
 
-##Objects##
+## Objects
 
-#####Couch Object#####
+#### Couch Object
+
 ```js
 var Couch = require("qeremy-couch");
 
@@ -66,7 +68,8 @@ var couch = new Couch.Couch();
 couch.setConfig(config);
 ```
 
-#####Client Object#####
+##### Client Object
+
 ```js
 // used in Server and Database objects
 var client = new Couch.Client(couch);
@@ -121,7 +124,8 @@ server.version(function(stream, data){
 });
 ```
 
-#####Server Object#####
+##### Server Object
+
 ```js
 var server = new Couch.Server(client);
 
@@ -152,7 +156,8 @@ server.setConfig("couchdb", "foo", "the foo!", callback);
 server.removeConfig("couchdb", "foo", callback);
 ```
 
-#####Database Object#####
+##### Database Object
+
 ```js
 var db = new Couch.Database(client, "foo");
 
@@ -232,7 +237,8 @@ db.updateDocumentAll(docs);
 db.deleteDocumentAll(docs);
 ```
 
-#####Document Object#####
+##### Document Object
+
 ```js
 var doc = new Couch.Document(db);
 // set props (so data)
@@ -275,7 +281,8 @@ String doc.toJson();
 Object doc.toArray();
 ```
 
-#####DocumentAttachment Object#####
+##### DocumentAttachment Object
+
 ```js
 var attc = new Couch.DocumentAttachment(doc);
 
@@ -305,12 +312,14 @@ String attc.toJson();
 Object attc.toArray();
 ```
 
-#####DocumentDesign Object#####
+##### DocumentDesign Object
+
 ```js
 // @todo
 ```
 
-##Uuid##
+## Uuid
+
 ```js
 // create uuid given value
 var uuid = new Couch.Uuid("my_uuid");
@@ -335,7 +344,8 @@ HEX_40 = 40;
 TIMESTAMP = 0;
 ```
 
-##Query##
+## Query
+
 ```js
 // init query
 var query = new Couch.Query();
@@ -355,7 +365,8 @@ console.log(query.toString());
 db.getDocumentAll(query, ?keys[], callback);
 ```
 
-##Request / Response##
+## Request / Response
+
 ```js
 // after any http stream (server ping, database ping, document save etc)
 client.request("GET /").done(function(stream, data){
@@ -399,7 +410,7 @@ Cache-Control: must-revalidate
 */
 ```
 
-##Error Handling##
+## Error Handling
 
 Couch will not throw any server response error, such as `409 Conflict` etc. It only throws library-related errors or wrong usages of the library (ie. when `_id` is required for some action but you did not provide it).
 
@@ -420,7 +431,8 @@ doc.save(function(stream, data){
 });
 ```
 
-##Structure##
+## Structure
+
 ```js
 // console.log(Couch);
 { NAME: 'Couch',
