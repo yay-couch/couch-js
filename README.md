@@ -42,10 +42,13 @@ var config = {};
 
 // default=localhost
 config.host = "couchdb_host";
+
 // default=5984
 config.port = 1234;
+
 // default=null
 config.username = "couchdb_user";
+
 // default=null
 config.password = "************";
 ```
