@@ -54,6 +54,7 @@ config.password = "************";
 #### Couch Object
 
 ```js
+// get the big boy!
 var Couch = require("qeremy-couch");
 
 // init couch object with default config
