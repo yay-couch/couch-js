@@ -209,7 +209,7 @@ var Request = Class.create("Request", {
         if (uriParams) {
             var query = (new Query(uriParams)).toString();
             if (query.length) {
-                this.uri += "?"+ query.toString();
+                this.uri += "?"+ query;
             }
         }
 
