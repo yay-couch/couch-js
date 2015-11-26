@@ -104,7 +104,7 @@ Uuid.generate = function(limit){
         case Uuid.HEX_40:
             break;
         default:
-            throw new Error("Unimplemented limit given, only 8|32|40 available!");
+            throw new Error("Unimplemented limit given, only 0 or 8|32|40 available!");
     }
 
     // simply generate hexed value
