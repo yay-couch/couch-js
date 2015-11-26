@@ -89,6 +89,7 @@ var Uuid = Class.create("Uuid", {
  * @param  {Number} limit
  * @return {String|Number}
  * @throws {Error}
+ * @todo   Implement RFC-4122
  */
 Uuid.generate = function(limit){
     // simply unix timestamp
