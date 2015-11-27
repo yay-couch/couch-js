@@ -26,22 +26,6 @@ var Class = require("../util/class"),
     Util = require("../util/util");
 
 /**
- * Extractor.
- * @private
- *
- * @link   http://stackoverflow.com/a/11864828/362780
- * @param  {String} key
- * @param  {Object} object
- * @return {mixed}
- */
-function extract(key, object) {
-    key = key.split(".");
-    var k = key.shift();
-    return (key.length)
-        ? extract(key.join("."), object[k]) : object[k];
-}
-
-/**
  * Stream object.
  * @public
  *
@@ -90,7 +74,7 @@ var Stream = Class.create("Stream", {
      * Get stream data.
      * @public
      *
-     * @uses   extract()
+     * @uses   Util.dig()
      * @param  {String} key
      * @return {mixed}
      */
@@ -99,7 +83,7 @@ var Stream = Class.create("Stream", {
             return this.body;
         }
 
-        return extract(key, this.body || {});
+        return Util.dig(key, this.body || {});
     },
 
     /**

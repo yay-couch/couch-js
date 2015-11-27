@@ -35,6 +35,24 @@ var cp = require("child_process");
  */
 var Util = {
     /**
+     * Extractor.
+     * @public
+     *
+     * @link   http://stackoverflow.com/a/11864828/362780
+     * @param  {String} key
+     * @param  {Object} object
+     * @return {mixed}
+     */
+    dig: function(key, object) {
+        var keys = key.split(".");
+        var key  = keys.shift();
+
+        return (keys.length)
+            ? this.dig(keys.join("."), object[key])
+            : object[key];
+    },
+
+    /**
      * Simply mixin.
      * @public
      *
