@@ -150,7 +150,20 @@ var Server = Class.create("Server", {
     },
 
     /**
-     * Get new UUID(s) from database.
+     * Get a new uuid.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
+    getUuid: function(count, callback){
+        this.getUuid(1, function(stream, data){
+            callback(stream, data[0])
+        });
+    },
+
+    /**
+     * Get new uuid(s).
      * @public @async
      *
      * @param  {Number}   count
@@ -158,17 +171,8 @@ var Server = Class.create("Server", {
      * @return {void}
      */
     getUuid: function(count, callback){
-        // set count=1 as default
-        count = count || 1;
-
-        this.client.get("/_uuids?count="+ count, null, function(stream){
+        this.client.get("/_uuids?count="+ (count || 1), null, function(stream){
             var data = stream.response.getData("uuids");
-
-            // return as array or string (if count=1)
-            if (data.length) {
-                data = (count === 1) ? data[0] : data;
-            }
-
             callback(stream, data);
         });
     },
