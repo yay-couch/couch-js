@@ -138,35 +138,6 @@ var Server = Class.create("Server", {
     },
 
     /**
-     * Replicate database.
-     * @public @async
-     *
-     * @param  {Object}   query
-     * @param  {Function} callback
-     * @return {void}
-     * @throws {Error}
-     */
-    replicate: function(query, callback) {
-        query = query || {};
-        if (!query.source || !query.target) {
-            throw new Error("Both source & target required!");
-        }
-
-        this.client.post("/_replicate", {body: query}, callback);
-    },
-
-    /**
-     * Restart database.
-     * @public @async
-     *
-     * @param  {Function} callback
-     * @return {void}
-     */
-    restart: function(callback){
-        this.client.post("/_restart", null, callback);
-    },
-
-    /**
      * Get database stats.
      * @public @async
      *
@@ -200,6 +171,35 @@ var Server = Class.create("Server", {
 
             callback(stream, data);
         });
+    },
+
+    /**
+     * Replicate database.
+     * @public @async
+     *
+     * @param  {Object}   query
+     * @param  {Function} callback
+     * @return {void}
+     * @throws {Error}
+     */
+    replicate: function(query, callback) {
+        query = query || {};
+        if (!query.source || !query.target) {
+            throw new Error("Both source & target required!");
+        }
+
+        this.client.post("/_replicate", {body: query}, callback);
+    },
+
+    /**
+     * Restart database.
+     * @public @async
+     *
+     * @param  {Function} callback
+     * @return {void}
+     */
+    restart: function(callback){
+        this.client.post("/_restart", null, callback);
     },
 
     /**
