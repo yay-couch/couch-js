@@ -85,6 +85,44 @@ var Request = Class.create("Request", {
     },
 
     /**
+     * Set request method.
+     * @public
+     *
+     * @param  {string} method
+     * @return {self}
+     */
+    setMethod: function(method) {
+        this.method = method.toUpperCase();
+        if (this.method != Request.METHOD.HEAD &&
+            this.method != Request.METHOD.GET &&
+            this.method != Request.METHOD.POST) {
+            this.setHeader("X-HTTP-Method-Override", this.method);
+        }
+
+        return this;
+    },
+
+    /**
+     * Set request URI.
+     * @public
+     *
+     * @param  {string} uri
+     * @param  {object} uriParams
+     * @return {self}
+     */
+    setUri: function(uri, uriParams) {
+        this.uri = uri;
+        if (uriParams) {
+            var query = (new Query(uriParams)).toString();
+            if (query.length) {
+                this.uri += "?"+ query;
+            }
+        }
+
+        return this;
+    },
+
+    /**
      * Send request.
      * @public @async
      *
@@ -176,44 +214,6 @@ var Request = Class.create("Request", {
             // end request
             request.end();
         }
-    },
-
-    /**
-     * Set request method.
-     * @public
-     *
-     * @param  {string} method
-     * @return {self}
-     */
-    setMethod: function(method) {
-        this.method = method.toUpperCase();
-        if (this.method != Request.METHOD.HEAD &&
-            this.method != Request.METHOD.GET &&
-            this.method != Request.METHOD.POST) {
-            this.setHeader("X-HTTP-Method-Override", this.method);
-        }
-
-        return this;
-    },
-
-    /**
-     * Set request URI.
-     * @public
-     *
-     * @param  {string} uri
-     * @param  {object} uriParams
-     * @return {self}
-     */
-    setUri: function(uri, uriParams) {
-        this.uri = uri;
-        if (uriParams) {
-            var query = (new Query(uriParams)).toString();
-            if (query.length) {
-                this.uri += "?"+ query;
-            }
-        }
-
-        return this;
     }
 });
 
