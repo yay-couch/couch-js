@@ -451,8 +451,9 @@ var Database = Class.create("Database", {
      * @return {void}
      */
     purge: function(docId, docRevs, callback){
-        this.client.post(this.name +"/_purge",
-            {body: {docId: docRevs}}, callback);
+        var body = {};
+        body[docId] = docRevs;
+        this.client.post(this.name +"/_purge", {body: body}, callback);
     },
 
     /**
