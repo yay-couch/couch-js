@@ -481,8 +481,9 @@ var Database = Class.create("Database", {
      * @return {void}
      */
     getMissingRevisionsDiff: function(docId, docRevs, callback){
-        this.client.post(this.name +"/_revs_diff",
-            {body: {docId: docRevs}}, callback);
+        var body = {};
+        body[docId] = docRevs;
+        this.client.post(this.name +"/_revs_diff", {body: body}, callback);
     },
 
     /**
