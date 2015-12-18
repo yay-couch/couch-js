@@ -197,9 +197,9 @@ var Util = {
         }
 
         // make a shell command
-        var tmp = this.execSync("file -i '"+ file +"' | awk '{print $2} {print $3}'");
-        if (tmp) {
-            tmp = tmp.trim().split("\n");
+        var out = this.execSync("file -i '"+ file +"' | awk '{print $2} {print $3}'");
+        if (out) {
+            var tmp = tmp.trim().split("\n");
             if (tmp.length == 2) {
                 // remove comma
                 mime = (tmp[0].lastIndexOf(";") > -1)
