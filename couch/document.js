@@ -389,7 +389,7 @@ var Document = Class.create("Document", {
             headers["X-Couch-Full-Commit"] = "true";
         }
 
-        // update action
+        // update?
         if (this._rev) {
             headers["If-Match"] = this._rev;
         }
@@ -397,8 +397,29 @@ var Document = Class.create("Document", {
         // get data with "filter & normalize" options
         var data = this.getData(null, true, true);
 
-        this.database.client.post(this.database.name + batch,
-            {body: data, headers: headers}, callback);
+        var $this = this;
+        if (this._id == null) {
+            // insert action
+            this.database.client.post(this.database.name + batch,
+                {body: data, headers: headers}, function(stream, data){
+                    if (data.id != null) {
+                        $this.setId(data.id);
+                    }
+                    if (data.rev != null) {
+                        $this.setId(data.rev);
+                    }
+                    callback(stream, data);
+            });
+        } else {
+            // update action
+            this.database.client.put(this.database.name +"/"+ this._id + batch,
+                {body: data, headers: headers}, function(stream, data){
+                    if (data.rev != null) {
+                        $this.setId(data.rev);
+                    }
+                    callback(stream, data);
+            });
+        }
     },
 
     /**
