@@ -51,7 +51,7 @@ config.password = "************";
 
 ## Objects
 
-#### Couch Object
+### Couch Object
 
 ```js
 // get the big boy!
@@ -68,7 +68,7 @@ var couch = new Couch.Couch();
 couch.setConfig(config);
 ```
 
-##### Client Object
+### Client Object
 
 ```js
 // used in Server and Database objects
@@ -124,7 +124,7 @@ server.version(function(stream, data){
 });
 ```
 
-##### Server Object
+### Server Object
 
 ```js
 var server = new Couch.Server(client);
@@ -156,7 +156,7 @@ server.setConfig("couchdb", "foo", "the foo!", callback);
 server.removeConfig("couchdb", "foo", callback);
 ```
 
-##### Database Object
+### Database Object
 
 ```js
 var db = new Couch.Database(client, "foo");
@@ -237,7 +237,7 @@ db.updateDocumentAll(docs);
 db.deleteDocumentAll(docs);
 ```
 
-##### Document Object
+### Document Object
 
 ```js
 var doc = new Couch.Document(db);
@@ -281,7 +281,7 @@ String doc.toJson();
 Object doc.toArray();
 ```
 
-##### DocumentAttachment Object
+### DocumentAttachment Object
 
 ```js
 var attc = new Couch.DocumentAttachment(doc);
@@ -312,7 +312,7 @@ String attc.toJson();
 Object attc.toArray();
 ```
 
-##### DocumentDesign Object
+### DocumentDesign Object
 
 ```js
 // @todo
