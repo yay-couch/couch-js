@@ -18,7 +18,7 @@ Notice: See CouchDB's official documents before using this library.
 
 ```js
 // create a fresh document
-var doc = new Couch.Document(client);
+var doc = new Couch.Document(db);
 doc.name = "The Doc!";
 doc.save();
 
