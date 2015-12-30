@@ -7,7 +7,7 @@
   "homepage": "http://qeremy.com",
   "repository": {
     "type": "git",
-    "url": "git://github.com/qeremy/couch-js.git"
+    "url": "git://github.com/yay-couch/couch-js.git"
   },
   "keywords": [
     "couchdb",
@@ -18,7 +18,7 @@
     "node": ">= 0.10.25"
   },
   "bugs": {
-    "url": "https://github.com/qeremy/couch-js/issues"
+    "url": "https://github.com/yay-couch/couch-js/issues"
   },
   "main": "index.js",
   "directories": {
