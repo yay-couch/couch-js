@@ -1,6 +1,6 @@
 ## Couch
 
-Simply port of [Couch](https://github.com/qeremy/couch) library for Node.js.
+Simply port of [Couch](https://github.com/yay-couch/couch) library for Node.js.
 
 Notice: See CouchDB's official documents before using this library.
 
@@ -30,7 +30,7 @@ doc.save();
 ## Install
 
 ```sh
-$~ npm install qeremy-couch
+$~ npm install yay-couch
 ```
 
 ## Configuration
@@ -55,7 +55,7 @@ config.password = "************";
 
 ```js
 // get the big boy!
-var Couch = require("qeremy-couch");
+var Couch = require("yay-couch");
 
 // init couch object with default config
 var couch = new Couch.Couch();
@@ -395,7 +395,7 @@ Host: localhost:5984
 Connection: close
 Accept: application/json
 Content-Type: application/json
-User-Agent: Couch/v1.0.0 (+http://github.com/qeremy/couch-js)
+User-Agent: Couch/v1.0.0 (+http://github.com/yay-couch/couch-js)
 
 
 HTTP/1.1 200 OK

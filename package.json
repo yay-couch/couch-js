@@ -1,10 +1,14 @@
 {
-  "name": "qeremy-couch",
-  "version": "1.0.3",
+  "name": "yay-couch",
+  "version": "1.0.4",
   "description": "CouchDB Wrapper for Node.js.",
+  "homepage": "http://github.com/yay-couch/couch-js",
   "license": "Apache-2.0",
-  "author": "Kerem Güneş <qeremy@gmail.com>",
-  "homepage": "http://qeremy.com",
+  "authors": [{
+    "name": "Kerem Güneş",
+    "email": "qeremy@gmail.com",
+    "homepage": "http://qeremy.com"
+  }],
   "repository": {
     "type": "git",
     "url": "git://github.com/yay-couch/couch-js.git"
@@ -18,7 +22,7 @@
     "node": ">= 0.10.25"
   },
   "bugs": {
-    "url": "https://github.com/yay-couch/couch-js/issues"
+    "url": "http://github.com/yay-couch/couch-js/issues"
   },
   "main": "index.js",
   "directories": {
