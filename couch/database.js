@@ -232,7 +232,6 @@ var Database = Class.create("Database", {
             }
 
             // this is create method, no update allowed
-            if (doc._id)      delete doc._id;
             if (doc._rev)     delete doc._rev;
             if (doc._deleted) delete doc._deleted;
 
