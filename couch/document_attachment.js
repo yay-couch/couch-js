@@ -140,7 +140,7 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         }
 
         this.document.database.client.head(Util.format("%s/%s/%s",
-            this.document.database.name, docId, encodeURIComponent(this.fileName)), {
+            this.document.database.name, encodeURIComponent(docId), encodeURIComponent(this.fileName)), {
                 uriParams: query, headers: headers
             }, callback);
     },
@@ -180,7 +180,7 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         }
 
         this.document.database.client.get(Util.format("%s/%s/%s",
-            this.document.database.name, docId, encodeURIComponent(this.fileName)), {
+            this.document.database.name, encodeURIComponent(docId), encodeURIComponent(this.fileName)), {
                 uriParams: query, headers: headers
             }, callback);
     },
@@ -218,7 +218,7 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         headers["Content-Type"] = this.contentType;
 
         this.document.database.client.put(Util.format("%s/%s/%s",
-            this.document.database.name, docId, encodeURIComponent(this.fileName)), {
+            this.document.database.name, encodeURIComponent(docId), encodeURIComponent(this.fileName)), {
                 body: this.data, headers: headers
             }, callback);
     },
@@ -259,7 +259,7 @@ var DocumentAttachment = Class.create("DocumentAttachment", {
         }
 
         this.document.database.client.delete(Util.format("%s/%s/%s%s",
-            this.document.database.name, docId, encodeURIComponent(this.fileName), batch), {
+            this.document.database.name, encodeURIComponent(docId), encodeURIComponent(this.fileName), batch), {
                 headers: headers
             }, callback);
     },

@@ -289,7 +289,7 @@ var Document = Class.create("Document", {
             headers["If-None-Match"] = Util.format('"%s"', this._rev);
         }
 
-        this.database.client.head(this.database.name +"/"+ this._id,
+        this.database.client.head(this.database.name +"/"+ encodeURIComponent(this._id),
             {headers: headers}, callback);
     },
 
@@ -312,7 +312,7 @@ var Document = Class.create("Document", {
             query.rev = this._rev;
         }
 
-        this.database.client.get(this.database.name +"/"+ this._id,
+        this.database.client.get(this.database.name +"/"+ encodeURIComponent(this._id),
             {uriParams: query}, callback);
     },
 
@@ -412,7 +412,7 @@ var Document = Class.create("Document", {
             });
         } else {
             // update action
-            this.database.client.put(this.database.name +"/"+ this._id + batch,
+            this.database.client.put(this.database.name +"/"+ encodeURIComponent(this._id) + batch,
                 {body: data, headers: headers}, function(stream, data){
                     if (data.rev != null) {
                         $this.setId(data.rev);
@@ -447,7 +447,7 @@ var Document = Class.create("Document", {
             headers["X-Couch-Full-Commit"] = "true";
         }
 
-        this.database.client.delete(this.database.name +"/"+ this._id + batch,
+        this.database.client.delete(this.database.name +"/"+ encodeURIComponent(this._id) + batch,
             {headers: headers}, callback);
     },
 
@@ -483,7 +483,7 @@ var Document = Class.create("Document", {
             headers["X-Couch-Full-Commit"] = "true";
         }
 
-        this.database.client.copy(this.database.name +"/"+ this._id + batch,
+        this.database.client.copy(this.database.name +"/"+ encodeURIComponent(this._id) + batch,
             {headers: headers}, callback);
     },
 
@@ -520,7 +520,7 @@ var Document = Class.create("Document", {
             headers["X-Couch-Full-Commit"] = "true";
         }
 
-        this.database.client.copy(this.database.name +"/"+ this._id + batch,
+        this.database.client.copy(this.database.name +"/"+ encodeURIComponent(this._id) + batch,
             {headers: headers}, callback);
     },
 
@@ -558,7 +558,7 @@ var Document = Class.create("Document", {
             headers["X-Couch-Full-Commit"] = "true";
         }
 
-        this.database.client.copy(this.database.name +"/"+ this._id + batch,
+        this.database.client.copy(this.database.name +"/"+ encodeURIComponent(this._id) + batch,
             {headers: headers}, callback);
     }
 });
