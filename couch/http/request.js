@@ -69,12 +69,6 @@ var Request = Class.create("Request", {
 
         this.client = client;
 
-        // set basic authorization header
-        if (this.client.username && this.client.password) {
-            this.headers["Authorization"] = "Basic "+
-                Util.Base64.encode(this.client.username +":"+ this.client.password);
-        }
-
         // set default headers
         this.headers["Host"] = Util.format("%s:%s", this.client.host, this.client.port);
         this.headers["Connection"] = "close";
@@ -82,6 +76,12 @@ var Request = Class.create("Request", {
         this.headers["Content-Type"] = "application/json";
         this.headers["User-Agent"] = Util.format(
             "%s/v%s (+http://github.com/yay-couch/couch-js)", Couch.NAME, Couch.VERSION);
+
+        // set basic authorization header
+        if (this.client.username && this.client.password) {
+            this.headers["Authorization"] = "Basic "+
+                Util.Base64.encode(this.client.username +":"+ this.client.password);
+        }
     },
 
     /**
