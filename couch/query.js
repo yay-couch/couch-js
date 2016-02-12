@@ -112,7 +112,7 @@ var Query = Class.create("Query", {
 
             // handle CouchDB booleans
             if (value === true || value === false) {
-                data[key] = value ? "true" : "false";
+                value = value ? "true" : "false";
             }
 
             data.push(encodeURIComponent(key) +"="+ encodeURIComponent(value));
