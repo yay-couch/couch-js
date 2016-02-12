@@ -158,10 +158,10 @@ var Query = Class.create("Query", {
  * @public
  *
  * @param  {String}  query
- * @param  {Boolean} rQO Return a new Query object?
- * @return {[type]}
+ * @param  {Boolean} queryNew Return a new Query object?
+ * @return {mixed}
  */
-Query.parse = function(query, rQO){
+Query.parse = function(query, queryNew){
     var pars = query.trim().replace(/&+/g, "&").split("&"),
         par, key, value, re = /^([\w]+)\[(.*)\]/i, ra, ks, ki, i = 0,
         params = {};
@@ -196,7 +196,7 @@ Query.parse = function(query, rQO){
     }
 
     // return a new Query object
-    if (rQO) {
+    if (queryNew) {
         return new Query(params);
     }
 
