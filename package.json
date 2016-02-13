@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "authors": [{
     "name": "Kerem Güneş",
-    "email": "k-gun@mail.com",
+    "email": "k-gun@mail.com"
   }],
   "repository": {
     "type": "git",
