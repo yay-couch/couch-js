@@ -6,12 +6,12 @@ Notice: See CouchDB's official documents before using this library.
 
 **Symbols on README**
 
-- `foo"" = String foo`
-- `foo{} = Object foo`
-- `foo[] = Array foo`
-- `foo%  = Number foo`
-- `foo!  = Boolean foo`
-- `foo?  = Mixed foo`
+- `foo""  = String foo`
+- `foo{}  = Object foo`
+- `foo[]  = Array foo`
+- `foo%   = Number foo`
+- `foo!   = Boolean foo`
+- `foo?   = Mixed foo`
 - `?foo"" = Nullable String foo`
 
 ## In a Nutshell
@@ -79,9 +79,9 @@ If you need any direct request for any reason, you can use the methods below.
 var options = {}; // could be null too
 
 client.request("GET /", options).done(function(stream, data){
-    console.log(stream.request.toString());
-    console.log(stream.response.toString());
-    console.log(data); // rendered response data
+   console.log(stream.request.toString());
+   console.log(stream.response.toString());
+   console.log(data); // rendered response data
 });
 
 // or with fulfilled options
@@ -92,7 +92,7 @@ options.body      = null; // object or string or null
 options.headers   = {"X-Foo": "Bar"};
 
 client.request(options).done(function(stream, data){
-    // ...
+   // ...
 });
 
 // shortcut methods that handle HEAD, GET, POST, PUT, COPY, DELETE
@@ -115,12 +115,12 @@ Notice: All callback's get only two params (stream, data)
 - data   = {response.data}          (Object|String|Boolean|null) // rendered
 ```js
 server.ping(function(stream, data){
-    console.log("%j", stream.response.isStatusCode(200));
-    console.log("%j", (200 === stream.response.getStatusCode()));
-    console.log(data.length); // 0
+   console.log("%j", stream.response.isStatusCode(200));
+   console.log("%j", (200 === stream.response.getStatusCode()));
+   console.log(data.length); // 0
 });
 server.version(function(stream, data){
-    console.log(data); // 1.5.0
+   console.log(data); // 1.5.0
 });
 ```
 
@@ -141,13 +141,13 @@ server.getLogs(?query{}, callback);
 
 server.restart(callback);
 server.replicate(query={source: "foo", target: "foo2",
-    create_target: true}, callback);
+   create_target: true}, callback);
 
 server.getStats(?path"", callback);
 server.getStats("/couchdb/request_time", callback);
 
 server.getUuid(?limit%, callback); // get one
-server.getUuid(3, callback);       // get three
+server.getUuid(3, callback);      // get three
 
 server.getConfig(?section"", ?key"", callback);
 server.getConfig("couchdb", "", callback);
@@ -200,21 +200,21 @@ db.createDocument({name: "test"});
 
 // update a document
 doc = new Couch.Document();
-doc._id = "e90636c398458a9d5969d2e71b04ad81";
-doc._rev = "3-9aeefae43b9fad5df8cc87fe8bcc2718";
+doc._id = "abc";
+doc._rev = "3-abc";
 // param as Couch.Document
 db.updateDocument(doc);
 // param as array
 db.updateDocument({
-     "_id": "e90636c398458a9d5969d2e71b04b0a4",
-    "_rev": "1-afa338dcbc6870f1a1dd441557f79859",
-    "test": "test (update)"
+    "_id": "abc",
+   "_rev": "1-abc",
+   "test": "test (update)"
 });
 
 // delete a document
 doc = new Couch.Document(null, {
-     "_id": "e90636c398458a9d5969d2e71b04b0a4",
-    "_rev": "1-afa338dcbc6870f1a1dd441557f79859",
+    "_id": "abc",
+   "_rev": "1-abc",
 });
 db.deleteDocument(doc);
 
@@ -224,7 +224,7 @@ var docs = [];
 // all accepted, just fill the doc data
 docs.push({/* doc data id etc (and rev for updade/delete) */});
 docs.push(new Couch.Document(null,
-    {/* doc data id etc (and rev for updade/delete) */}));
+   {/* doc data id etc (and rev for updade/delete) */}));
 doc = new Couch.Document();
 doc.foo = "...";
 docs.push(doc);
@@ -242,8 +242,8 @@ db.deleteDocumentAll(docs);
 ```js
 var doc = new Couch.Document(db);
 // set props (so data)
-doc._id = "e90636c398458a9d5969d2e71b04b2e4";
-doc._rev = "2-393dbbc2cca7eea546a3c750ebeddd70";
+doc._id = "abc";
+doc._rev = "2-abc";
 
 // checker method
 doc.ping(callback);
@@ -299,7 +299,7 @@ attc.digest   = "U1p5BLvdnOZVRyR6YrXBoQ==";
 attc.find(callback);
 
 // add an attachment to document
-attc.file     = "attc.txt";
+attc.file    = "attc.txt";
 attc.fileName = "my_attc_name";
 attc.save(callback);
 
@@ -354,9 +354,9 @@ var query = new Couch.Query({foo: 1});
 
 // add params
 query.set("conflicts", true)
-    .set("stale", "ok")
-    .skip(1)
-    .limit(2);
+   .set("stale", "ok")
+   .skip(1)
+   .limit(2);
 
 // get as string
 console.log(query.toString());
@@ -370,23 +370,23 @@ db.getDocumentAll(query, ?keys[], callback);
 ```js
 // after any http stream (server ping, database ping, document save etc)
 client.request("GET /").done(function(stream, data){
-    // actually callback's stream param contains request/response
-    // objects that could be retrieved by getRequest()/getResponse()
-    console.log("%j", stream.request === client.getRequest()); // >> true
+   // actually callback's stream param contains request/response
+   // objects that could be retrieved by getRequest()/getResponse()
+   console.log("%j", stream.request === client.getRequest()); // >> true
 
-    // dump raw stream with headers/body parts
-    console.log(client.getRequest().toString());
-    console.log(client.getResponse().toString());
+   // dump raw stream with headers/body parts
+   console.log(client.getRequest().toString());
+   console.log(client.getResponse().toString());
 
-    // get response body
-    console.log(client.getResponse().getBody());
+   // get response body
+   console.log(client.getResponse().getBody());
 
-    // get response data (rendered)
-    console.log(client.getResponse().getData());
-    // >> { version: '14.04', name: 'Ubuntu' }
-    console.log(client.getResponse().getData("vendor"));
-    // >> Ubuntu
-    console.log(client.getResponse().getData("vendor.name"));
+   // get response data (rendered)
+   console.log(client.getResponse().getData());
+   // >> { version: '14.04', name: 'Ubuntu' }
+   console.log(client.getResponse().getData("vendor"));
+   // >> Ubuntu
+   console.log(client.getResponse().getData("vendor.name"));
 });
 
 /*
@@ -420,13 +420,13 @@ doc._id = "an_existing_docid";
 
 // no error will be thrown
 doc.save(function(stream, data){
-    // but could be so
-    if (!stream.response.isStatusCode(201)) {
-        console.log("nö!");
-        // or log response error data
-        console.log(data.error);
-        console.log(data.reason);
-    }
+   // but could be so
+   if (!stream.response.isStatusCode(201)) {
+      console.log("nö!");
+      // or log response error data
+      console.log(data.error);
+      console.log(data.reason);
+   }
 });
 ```
 
@@ -439,49 +439,49 @@ doc.save(function(stream, data){
   Couch: [Function],
   Util:
    { extend: [Function],
-     format: [Function],
-     quote: [Function],
-     forEach: [Function],
-     execSync: [Function],
-     fileInfo: [Function],
-     fileExists: [Function],
-     Base64: { encoding: 'utf-8', encode: [Function], decode: [Function] } },
+    format: [Function],
+    quote: [Function],
+    forEach: [Function],
+    execSync: [Function],
+    fileInfo: [Function],
+    fileExists: [Function],
+    Base64: { encoding: 'utf-8', encode: [Function], decode: [Function] } },
   Class: { create: [Function], extend: [Function] },
   Stream:
    { [Function: Class]
-     nameOrig: 'Stream',
-     init: [Function],
-     TYPE: { REQUEST: 1, RESPONSE: 2 } },
+    nameOrig: 'Stream',
+    init: [Function],
+    TYPE: { REQUEST: 1, RESPONSE: 2 } },
   Request:
    { [Function: Class]
-     nameOrig: 'Request',
-     METHOD:
-      { HEAD: 'HEAD',
-        GET: 'GET',
-        POST: 'POST',
-        PUT: 'PUT',
-        DELETE: 'DELETE',
-        COPY: 'COPY' } },
+    nameOrig: 'Request',
+    METHOD:
+     { HEAD: 'HEAD',
+      GET: 'GET',
+      POST: 'POST',
+      PUT: 'PUT',
+      DELETE: 'DELETE',
+      COPY: 'COPY' } },
   Response:
    { [Function: Class]
-     nameOrig: 'Response',
-     STATUS:
-      { '200': 'OK',
-        '201': 'Created',
-        '202': 'Accepted',
-        '304': 'Not Modified',
-        '400': 'Bad Request',
-        '401': 'Unauthorized',
-        '403': 'Forbidden',
-        '404': 'Not Found',
-        '405': 'Resource Not Allowed',
-        '406': 'Not Acceptable',
-        '409': 'Conflict',
-        '412': 'Precondition Failed',
-        '415': 'Bad Content Type',
-        '416': 'Requested Range Not Satisfiable',
-        '417': 'Expectation Failed',
-        '500': 'Internal Server Error' } },
+    nameOrig: 'Response',
+    STATUS:
+     { '200': 'OK',
+      '201': 'Created',
+      '202': 'Accepted',
+      '304': 'Not Modified',
+      '400': 'Bad Request',
+      '401': 'Unauthorized',
+      '403': 'Forbidden',
+      '404': 'Not Found',
+      '405': 'Resource Not Allowed',
+      '406': 'Not Acceptable',
+      '409': 'Conflict',
+      '412': 'Precondition Failed',
+      '415': 'Bad Content Type',
+      '416': 'Requested Range Not Satisfiable',
+      '417': 'Expectation Failed',
+      '500': 'Internal Server Error' } },
   Client: { [Function: Class] nameOrig: 'Client' },
   Server: { [Function: Class] nameOrig: 'Server' },
   Database: { [Function: Class] nameOrig: 'Database' },
@@ -491,10 +491,10 @@ doc.save(function(stream, data){
   Query: { [Function: Class] nameOrig: 'Query', parse: [Function] },
   Uuid:
    { [Function: Class]
-     nameOrig: 'Uuid',
-     generate: [Function],
-     HEX_8: 8,
-     HEX_32: 32,
-     HEX_40: 40,
-     TIMESTAMP: 0 } }
+    nameOrig: 'Uuid',
+    generate: [Function],
+    HEX_8: 8,
+    HEX_32: 32,
+    HEX_40: 40,
+    TIMESTAMP: 0 } }
 ```
