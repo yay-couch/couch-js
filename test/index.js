@@ -1,12 +1,12 @@
 function log(){
-    return console.log.apply(this, arguments);
+   return console.log.apply(this, arguments);
 }
 function logStream(stream){
-    console.log(stream.request.toString());
-    console.log(stream.response.toString());
+   console.log(stream.request.toString());
+   console.log(stream.response.toString());
 }
 function logData(stream, data){
-    console.log(data);
+   console.log(data);
 }
 global.log = log; // tmp
 
@@ -20,9 +20,9 @@ var client = new Couch.Client(couch);
 var options = {};
 
 // client.request("GET /", options).done(function(stream, data){
-//     console.log(stream.request.toString());
-//     console.log(stream.response.toString());
-//     console.log(data);
+//    console.log(stream.request.toString());
+//    console.log(stream.response.toString());
+//    console.log(data);
 // });
 
 // options.method    = Couch.Request.METHOD.GET;
@@ -32,102 +32,102 @@ var options = {};
 // options.headers   = {"X-Foo": "Bar"};
 
 // client.request(options).done(function(stream, data){
-//     console.log(stream.request.toString());
-//     console.log(stream.response.toString());
-//     console.log(data);
+//    console.log(stream.request.toString());
+//    console.log(stream.response.toString());
+//    console.log(data);
 // });
 
 // client.request("GET /").done(function(stream, data){
-//     log("%j", stream.request === client.getRequest())
-//     log(client.getRequest().toString())
-//     log(client.getResponse().toString())
-//     // get response body
-//     log(client.getResponse().getBody());
-//     // get response data
-//     log(client.getResponse().getData());
-//     log(client.getResponse().getData("vendor"));
-//     log(client.getResponse().getData("vendor.name"));
+//    log("%j", stream.request === client.getRequest())
+//    log(client.getRequest().toString())
+//    log(client.getResponse().toString())
+//    // get response body
+//    log(client.getResponse().getBody());
+//    // get response data
+//    log(client.getResponse().getData());
+//    log(client.getResponse().getData("vendor"));
+//    log(client.getResponse().getData("vendor.name"));
 // });
 
 // client.request("POST /!!!BOOOOOOM!!!").done(function(stream, data){
-//     // log(data)
-//     // log(stream.request.headers)
-//     // log(stream.request.body)
-//     // log(stream.request.toString())
-//     // log("---")
-//     // log(stream.response.headers)
-//     // log(stream.response.body)
-//     // log(stream.response.toString())
+//    // log(data)
+//    // log(stream.request.headers)
+//    // log(stream.request.body)
+//    // log(stream.request.toString())
+//    // log("---")
+//    // log(stream.response.headers)
+//    // log(stream.response.body)
+//    // log(stream.response.toString())
 //});
 
 // client.request({
-//     method: "HEAD",
-//     uri: "/",
-//     uriParams: {a:1},
-//     body: {b:2},
-//     headers: {"X-Foo":"The foo!"}
+//    method: "HEAD",
+//    uri: "/",
+//    uriParams: {a:1},
+//    body: {b:2},
+//    headers: {"X-Foo":"The foo!"}
 // }).done(function(stream, data){
-//     // log(stream.request.headers)
-//     // log(stream.request.body)
-//     // log(stream.request.toString())
-//     // log("---")
-//     // log(stream.response.headers)
-//     // log(stream.response.body)
-//     // log(stream.response.toString())
+//    // log(stream.request.headers)
+//    // log(stream.request.body)
+//    // log(stream.request.toString())
+//    // log("---")
+//    // log(stream.response.headers)
+//    // log(stream.response.body)
+//    // log(stream.response.toString())
 // });
 
 var server = new Couch.Server(client);
 // server.ping(function(stream){
-//     console.log(stream.error);
-//     console.log(stream.request.toString());
-//     console.log(stream.response.toString());
-//     console.log("%j", stream.response.isStatusCode(200));
+//    console.log(stream.error);
+//    console.log(stream.request.toString());
+//    console.log(stream.response.toString());
+//    console.log("%j", stream.response.isStatusCode(200));
 // });
 // server.restart(function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // ver.info(null, function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // server.info("vendor.name", function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // server.version(function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // server.getActiveTasks(function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // server.getAllDatabases(function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // server.getDatabaseUpdates(function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // server.getLogs(null, function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // server.replicate({source:"foo", target:"foo_replica", create_target:true}, function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // server.getStats("", function(stream, data){
 // // server.getStats("/couchdb/request_time", function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // server.getUuid(null, function(stream, data){
 // // server.getUuid(3, function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // // server.getConfig(null, null, function(stream, data){
 // // server.getConfig("couchdb", null, function(stream, data){
 // server.getConfig("couchdb", "uuid", function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // server.setConfig("couchdb", "foo", "the foo!", function(stream, data){
-//     console.log(data !== false);
+//    console.log(data !== false);
 // });
 // server.removeConfig("couchdb", "_", function(stream, data){
-//     console.log(data !== false);
+//    console.log(data !== false);
 // });
 
 // var uuid = new Couch.Uuid();
@@ -135,127 +135,127 @@ var server = new Couch.Server(client);
 
 var database = new Couch.Database(client, "foo");
 // database.ping(function(stream){
-//     console.log("%j", stream.response.isStatusCode(200));
+//    console.log("%j", stream.response.isStatusCode(200));
 // });
 // database.info(null, function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // database.info("db_name", function(stream, data){
-//     console.log(data);
+//    console.log(data);
 // });
 // database.create(function(stream, data){
-//     console.log(data)
+//    console.log(data)
 // });
 // database.remove(function(stream, data){
-//     console.log(data)
+//    console.log(data)
 // });
 // database.replicate("foo_new", true, function(stream, data){
-//     console.log(data)
+//    console.log(data)
 // });
 // database.getDocument("5db345a5f26484352ea5d813180031fb", function(stream, data){
-//     log(data)
+//    log(data)
 // });
 // database.getDocumentAll({}, null, function(stream, data){
-//     log(data)
+//    log(data)
 // });
 // database.getDocumentAll({}, ["5db345a5f26484352ea5d813180031fb"], function(stream, data){
-//     for (var i in data.rows) {
-//         log(data.rows[i].doc)
-//     }
+//    for (var i in data.rows) {
+//       log(data.rows[i].doc)
+//    }
 // });
 // var doc = new Couch.Document(database, {"title": "The Book 3", "price": 3.5});
 // database.createDocument(doc, function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.createDocumentAll([
-//     {"title": "The Book 1", "price": 1.5},
-//     {"title": "The Book 2", "price": 2.5},
-//     doc
+//    {"title": "The Book 1", "price": 1.5},
+//    {"title": "The Book 2", "price": 2.5},
+//    doc
 // ], function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // var doc = {"title": "The Book 1 (update 1)", "price": 1.55,
-//     _id: "7f9231672eac835f0e39e52357000e02", _rev: "2-af60c1cd15fdc44575a7fbd3bef69441"};
+//    _id: "7f9231672eac835f0e39e52357000e02", _rev: "2-af60c1cd15fdc44575a7fbd3bef69441"};
 // database.updateDocument(doc, function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.updateDocumentAll([
-//     {"title": "The Book 1 (update)", "price": 1.55,
-//         _id: "7f9231672eac835f0e39e52357000e02", _rev: "1-df359e8057e2b1a924649beeb844d225"}
+//    {"title": "The Book 1 (update)", "price": 1.55,
+//       _id: "7f9231672eac835f0e39e52357000e02", _rev: "1-df359e8057e2b1a924649beeb844d225"}
 // ], function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.deleteDocument(
-//     {_id:"7f9231672eac835f0e39e52357000e02", _rev:"4-ca14d6a6e24e5596975d8f5a989d6085"}
+//    {_id:"7f9231672eac835f0e39e52357000e02", _rev:"4-ca14d6a6e24e5596975d8f5a989d6085"}
 // , function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.deleteDocumentAll([
-//     {_id:"7f9231672eac835f0e39e52357000e02", _rev:"4-ca14d6a6e24e5596975d8f5a989d6085"},
-//     {_id:"7f9231672eac835f0e39e52357000e02", _rev:"1-ca14d6a6e24e5596975d8f5a989d6085"}
+//    {_id:"7f9231672eac835f0e39e52357000e02", _rev:"4-ca14d6a6e24e5596975d8f5a989d6085"},
+//    {_id:"7f9231672eac835f0e39e52357000e02", _rev:"1-ca14d6a6e24e5596975d8f5a989d6085"}
 // ], function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.getChanges(null, ["7f9231672eac835f0e39e52357000e02"], function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.compact(null, function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.ensureFullCommit(function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.viewCleanup(function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // var map = "function(doc){if(doc.name) emit(doc,null)}"
 // database.viewTemp(map, null, function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.getSecurity(function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.setSecurity(
-//     {names: ["superuser"], roles: ["admins"]},
-//     {names: ["user1","user2"], roles: ["developers"]}
+//    {names: ["superuser"], roles: ["admins"]},
+//    {names: ["user1","user2"], roles: ["developers"]}
 // , function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.purge("7f9231672eac835f0e39e52357000e02", ["4-ca14d6a6e24e5596975d8f5a989d6085"], function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.getMissingRevisions("7f9231672eac835f0e39e52357000e02", ["4-ca14d6a6e24e5596975d8f5a989d6085"], function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.getMissingRevisionsDiff("7f9231672eac835f0e39e52357000e02", ["4-ca14d6a6e24e5596975d8f5a989d6085"], function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.getRevisionLimit(function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 // database.setRevisionLimit(1001, function(stream, data){
-//     logStream(stream)
+//    logStream(stream)
 // });
 
 // var doc = new Couch.Document(database);
 // doc._id = "7f9231672eac835f0e39e52357001b65";
 // doc.ping(function(stream){
-//     log(200 === stream.response.getStatusCode())
+//    log(200 === stream.response.getStatusCode())
 // });
 // doc._rev = "1-46161cd1c19c997587252320e8757c42";
 // doc.ping(function(stream){
-//     log(200 === stream.response.getStatusCode() || 304 === stream.response.getStatusCode())
+//    log(200 === stream.response.getStatusCode() || 304 === stream.response.getStatusCode())
 // });
 // doc.find({}, logStream)
 // doc.findRevisions(logData)
 // doc.findRevisionsExtended(logData)
 
 // var db = new Couch.Database(client, "foo2"),
-//     doc = new Couch.Document(db);
+//    doc = new Couch.Document(db);
 // doc._id = "attc_test";
 // doc._rev = "1-attc_test";
 // doc.findAttachments(true, ["2-6a0508cce9d2b4f3b83159648415c5e0"], function(s, data){
-//     log(data)
+//    log(data)
 // })
 
 // var db = new Couch.Database(client, "foo2");
@@ -279,7 +279,7 @@ var database = new Couch.Database(client, "foo");
 // doc._rev = "1-7da81219ee8c64accc3bff85f250e626";
 // // doc.copyFrom("7f9231672eac835f0e39e52357008c18_copy_copy", false, false, logStream)
 // doc.copyTo("7f9231672eac835f0e39e52357008c18_copy_copy", "1-7da81219ee8c64accc3bff85f250e626",
-//     false, false, logStream)
+//    false, false, logStream)
 
 // docAttc.fileName = "attc.txt";
 // docAttc.digest = "U1p5BLvdnOZVRyR6YrXBoQ==";

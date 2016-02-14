@@ -1,33 +1,16 @@
 {
-  "name": "yay-couch",
-  "version": "1.0.7",
-  "description": "CouchDB Wrapper for Node.js.",
-  "homepage": "http://github.com/yay-couch/couch-js",
-  "license": "Apache-2.0",
-  "authors": [{
-    "name": "Kerem Güneş",
-    "email": "k-gun@mail.com"
-  }],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/yay-couch/couch-js.git"
-  },
-  "keywords": [
-    "couchdb",
-    "couchjs",
-    "nosql"
-  ],
-  "engines": {
-    "node": ">= 0.10.25"
-  },
-  "bugs": {
-    "url": "http://github.com/yay-couch/couch-js/issues"
-  },
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  }
+   "name": "yay-couch",
+   "version": "1.0.8",
+   "description": "CouchDB Wrapper for Node.js.",
+   "homepage": "http://github.com/yay-couch/couch-js",
+   "license": "Apache-2.0",
+   "authors": [{
+      "name": "Kerem Güneş",
+      "email": "k-gun@mail.com"
+   }],
+   "repository": {
+      "type": "git",
+      "url": "git://github.com/yay-couch/couch-js.git"
+   },
+   "keywords": ["couchdb", "couchjs", "nosql"]
 }

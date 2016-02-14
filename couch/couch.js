@@ -1,15 +1,15 @@
 /**
  * Copyright 2015 Kerem Güneş
- *    <http://qeremy.com>
+ *   <k-gun@mail.com>
  *
  * Apache License, Version 2.0
- *    <http://www.apache.org/licenses/LICENSE-2.0>
+ *   <http://www.apache.org/licenses/LICENSE-2.0>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,10 +32,10 @@ Couch.VERSION = "1.0.6";
  *
  * @module Couch
  * @object Couch.Couch
- * @author Kerem Güneş <qeremy[at]gmail[dot]com>
+ * @author Kerem Güneş <k-gun@mail.com>
  */
 Couch.Couch = function(config){
-    this.setConfig(config);
+   this.setConfig(config);
 };
 
 /**
@@ -43,35 +43,35 @@ Couch.Couch = function(config){
  * @type {Object}
  */
 Couch.Couch.prototype = {
-    /**
-     * Config.
-     * @type {Object}
-     */
-    config: {},
+   /**
+    * Config.
+    * @type {Object}
+    */
+   config: {},
 
-    /**
-     * Set config.
-     * @public
-     *
-     * @param {Object} config
-     */
-    setConfig: function(config){
-        if (config) {
-            for (var i in config) {
-                this.config[i] = config[i];
-            }
-        }
-    },
+   /**
+    * Set config.
+    * @public
+    *
+    * @param {Object} config
+    */
+   setConfig: function(config){
+      if (config) {
+         for (var i in config) {
+            this.config[i] = config[i];
+         }
+      }
+   },
 
-    /**
-     * Get config.
-     * @public
-     *
-     * @return {Object}
-     */
-    getConfig: function(){
-        return this.config;
-    }
+   /**
+    * Get config.
+    * @public
+    *
+    * @return {Object}
+    */
+   getConfig: function(){
+      return this.config;
+   }
 };
 
 /**
@@ -87,7 +87,7 @@ global.Couch = Couch;
  * @return {Boolean}
  */
 global.isVoid = function(input){
-    return (input == null);
+   return (input == null);
 };
 
 /**
@@ -99,37 +99,34 @@ global.isVoid = function(input){
  * @return {Boolean}
  */
 global.isInstanceOf = function(a, b){
-    try {
-        return (a instanceof b);
-    } catch (e) {
-        return (a instanceof b.constructor);
-    }
+   try {
+      return (a instanceof b);
+   } catch (e) {
+      return (a instanceof b.constructor);
+   }
 };
-
-/**
- * Couch modules.
- * @private
- */
-var modules = {
-    Util: "./util/util",
-    Class: "./util/class",
-    Stream: "./http/stream",
-    Request: "./http/request",
-    Response: "./http/response",
-    Client: "./client",
-    Server: "./server",
-    Database: "./database",
-    Document: "./document",
-    DocumentAttachment: "./document_attachment",
-    DocumentDesign: "./document_design",
-    Query: "./query",
-    Uuid: "./uuid"
-}, i;
 
 /**
  * Append Couch modules into Couch object.
  */
-for (i in modules) Couch[i] = require(modules[i]);
+var modules = {
+   "Util"               : "./util/util",
+   "Class"              : "./util/class",
+   "Stream"             : "./http/stream",
+   "Request"            : "./http/request",
+   "Response"           : "./http/response",
+   "Client"             : "./client",
+   "Server"             : "./server",
+   "Database"           : "./database",
+   "Document"           : "./document",
+   "DocumentAttachment" : "./document_attachment",
+   "DocumentDesign"     : "./document_design",
+   "Query"              : "./query",
+   "Uuid"               : "./uuid"
+}, i;
+for (i in modules) {
+   Couch[i] = require(modules[i]);
+}
 
 /**
  * Expose module.
