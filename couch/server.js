@@ -156,7 +156,7 @@ var Server = Class.create("Server", {
     * @param  {Function} callback
     * @return {void}
     */
-   getUuid: function(count, callback){
+   getUuid: function(callback){
       this.getUuid(1, function(stream, data){
          callback(stream, data[0])
       });
@@ -170,7 +170,7 @@ var Server = Class.create("Server", {
     * @param  {Function} callback
     * @return {void}
     */
-   getUuid: function(count, callback){
+   getUuids: function(count, callback){
       this.client.get("/_uuids?count="+ (count || 1), null, function(stream){
          var data = stream.response.getData("uuids");
          callback(stream, data);

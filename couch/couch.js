@@ -24,7 +24,7 @@
  */
 var Couch = {};
 Couch.NAME = "Couch";
-Couch.VERSION = "1.0.6";
+Couch.VERSION = "1.0.9";
 
 /**
  * Couch.Couch object.
