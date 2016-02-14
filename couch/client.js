@@ -132,7 +132,7 @@ var Client = Class.create("Client", {
             throw new Error("Usage: <REQUEST METHOD> <REQUEST URI>!");
          }
          options.method = r[1],
-         options.uri   = r[2].replace(/\/+/g, "/");
+         options.uri    = r[2].replace(/\/+/g, "/");
       }
       // notation: {method: "GET", uri: "/foo"}
       else if (uriType == "object") {
@@ -147,7 +147,7 @@ var Client = Class.create("Client", {
       var $this = this;
 
       // init request/response objects
-      $this.Request = new Request($this);
+      $this.Request  = new Request($this);
       $this.Response = new Response();
 
       // set request method & uri
