@@ -4,16 +4,6 @@ Simply port of [Couch](https://github.com/yay-couch/couch) library for Node.js.
 
 Notice: See CouchDB's official documents before using this library.
 
-**Symbols on README**
-
-- `foo""  = String foo`
-- `foo{}  = Object foo`
-- `foo[]  = Array foo`
-- `foo%   = Number foo`
-- `foo!   = Boolean foo`
-- `foo?   = Mixed foo`
-- `?foo"" = Nullable String foo`
-
 ## In a Nutshell
 
 ```js
@@ -96,13 +86,13 @@ client.request(options).done(function(stream, data){
 });
 
 // shortcut methods that handle HEAD, GET, POST, PUT, COPY, DELETE
-client.head(uri"", options{}, callback);
-client.get(uri"", options{}, callback);
-client.copy(uri"", options{}, callback);
-client.delete(uri"", options{}, callback);
+client.head(uri, options={}, callback);
+client.get(uri, options={}, callback);
+client.copy(uri, options={}, callback);
+client.delete(uri, options={}, callback);
 // with body
-client.put(uri"", options{}, callback);
-client.post(uri"", options{}, callback);
+client.put(uri, options={}, callback);
+client.post(uri, options={}, callback);
 
 // after request operations
 var request  = client.getRequest();
@@ -131,25 +121,25 @@ var server = new Couch.Server(client);
 
 // methods
 server.ping(callback);
-server.info(?key"", callback);
+server.info(key="", callback);
 server.version(callback);
 
 server.getActiveTasks(callback);
 server.getAllDatabases(callback);
-server.getDatabaseUpdates(?query{}, callback);
-server.getLogs(?query{}, callback);
+server.getDatabaseUpdates(query={}, callback);
+server.getLogs(query={}, callback);
 
 server.restart(callback);
 server.replicate(query={source: "foo", target: "foo2",
    create_target: true}, callback);
 
-server.getStats(?path"", callback);
+server.getStats(path="", callback);
 server.getStats("/couchdb/request_time", callback);
 
-server.getUuid(?limit%, callback); // get one
-server.getUuid(3, callback);      // get three
+server.getUuid(callback);    // get one
+server.getUuid(3, callback); // get three
 
-server.getConfig(?section"", ?key"", callback);
+server.getConfig(section="", key="", callback);
 server.getConfig("couchdb", "", callback);
 server.getConfig("couchdb", "uuid", callback);
 server.setConfig("couchdb", "foo", "the foo!", callback);
@@ -163,11 +153,11 @@ var db = new Couch.Database(client, "foo");
 
 // db methods
 db.ping(callback);
-db.info(?key"", callback);
+db.info(key="", callback);
 db.create(callback);
 db.remove(callback);
-db.replicate(target"", targetCreate!, callback);
-db.getChanges(?query{}, ?docIds[], callback);
+db.replicate(target, targetCreate=true, callback);
+db.getChanges(query={}, docIds=[], callback);
 db.compact(ddoc"", callback);
 db.ensureFullCommit(callback);
 db.viewCleanup(callback);
@@ -175,20 +165,20 @@ db.getSecurity(callback);
 db.setSecurity(admins{}, members{}, callback);
 
 db.getRevisionLimit(callback);
-db.setRevisionLimit(limit%, callback);
+db.setRevisionLimit(limit, callback);
 
 /** tmp view method  */
-db.viewTemp(map"", ?reduce"", callback);
+db.viewTemp(map, reduce="", callback);
 
 /** document methods  */
-db.purge(docId"", docRevs[], callback);
-db.getMissingRevisions(docId"", docRevs[], callback);
-db.getMissingRevisionsDiff(docId"", docRevs[], callback);
+db.purge(docId, docRevs=[], callback);
+db.getMissingRevisions(docId, docRevs=[], callback);
+db.getMissingRevisionsDiff(docId, docRevs=[], callback);
 
 // get a document
-db.getDocument(key"", callback);
+db.getDocument(key, callback);
 // get all documents
-db.getDocumentAll(?query?, ?keys[], callback);
+db.getDocumentAll(query={}, keys=[], callback);
 
 // create a document
 var doc = new Couch.Document();
@@ -249,19 +239,19 @@ doc._rev = "2-abc";
 doc.ping(callback);
 
 // CRUD methods
-doc.find(?query{}, callback);
-doc.remove(batch!, fullCommit!, callback);
+doc.find(query={}, callback);
+doc.remove(batch=false, fullCommit=false, callback);
 // create
-doc.save(batch!, fullCommit!, callback);
+doc.save(batch=false, fullCommit=false, callback);
 // update
 doc._id = "abc";
 doc._rev = "1-abc";
-doc.save(batch!, fullCommit!, callback);
+doc.save(batch=false, fullCommit=false, callback);
 
 // copy methods
-doc.copy(dest"", batch!, fullCommit!, callback);
-doc.copyFrom(dest"", batch!, fullCommit!, callback);
-doc.copyTo(dest"", destRev"", batch!, fullCommit!, callback);
+doc.copy(dest, batch=false, fullCommit=false, callback);
+doc.copyFrom(dest, batch=false, fullCommit=false, callback);
+doc.copyTo(dest, destRev, batch=false, fullCommit=false, callback);
 
 // find revisions
 doc.findRevisions(callback);
@@ -334,7 +324,7 @@ uuid.setValue("my_uuid");
 console.log(uuid.toString());
 
 // generate method (default=HEX_32)
-var uuidValue = Couch.Uuid.generate(?limit%);
+var uuidValue = Couch.Uuid.generate(limit);
 var uuidValue = Couch.Uuid.generate(Couch.Uuid.HEX_40);
 
 // available limits
@@ -362,7 +352,7 @@ query.set("conflicts", true)
 console.log(query.toString());
 
 // use it!
-db.getDocumentAll(query, ?keys[], callback);
+db.getDocumentAll(query, keys=[], callback);
 ```
 
 ## Request / Response
