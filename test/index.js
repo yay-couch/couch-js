@@ -1,4 +1,4 @@
-sufunction log(){
+function log(){
    return console.log.apply(this, arguments);
 }
 function logStream(stream){
