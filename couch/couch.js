@@ -24,7 +24,8 @@
  */
 var Couch = {};
 Couch.NAME = "Couch";
-Couch.VERSION = "1.0.9";
+Couch.VERSION = "1.0.11";
+Couch.DEBUG = false;
 
 /**
  * Couch.Couch object.
@@ -34,7 +35,17 @@ Couch.VERSION = "1.0.9";
  * @object Couch.Couch
  * @author Kerem Güneş <k-gun@mail.com>
  */
-Couch.Couch = function(config){
+Couch.Couch = function(config, debug){
+   config = config || {}
+
+   // check debug option
+   if (!("debug" in config)) {
+      config.debug = Boolean(debug);
+   }
+
+   // set debug globally
+   Couch.DEBUG = config.debug;
+
    this.setConfig(config);
 };
 

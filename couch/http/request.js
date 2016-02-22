@@ -203,6 +203,12 @@ var Request = Class.create("Request", {
                   } catch (e) {}
                }
 
+               // dump whole http messages (request/response)
+               if ($this.client.couch.getConfig()["debug"] == true) {
+                  console.log($this.client.Request.toString());
+                  console.log($this.client.Response.toString());
+               }
+
                // success -> callback (stream, data)
                callback({
                   error: error,
