@@ -37,6 +37,10 @@ config.port = 1234;
 config.username = "couchdb_user";
 // default=null
 config.password = "************";
+
+// this will dump whole request/response messages for each stream
+// default=false
+debug = true
 ```
 
 ## Objects
@@ -51,7 +55,7 @@ var Couch = require("yay-couch");
 var couch = new Couch.Couch();
 
 // init couch object with given config
-var couch = new Couch.Couch(config);
+var couch = new Couch.Couch(config, debug);
 
 // or set later but before streaming
 var couch = new Couch.Couch();
