@@ -191,9 +191,15 @@ var Request = Class.create("Request", {
                // set Client.Response.body
                $this.client.Response.setBody(body, isJson);
 
+               // handle couch errors
+               var error = null;
+               if (isJson && body && body.indexOf('"error":') > -1) {
+                  error = JSON.parse(body);
+               }
+
                // success -> callback (stream, data)
                callback({
-                  error: null,
+                  error: error,
                   request: $this.client.Request,
                   response: $this.client.Response
                }, $this.client.Response.getData());
