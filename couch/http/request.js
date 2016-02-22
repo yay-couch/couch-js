@@ -193,8 +193,14 @@ var Request = Class.create("Request", {
 
                // handle couch errors
                var error = null;
-               if (isJson && body && body.indexOf('"error":') > -1) {
-                  error = JSON.parse(body);
+               if (this.statusCode >= 400) {
+                  try {
+                     error = {};
+                     error.data = JSON.parse(body);
+                     error.message = Util.format(
+                        "Stream Error >> error: '%s', reason: '%s'",
+                           error.data["error"], error.data["reason"]);
+                  } catch (e) {}
                }
 
                // success -> callback (stream, data)
