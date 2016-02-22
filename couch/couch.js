@@ -64,7 +64,8 @@ Couch.Couch.prototype = {
     * Set config.
     * @public
     *
-    * @param {Object} config
+    * @param  {Object} config
+    * @return {void}
     */
    setConfig: function(config){
       if (config) {
@@ -118,7 +119,7 @@ global.isInstanceOf = function(a, b){
 };
 
 /**
- * Append Couch modules into Couch object.
+ * Register Couch modules.
  */
 var modules = {
    "Util"               : "./util/util",
