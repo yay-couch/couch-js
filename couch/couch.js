@@ -34,6 +34,12 @@ Couch.DEBUG = false;
  * @module Couch
  * @object Couch.Couch
  * @author Kerem Güneş <k-gun@mail.com>
+ *
+ * Object constructor.
+ * @public
+ *
+ * @param {Object}  config
+ * @param {Boolean} debug
  */
 Couch.Couch = function(config, debug){
    config = config || {}
