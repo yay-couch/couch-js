@@ -184,10 +184,12 @@ var Request = Class.create("Request", {
 
             // handle end
             response.on("end", function(){
+               // is json?
+               var isJson = (
+                  "application/json" == $this.client.Response.getHeader("Content-Type"));
+
                // set Client.Response.body
-               $this.client.Response.setBody(body,
-                  // is json?
-                  $this.client.Response.getHeader("Content-Type") == "application/json");
+               $this.client.Response.setBody(body, isJson);
 
                // success -> callback (stream, data)
                callback({
