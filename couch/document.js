@@ -191,7 +191,7 @@ var Document = Class.create("Document", {
 
       // check duplicated attachments
       if (this.data._attachments[attachment.fileName]) {
-         throw new Exception("Attachment is alredy exists on this document!");
+         throw new Error("Attachment is alredy exists on this document!");
       }
 
       this._attachments[attachment.fileName] =
