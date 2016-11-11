@@ -308,7 +308,7 @@ var Document = Class.create("Document", {
       }
 
       query = query || {};
-      if (this._rev && !query.rev) {
+      if (!query.rev && this._rev) {
          query.rev = this._rev;
       }
 
