@@ -53,7 +53,7 @@ var Document = Class.create("Document", {
     * Document _deleted flag.
     * @type {Boolean}
     */
-   _deleted: false,
+   _deleted: undefined,
 
    /**
     * Document _attachments.
@@ -74,7 +74,7 @@ var Document = Class.create("Document", {
    data: {
       _id: undefined,
       _rev: undefined,
-      _deleted: false,
+      _deleted: undefined,
       _attachments: {}
    },
 
@@ -248,10 +248,6 @@ var Document = Class.create("Document", {
             if (data[i] === undefined) {
                delete data[i];
             }
-         }
-         // remove default _deleted
-         if (data._deleted === false) {
-            delete data._deleted;
          }
       }
 
