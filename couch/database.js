@@ -228,7 +228,7 @@ var Database = Class.create("Database", {
 
          // serialize document
          if (isInstanceOf(doc, Document)) {
-            doc = doc.getData();
+            doc = doc.toArray();
          }
 
          // this is create method, no update allowed
@@ -278,7 +278,7 @@ var Database = Class.create("Database", {
 
          // serialize document
          if (isInstanceOf(doc, Document)) {
-            doc = doc.getData();
+            doc = doc.toArray();
          }
 
          // these are required params
@@ -324,7 +324,7 @@ var Database = Class.create("Database", {
       documents.map(function(doc){
          // serialize document
          if (isInstanceOf(doc, Document)) {
-            doc = doc.getData();
+            doc = doc.toArray();
          }
 
          // just add _deleted flag
