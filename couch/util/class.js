@@ -69,7 +69,7 @@ var Class = (function() { return {
    extend: function(target, source) {
       for (var i in source) {
          // skip private stuff
-         if (0 === i.indexOf("_")) {
+         if (i.charAt(0) === "_") {
             continue;
          }
 
