@@ -130,7 +130,7 @@ var Document = Class.create("Document", {
     * @return {Object}
     */
    toArray: function(){
-      return this.getData(null, true, true);
+      return this.getData(true, true);
    },
 
    /**
@@ -232,8 +232,15 @@ var Document = Class.create("Document", {
     * @param  {Boolean} normalize
     * @return {mixed}
     */
-   getData: function(key, filter, normalize){
-      var data = (key != null) ? this.data[key] : this.data;
+   getData: function(filter, normalize){
+      var data = this.data,
+         $this = this;
+
+      Object.getOwnPropertyNames(this).forEach(function(name){
+         if (name != "database") {
+            data[name] = $this[name];
+         }
+      });
 
       if (filter) {
          // remove undefined fields
@@ -395,7 +402,7 @@ var Document = Class.create("Document", {
       }
 
       // get data with "filter & normalize" options
-      var data = this.getData(null, true, true);
+      var data = this.getData(true, true);
 
       var $this = this;
       if (this._id == null) {
