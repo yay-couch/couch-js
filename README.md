@@ -443,12 +443,10 @@ doc.save(function(stream, data){
   Class: { create: [Function], extend: [Function] },
   Stream:
    { [Function: Class]
-    nameOrig: 'Stream',
     init: [Function],
     TYPE: { REQUEST: 1, RESPONSE: 2 } },
   Request:
    { [Function: Class]
-    nameOrig: 'Request',
     METHOD:
      { HEAD: 'HEAD',
       GET: 'GET',
@@ -458,7 +456,6 @@ doc.save(function(stream, data){
       COPY: 'COPY' } },
   Response:
    { [Function: Class]
-    nameOrig: 'Response',
     STATUS:
      { '200': 'OK',
       '201': 'Created',
@@ -476,16 +473,15 @@ doc.save(function(stream, data){
       '416': 'Requested Range Not Satisfiable',
       '417': 'Expectation Failed',
       '500': 'Internal Server Error' } },
-  Client: { [Function: Class] nameOrig: 'Client' },
-  Server: { [Function: Class] nameOrig: 'Server' },
-  Database: { [Function: Class] nameOrig: 'Database' },
-  Document: { [Function: Class] nameOrig: 'Document' },
-  DocumentAttachment: { [Function: Class] nameOrig: 'DocumentAttachment' },
-  DocumentDesign: { [Function: Class] nameOrig: 'DocumentDesign' },
-  Query: { [Function: Class] nameOrig: 'Query', parse: [Function] },
+  Client: { [Function: Class] },
+  Server: { [Function: Class] },
+  Database: { [Function: Class] },
+  Document: { [Function: Class] },
+  DocumentAttachment: { [Function: Class] },
+  DocumentDesign: { [Function: Class] },
+  Query: { [Function: Class], parse: [Function] },
   Uuid:
    { [Function: Class]
-    nameOrig: 'Uuid',
     generate: [Function],
     HEX_8: 8,
     HEX_32: 32,

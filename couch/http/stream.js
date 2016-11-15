@@ -96,7 +96,7 @@ var Stream = Class.create("Stream", {
     */
    setBody: function(body){
       // force re-define abstract method
-      if (this.__proto__.constructor.nameOrig == "Stream") {
+      if (this.__proto__.constructor.name == "Stream") {
          throw new Error("You should re-define [<OBJECT>].setBody(body) method!");
       }
    },

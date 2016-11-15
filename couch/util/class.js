@@ -45,13 +45,16 @@ var Class = (function() {
             }
          }
 
-         // add prototype & constructor
+         // add prototype
          Class.prototype = prototype;
-         Class.prototype.constructor = Class;
 
-         // add constructor original name just for
-         // debug cos constructor.name is readonly
-         Class.prototype.constructor.nameOrig = name;
+         // add constructor (with original name)
+         Class.prototype.constructor = (function(){
+            eval("var Constructor = function "+ name +"(){}");
+            Constructor.prototype = prototype;
+            Constructor.prototype.constructor = Constructor;
+            return Constructor;
+         })();
 
          return Class;
       },
