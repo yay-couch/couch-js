@@ -26,65 +26,63 @@
  * @object Couch.Class
  * @author Kerem Güneş <k-gun@mail.com>
  */
-var Class = (function() {
-   return {
-      /**
-       * Create a fresh class.
-       * @public
-       *
-       * @param  {String} name
-       * @param  {Object} prototype
-       * @return {Object}
-       */
-      create: function(name, prototype){
-         // internal
-         function Class() {
-            // should be function
-            if (this.__init__) {
-               this.__init__.apply(this, arguments);
-            }
+var Class = (function() { return {
+   /**
+    * Create a fresh class.
+    * @public
+    *
+    * @param  {String} name
+    * @param  {Object} prototype
+    * @return {Object}
+    */
+   create: function(name, prototype){
+      // internal
+      function Class() {
+         // should be function
+         if (this.__init__) {
+            this.__init__.apply(this, arguments);
          }
-
-         // add prototype
-         Class.prototype = prototype;
-
-         // add constructor (with original name)
-         Class.prototype.constructor = (function(){
-            eval("var Constructor = function "+ name +"(){}");
-            Constructor.prototype = prototype;
-            Constructor.prototype.constructor = Constructor;
-            return Constructor;
-         })();
-
-         return Class;
-      },
-
-      /**
-       * Extend an existing class.
-       * @public
-       *
-       * @param  {Object} target
-       * @param  {Object} source
-       * @return {Object}
-       */
-      extend: function(target, source) {
-         for (var i in source) {
-            // skip private stuff
-            if (0 === i.indexOf("_")) {
-               continue;
-            }
-
-            if (target.prototype) {
-               target.prototype[i] = source[i];
-            } else {
-               target[i] = source[i];
-            }
-         }
-
-         return target;
       }
-   };
-})();
+
+      // add prototype
+      Class.prototype = prototype;
+
+      // add constructor (with original name)
+      Class.prototype.constructor = (function(){
+         eval("var Constructor = function "+ name +"(){}");
+         Constructor.prototype = prototype;
+         Constructor.prototype.constructor = Constructor;
+         return Constructor;
+      })();
+
+      return Class;
+   },
+
+   /**
+    * Extend an existing class.
+    * @public
+    *
+    * @param  {Object} target
+    * @param  {Object} source
+    * @return {Object}
+    */
+   extend: function(target, source) {
+      for (var i in source) {
+         // skip private stuff
+         if (0 === i.indexOf("_")) {
+            continue;
+         }
+
+         if (target.prototype) {
+            target.prototype[i] = source[i];
+         } else {
+            target[i] = source[i];
+         }
+      }
+
+      return target;
+   }
+}})();
 
 /**
  * Expose module.
