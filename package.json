@@ -1,6 +1,6 @@
 {
    "name": "yay-couch",
-   "version": "1.0.11",
+   "version": "1.0.13",
    "description": "CouchDB Wrapper for Node.js.",
    "homepage": "http://github.com/yay-couch/couch-js",
    "license": "Apache-2.0",

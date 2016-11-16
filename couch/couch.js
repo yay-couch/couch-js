@@ -24,7 +24,7 @@
  */
 var Couch = {};
 Couch.NAME = "Couch";
-Couch.VERSION = "1.0.11";
+Couch.VERSION = "1.0.13";
 Couch.DEBUG = false;
 
 /**
