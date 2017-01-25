@@ -39,8 +39,8 @@ var Util = {
     * @public
     *
     * @link   http://stackoverflow.com/a/11864828/362780
+    * @param  {Object} input
     * @param  {String} key
-    * @param  {Object} object
     * @return {mixed}
     */
    dig: function(input, key) {
