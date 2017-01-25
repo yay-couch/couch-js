@@ -74,7 +74,6 @@ var Stream = Class.create("Stream", {
     * Get stream data.
     * @public
     *
-    * @uses   Util.dig()
     * @param  {String} key
     * @return {mixed}
     */
@@ -83,7 +82,7 @@ var Stream = Class.create("Stream", {
          return this.body;
       }
 
-      return Util.dig(key, this.body || {});
+      return Util.dig(this.body || {}, key);
    },
 
    /**

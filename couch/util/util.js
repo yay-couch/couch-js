@@ -43,13 +43,13 @@ var Util = {
     * @param  {Object} object
     * @return {mixed}
     */
-   dig: function(key, object) {
-      var keys = key.split(".");
-      var key  = keys.shift();
+   dig: function(input, key) {
+      var keys = (""+ key).split("."), key = keys.shift();
+      if (!keys.length) {
+         return input[key];
+      }
 
-      return (keys.length)
-         ? this.dig(keys.join("."), object[key])
-         : object[key];
+      return dig(input[key], keys.join("."));
    },
 
    /**
