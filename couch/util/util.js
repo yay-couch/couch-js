@@ -154,13 +154,13 @@ var Util = {
       }
 
       var mime, charset, name, extension, i;
-      // detect name
+
       if ((i = file.lastIndexOf("/")) > 0) {
          name = file.substring(i + 1);
       } else {
          name = file;
       }
-      // detect extension
+
       if ((i = file.lastIndexOf(".")) > 0) {
          extension = file.substring(i + 1);
       }
@@ -170,10 +170,11 @@ var Util = {
       if (out) {
          var tmp = tmp.trim().split("\n");
          if (tmp.length == 2) {
+            mime = tmp[0].trim();
             // remove comma
-            mime = (tmp[0].lastIndexOf(";") > -1)
-               ? tmp[0].trim().substring(0, tmp[0].length - 1) : tmp[0];
-            // detect charset
+            if (mime.lastIndexOf(";") > -1) {
+               mime = mime.slice(0, -1);
+            }
             charset = tmp[1].trim().split("=")[1];
          }
 
