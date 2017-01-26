@@ -97,37 +97,6 @@ var Util = {
    },
 
    /**
-    * Iterator.
-    * @public
-    *
-    * @link   http://github.com/k-gun/so/blob/master/so.js#L92
-    * @param  {Object|Array} input
-    * @param  {Function}    fn
-    * @param  {Object|none}  scope
-    * @return {Object}
-    */
-   forEach: function(input, fn, scope){
-      var len = input && input.length, i;
-      // array iterator (i => value)
-      if (typeof len !== "undefined") {
-         for (i = 0; i < len; i++) {
-            if (false === fn.call(scope || input[i], i, input[i], input)) {
-               break;
-            }
-         }
-      }
-      // object iterator (key => value)
-      else {
-         for (i in input) {
-            if (false === fn.call(scope || input[i], i, input[i], input)) {
-               break;
-            }
-         }
-      }
-      return scope || input;
-   },
-
-   /**
     * Sync'ed exec.
     * @public
     *
