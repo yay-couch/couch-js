@@ -49,7 +49,7 @@ var Util = {
          return input[key];
       }
 
-      return dig(input[key], keys.join("."));
+      return this.dig(input[key], keys.join("."));
    },
 
    /**
