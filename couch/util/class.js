@@ -62,22 +62,20 @@ var Class = (function() { return {
     * Extend an existing class.
     * @public
     *
-    * @param  {Object} target
-    * @param  {Object} source
+    * @param  {Object}  target
+    * @param  {Object}  source
+    * @param  {Boolean} opt_skipHiddenStuff @default true
     * @return {Object}
     */
-   extend: function(target, source) {
+   extend: function(target, source, opt_skipHiddenStuff) {
       for (var i in source) {
+
          // skip private stuff
-         if (i.charAt(0) === "_") {
+         if (opt_skipHiddenStuff !== false && i.charAt(0) === "_") {
             continue;
          }
 
-         if (target.prototype) {
-            target.prototype[i] = source[i];
-         } else {
-            target[i] = source[i];
-         }
+         (target.prototype ? target.prototype : target)[i] = source[i];
       }
 
       return target;
